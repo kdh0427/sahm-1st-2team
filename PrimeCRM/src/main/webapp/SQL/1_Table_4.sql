@@ -20,7 +20,7 @@ CREATE TABLE CUSTOMER (
     Cust_Name VARCHAR2(100) NOT NULL,
     Cust_Birth_Date DATE,
     Cust_Email VARCHAR2(50),
-    Cust_Status VARCHAR2(10) NOT NULL,
+    Cust_Status VARCHAR2(10),
     Cust_Update_Date DATE,
     Cust_Address VARCHAR2(100),
     Cust_Phone VARCHAR2(25),
