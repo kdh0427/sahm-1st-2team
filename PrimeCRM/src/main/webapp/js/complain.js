@@ -1,37 +1,96 @@
+// complain.js
+
 document.addEventListener('DOMContentLoaded', () => {
-    // 가상의 문의 데이터 (API 호출 대신 사용)
-    const inquiries = [
-        { id: 1, title: '문의 제목 1', content: '여기에는 문의 내용 1이 들어갑니다.' },
-        { id: 2, title: '문의 제목 2', content: '여기에는 문의 내용 2가 들어갑니다.' },
-        { id: 3, title: '문의 제목 3', content: '여기에는 문의 내용 3이 들어갑니다.' },
-    ];
+    // 삭제 버튼 동작
+	document.querySelectorAll('.btn-danger').forEach(button => {
+	    button.addEventListener('click', event => {
+	        const row = event.target.closest('tr');
+	        const nextRow = row.nextElementSibling; // 바로 아래 행을 선택
 
-    const inquiryList = document.getElementById('inquiry-list');
+	        // 현재 행 삭제
+	        row.remove();
 
-    inquiries.forEach((inquiry) => {
-        // 문의 항목 생성
-        const inquiryDiv = document.createElement('div');
-        inquiryDiv.className = 'inquiry-item';
+	        // 아래 행이 존재하면 삭제
+	        if (nextRow) {
+	            nextRow.remove();
+	        }
+	    });
+	});
 
-        // 제목
-        const header = document.createElement('div');
-        header.className = 'inquiry-title';
-        header.textContent = inquiry.title;
 
-        // 내용
-        const content = document.createElement('div');
-        content.className = 'inquiry-content';
-        content.textContent = inquiry.content;
-        content.style.display = 'none'; // 초기값 숨김
+    // 답변 버튼 동작
+    document.querySelectorAll('.btn-primary').forEach(button => {
+        button.addEventListener('click', event => {
+            const textarea = event.target.closest('div').querySelector('textarea');
+            const response = textarea.value.trim();
 
-        // 제목 클릭 시 내용 토글
-        header.onclick = () => {
-            content.style.display = content.style.display === 'none' ? 'block' : 'none';
-        };
-
-        // 항목 구성
-        inquiryDiv.appendChild(header);
-        inquiryDiv.appendChild(content);
-        inquiryList.appendChild(inquiryDiv);
+            if (response) {
+                alert(`답변이 등록되었습니다.`);
+                textarea.value = '';
+            } else {
+                alert('답변을 입력해주세요.');
+            }
+        });
     });
+
+    // 페이지네이션
+    const table = document.querySelector('#inquiryTable tbody');
+    const pagination = document.querySelector('.pagination');
+    const rowsPerPage = 10;
+    let currentPage = 1;
+
+    function updateTable() {
+        const rows = Array.from(table.children);
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+
+        rows.forEach((row, index) => {
+            row.style.display = index >= start && index < end ? '' : 'none';
+        });
+    }
+
+    function updatePagination() {
+        const rows = table.children.length;
+        const totalPages = Math.ceil(rows / rowsPerPage);
+        pagination.innerHTML = '';
+
+        const prev = document.createElement('li');
+        prev.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+        prev.innerHTML = `<a class="page-link" href="#">이전</a>`;
+        prev.onclick = () => {
+            if (currentPage > 1) {
+                currentPage--;
+                updateTable();
+                updatePagination();
+            }
+        };
+        pagination.appendChild(prev);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const page = document.createElement('li');
+            page.className = `page-item ${currentPage === i ? 'active' : ''}`;
+            page.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+            page.onclick = () => {
+                currentPage = i;
+                updateTable();
+                updatePagination();
+            };
+            pagination.appendChild(page);
+        }
+
+        const next = document.createElement('li');
+        next.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+        next.innerHTML = `<a class="page-link" href="#">다음</a>`;
+        next.onclick = () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updateTable();
+                updatePagination();
+            }
+        };
+        pagination.appendChild(next);
+    }
+
+    updateTable();
+    updatePagination();
 });
