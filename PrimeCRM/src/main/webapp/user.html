@@ -137,127 +137,57 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-
-					<!-- 제목 -->
 					<h1 class="mt-4">정보 변경</h1>
-
-					<!-- 소제목 -->
-					<ol class="breadcrumb mb-4">
-						<li class="breadcrumb-item active">내 정보</li>
-					</ol>
 					<div class="card mb-4">
-						<div class="card-header d-flex justify-content-between align-items-center">
-							<span><i class="fas fa-table me-1"></i> 고객 목록</span>
-							<div class="ms-auto">
-								<!-- 수정 및 저장 버튼 -->
-								<button id="editRows" class="btn btn-dark btn-sm">수정</button>
-								<button id="saveRows" class="btn btn-dark btn-sm">저장</button>
-								<!-- 삭제 버튼 -->
-								<button id="deleteSelected" class="btn btn-danger btn-sm">선택삭제</button>
-							</div>
+						<div class="card-header d-flex flex-column">
+							<span><i class="fas fa-user me-1"></i> 내 정보</span>
+							<form id="userForm">
+								<div class="row mb-3">
+									<div class="col-md-3">
+										<label for="Emp_Name" class="form-label">이름</label>
+										<input type="text" class="form-control form-control-sm" id="Emp_Name" name="Emp_Name" placeholder="이전 이름" disabled>
+									</div>
+									<div class="col-md-3">
+										<label for="Email_Address" class="form-label">이메일</label>
+										<input type="email" class="form-control form-control-sm" id="Email_Address" name="Email_Address" placeholder="이전 이메일" disabled>
+									</div>
+									<div class="col-md-3">
+										<label for="Emp_Pwd" class="form-label">비밀번호</label>
+										<input type="text" class="form-control form-control-sm" id="Emp_Pwd" name="Emp_Pwd" disabled>
+									</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-md-3">
+										<label for="Emp_Phone" class="form-label">전화번호</label>
+										<input type="tel" class="form-control form-control-sm" id="Emp_Phone" name="Emp_Phone" placeholder="이전 전화번호" disabled>
+									</div>
+									<div class="col-md-3">
+										<label for="Emp_Position" class="form-label">직급</label>
+										<select class="form-select form-select-sm" id="Emp_Position" name="Emp_Position" disabled>
+											<option value="position_a">사장</option>
+											<option value="position_b">부장</option>
+											<option value="position_c">차장</option>
+											<option value="position_d">과장</option>
+											<option value="position_e">대리</option>
+											<option value="position_f">주임</option>
+											<option value="position_h">사원</option>
+											
+										</select>
+									</div>
+									<div class="col-md-3">
+										<label for="Branch_Name" class="form-label">근무 지점</label>
+										<select class="form-select form-select-sm" id="Branch_Name" name="Branch_Name" disabled>
+											<option value="branch_a">A지점</option>
+											<option value="branch_b">B지점</option>
+											<option value="branch_c">C지점</option>
+										</select>
+									</div>
+								</div>
+								<div class="button-group">
+									<button type="button" class="btn btn-primary btn-sm" id="toggleBtn">수정</button>
+								</div>
+							</form>
 						</div>
-						<table id="datatablesSimple" class="table">
-							<thead>
-								<tr style="text-align: center;">
-									<th>ID</th>
-									<th>이름</th>
-									<th>생년월일</th>
-									<th>이메일</th>
-									<th>수정날짜</th>
-									<th>주소</th>
-									<th>전화번호</th>
-									<th>회원타입</th>
-									<th>특이사항</th>
-									<th>선택</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-							</tbody>
-						</table>
 					</div>
 				</div>
 			</main>
@@ -272,8 +202,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
 		crossorigin="anonymous"></script>
 	<script src="js/datatables-simple-demo.js"></script>
-	<script src="js/custSearch.js"></script>
-
+	<script src="js/user.js"></script>
 </body>
 
 </html>

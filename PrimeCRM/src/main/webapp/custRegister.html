@@ -138,13 +138,7 @@
 						<div class="card-header d-flex flex-column">
 							<span><i class="fas fa-user me-1"></i> 고객 정보</span>
 							<form>
-							<!-- 아이디 -->
 								<div class="row mb-3">
-									<div class="col-md-3">
-										<label for="Cust_ID" class="form-label">ID</label> <input
-											type="text" class="form-control form-control-sm"
-											id="Cust_ID" name="Cust_ID" placeholder="고객 ID를 입력하세요">
-									</div>
 									<!-- 이름 -->
 									<div class="col-md-3">
 										<label for="Cust_Name" class="form-label">이름</label> <input
@@ -166,42 +160,40 @@
 									</div>
 								</div>
 								<div class="row mb-3">
-								<!-- 이메일 -->
+									<!-- 이메일 -->
 									<div class="col-md-3">
 										<label for="Cust_Email" class="form-label">이메일</label> <input
 											type="email" class="form-control form-control-sm"
-											id="Cust_Email" name="Cust_Email"
-											placeholder="이메일을 입력하세요">
+											id="Cust_Email" name="Cust_Email" placeholder="이메일을 입력하세요">
 									</div>
 									<!-- 주소 -->
 									<div class="col-md-6">
 										<label for="Cust_Address" class="form-label">주소</label> <input
 											type="text" class="form-control form-control-sm"
-											id="Cust_Address" name="Cust_Address"
-											placeholder="주소를 입력하세요">
-									</div>
-									<!-- 회원타입 -->
-									<div class="col-md-3">
-										<label for="Cust_Type" class="form-label">회원 타입</label> <select
-											class="form-select form-select-sm" id="Cust_Type"
-											name="Cust_Type">
-											<option value="individual">개인 회원</option>
-											<option value="corporate">법인 회원</option>
-										</select>
+											id="Cust_Address" name="Cust_Address" placeholder="주소를 입력하세요">
 									</div>
 								</div>
-								<!-- 특이사항 -->
 								<div class="row mb-3">
-									<div class="col-md-12 d-flex">
-										<div style="width: 40%;">
-											<label for="Cust_Status" class="form-label me-2">특이사항</label>
+									<!-- 회원타입 -->
+									<div class="col-md-3">
+											<label for="Cust_Type" class="form-label">회원 타입</label> <select
+												class="form-select form-select-sm" id="Cust_Type"
+												name="Cust_Type">
+												<option value="individual">개인 회원</option>
+												<option value="corporate">법인 회원</option>
+											</select>
+									</div>
+									<!-- 특이사항 -->
+									<div class="col-md-6">
+										<div style="width: 100%;">
+											<label for="Cust_Status" class="form-label">특이사항</label>
 											<textarea class="form-control form-control-sm"
 												id="Cust_Status" name="Cust_Status" rows="3"
 												style="overflow-y: auto; resize: none;"></textarea>
 										</div>
 									</div>
 								</div>
-								<div class="d-flex justify-content-end">
+								<div class="d-flex">
 									<button type="submit" class="btn btn-primary btn-sm">등록</button>
 								</div>
 							</form>
