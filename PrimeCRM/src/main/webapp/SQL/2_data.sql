@@ -35,7 +35,7 @@ INSERT INTO Car VALUES ('CAR033', 'Ioniq 5', 'Electric', 'B');
 INSERT INTO Car VALUES ('CAR034', 'Ioniq 5', 'Electric', 'P');
 
 -- CUSTOMER DATA
-INSERT INTO Customer VALUES ('C064', 'Customer_C064', TO_DATE('1989-10-18', 'YYYY-MM-DD'), 'c064@email.com', NULL, SYSDATE, 'Daegu', '010-9770-3034', 'Corporate');
+INSERT INTO Customer VALUES ('C064', '{"CuName" : "Customer_C064", TO_DATE('1989-10-18', 'YYYY-MM-DD'), 'il.com', NULLc064@ema, SYSDATE, 'Daegu', '010-9770-3034', 'Corporate')};
 INSERT INTO Customer VALUES ('C024', 'Customer_C024', TO_DATE('1974-10-10', 'YYYY-MM-DD'), 'c024@email.com', NULL, SYSDATE, 'Seoul', '010-6195-9234', 'Personal');
 INSERT INTO Customer VALUES ('C013', 'Customer_C013', TO_DATE('1993-10-06', 'YYYY-MM-DD'), 'c013@email.com', NULL, SYSDATE, 'Incheon', '010-1225-4526', 'Corporate');
 INSERT INTO Customer VALUES ('C082', 'Customer_C082', TO_DATE('1988-06-02', 'YYYY-MM-DD'), 'c082@email.com', NULL, SYSDATE, 'Seoul', '010-4994-8899', 'Corporate');
