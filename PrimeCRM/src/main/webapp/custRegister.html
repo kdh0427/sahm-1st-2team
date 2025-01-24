@@ -128,143 +128,95 @@
 
 					</div>
 				</div>
-				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
-					사용자 아이디
-				</div>
 			</nav>
 		</div>
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">고객 조회</h1>
+					<h1 class="mt-4">고객 등록</h1>
 					<div class="card mb-4">
-						<div
-							class="card-header d-flex justify-content-between align-items-center">
-							<span><i class="fas fa-table me-1"></i> 고객 목록</span>
-							<div class="ms-auto">
-								<!-- 수정 및 저장 버튼 -->
-								<button id="editRows" class="btn btn-dark btn-sm">수정</button>
-								<button id="saveRows" class="btn btn-dark btn-sm">저장</button>
-								<!-- 삭제 버튼 -->
-								<button id="deleteSelected" class="btn btn-danger btn-sm">선택삭제</button>
-							</div>
+						<div class="card-header d-flex flex-column">
+							<span><i class="fas fa-user me-1"></i> 고객 정보</span>
+							<form>
+							<!-- 아이디 -->
+								<div class="row mb-3">
+									<div class="col-md-3">
+										<label for="Cust_ID" class="form-label">ID</label> <input
+											type="text" class="form-control form-control-sm"
+											id="Cust_ID" name="Cust_ID" placeholder="고객 ID를 입력하세요">
+									</div>
+									<!-- 이름 -->
+									<div class="col-md-3">
+										<label for="Cust_Name" class="form-label">이름</label> <input
+											type="text" class="form-control form-control-sm"
+											id="Cust_Name" name="Cust_Name" placeholder="이름을 입력하세요">
+									</div>
+									<!-- 생년월일 -->
+									<div class="col-md-3">
+										<label for="Cust_Birth_Date" class="form-label">생년월일</label> <input
+											type="date" class="form-control form-control-sm"
+											id="Cust_Birth_Date" name="Cust_Birth_Date">
+									</div>
+									<!-- 전화번호 -->
+									<div class="col-md-3">
+										<label for="Cust_Phone" class="form-label">전화번호</label> <input
+											type="tel" class="form-control form-control-sm"
+											id="Cust_Phone" name="Cust_Phone"
+											placeholder="전화번호를 입력하세요">
+									</div>
+								</div>
+								<div class="row mb-3">
+								<!-- 이메일 -->
+									<div class="col-md-3">
+										<label for="Cust_Email" class="form-label">이메일</label> <input
+											type="email" class="form-control form-control-sm"
+											id="Cust_Email" name="Cust_Email"
+											placeholder="이메일을 입력하세요">
+									</div>
+									<!-- 주소 -->
+									<div class="col-md-6">
+										<label for="Cust_Address" class="form-label">주소</label> <input
+											type="text" class="form-control form-control-sm"
+											id="Cust_Address" name="Cust_Address"
+											placeholder="주소를 입력하세요">
+									</div>
+									<!-- 회원타입 -->
+									<div class="col-md-3">
+										<label for="Cust_Type" class="form-label">회원 타입</label> <select
+											class="form-select form-select-sm" id="Cust_Type"
+											name="Cust_Type">
+											<option value="individual">개인 회원</option>
+											<option value="corporate">법인 회원</option>
+										</select>
+									</div>
+								</div>
+								<!-- 특이사항 -->
+								<div class="row mb-3">
+									<div class="col-md-12 d-flex">
+										<div style="width: 40%;">
+											<label for="Cust_Status" class="form-label me-2">특이사항</label>
+											<textarea class="form-control form-control-sm"
+												id="Cust_Status" name="Cust_Status" rows="3"
+												style="overflow-y: auto; resize: none;"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="d-flex justify-content-end">
+									<button type="submit" class="btn btn-primary btn-sm">등록</button>
+								</div>
+							</form>
 						</div>
-						<table id="datatablesSimple" class="table">
-							<thead>
-								<tr style="text-align: center;">
-									<th>ID</th>
-									<th>이름</th>
-									<th>생년월일</th>
-									<th>이메일</th>
-									<th>수정날짜</th>
-									<th>주소</th>
-									<th>전화번호</th>
-									<th>회원타입</th>
-									<th>특이사항</th>
-									<th>선택</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<!-- 추가 데이터 -->
-							</tbody>
-						</table>
 					</div>
 				</div>
-
 			</main>
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid px-4">
-					<div class="d-flex align-items-center justify-content-between small">
+					<div
+						class="d-flex align-items-center justify-content-between small">
 						<div class="text-muted">Copyright &copy; Your Website 2023</div>
 						<div>
-							<a href="#">Privacy Policy</a>
-							&middot;
-							<a href="#">Terms &amp; Conditions</a>
+							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
+								&amp; Conditions</a>
 						</div>
 					</div>
 				</div>
@@ -278,8 +230,6 @@
 	<script src="assets/demo/chart-bar-demo.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 	<script src="js/datatables-simple-demo.js"></script>
-	<script src="js/custSearch.js"></script>
-	
 </body>
 
 </html>
