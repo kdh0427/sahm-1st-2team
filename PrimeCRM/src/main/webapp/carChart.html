@@ -247,76 +247,46 @@
 							</div>
 						</div>
 
-						<!-- 고객 분류 데이터 -->
-						<div class="col-lg-4 col-md-6">
-							<div class="card mb-4">
-								<div class="card-header">
-									<i class="fas fa-table me-1"></i>
-									고객 분류
-								</div>
-								<div class="card-body">
-									<table class="table table-bordered">
-										<thead>
-											<tr>
-												<th>구분</th>
-												<th>비율</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>20대</td>
-												<td>30%</td>
-											</tr>
-											<tr>
-												<td>30대</td>
-												<td>40%</td>
-											</tr>
-											<tr>
-												<td>40대 이상</td>
-												<td>30%</td>
-											</tr>
-											<tr>
-												<td>남성</td>
-												<td>60%</td>
-											</tr>
-											<tr>
-												<td>여성</td>
-												<td>40%</td>
-											</tr>
-											<tr>
-												<td>신규 구매</td>
-												<td>70%</td>
-											</tr>
-											<tr>
-												<td>교체 구매</td>
-												<td>30%</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 연간 목표 달성도 -->
-					<div class="row">
-						<div class="col-xl-12">
+						<!-- 판매된 차종 수 -->
+						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card">
 								<div class="card-header">
-									<i class="fas fa-tachometer-alt"></i>
-									연간 목표 달성도
+									<i class="fas fa-car me-1"></i>
+									판매된 차종 수
+									<div class="float-end">
+										<select id="period-select" class="form-select"
+											onchange="updateChart(this.value)">
+											<option value="month">월별</option>
+											<option value="quarter">분기별</option>
+											<option value="year">연간</option>
+										</select>
+									</div>
 								</div>
 								<div class="card-body">
-									<div class="progress">
-										<div class="progress-bar" role="progressbar" style="width: 67%"
-											aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">67%</div>
+									<h2>80종</h2>
+								</div>
+							</div>
+						</div>
+						<!-- 연간 목표 달성도 -->
+						<div class="row">
+							<div class="col-xl-12">
+								<div class="card">
+									<div class="card-header">
+										<i class="fas fa-tachometer-alt"></i>
+										연간 목표 달성도
 									</div>
-									<p>목표: 30,000대</p>
-									<p>현재 판매: 20,000대</p>
+									<div class="card-body">
+										<div class="progress">
+											<div class="progress-bar" role="progressbar" style="width: 67%"
+												aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">67%</div>
+										</div>
+										<p>목표: 30,000대</p>
+										<p>현재 판매: 20,000대</p>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 			</main>
 		</div>
 	</div>
