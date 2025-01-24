@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
+
+<head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -11,35 +12,32 @@
 	<link href="css/styles.css" rel="stylesheet" />
 	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+
 		<!-- 사이트 이름 -->
-		<a class="navbar-brand ps-3" href="index.html">PrimeCRM</a>
+		<a class="navbar-brand ps-3" href="main.html">PrimeCRM</a>
+
 		<!-- 사이드바 토글 -->
 		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
 				class="fas fa-bars"></i></button>
-		<!-- 검색 필터 -->
-		<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-			<div class="input-group">
-				<input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
-					aria-describedby="btnNavbarSearch" />
-				<button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
-						class="fas fa-search"></i></button>
-			</div>
-		</form>
 	</nav>
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_nav">
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
+
 						<!-- 메뉴 툴바 -->
 						<div class="sb-sidenav-menu-heading">메뉴</div>
+
 						<!-- 대쉬보드 -->
 						<a class="nav-link" href="index.html">
 							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
 							대쉬보드
 						</a>
+
 						<!-- 고객관리 -->
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 							data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -50,10 +48,11 @@
 						<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="layout-static.html">고객 조회</a>
+								<a class="nav-link" href="custSearch.html">고객 조회</a>
 								<a class="nav-link" href="layout-static.html">고객 등록</a>
 							</nav>
 						</div>
+
 						<!-- 영업관리 -->
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSales"
 							aria-expanded="false" aria-controls="collapseSales">
@@ -68,6 +67,7 @@
 								<a class="nav-link" href="layout-static.html">영업 내역</a>
 							</nav>
 						</div>
+
 						<!-- 통계 -->
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseStats"
 							aria-expanded="false" aria-controls="collapseStats">
@@ -78,6 +78,7 @@
 						<div class="collapse" id="collapseStats" aria-labelledby="headingStats"
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionStats">
+
 								<!-- 자동차 통계 -->
 								<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 									data-bs-target="#collapseCarStats" aria-expanded="false"
@@ -92,6 +93,7 @@
 										<a class="nav-link" href="layout-static.html">자동차 판매금액</a>
 									</nav>
 								</div>
+
 								<!-- 직원 통계 -->
 								<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 									data-bs-target="#collapseEmployeeStats" aria-expanded="false"
@@ -107,6 +109,7 @@
 								</div>
 							</nav>
 						</div>
+
 						<!-- 설정 -->
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
 							data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
@@ -142,6 +145,148 @@
 					</ol>
 					<div class="row">
 						<div class="col-xl-6">
+							<!-- 최고의 모델 카드 -->
+							<div class="card mb-4">
+								<div class="card-header">
+									<i class="fas fa-chart-area me-1"></i>
+									최고의 모델
+								</div>
+								<div class="card-body p-0">
+									<img src="assets/img/photo/genesis_970.png" alt="최고의 모델 이미지"
+										style="width: 100%; height: 300px; object-fit: cover; border-radius: 5px;">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xl-6">
+							<!-- 에이스 top10 카드 -->
+							<div class="card mb-4">
+								<div class="card-header">
+									<i class="fas fa-chart-bar me-1"></i>
+									에이스 top10
+								</div>
+								<div class="card-body p-0" style="height: 300px; overflow-y: auto;">
+									<div class="list-group">
+										<!-- 직원 1 -->
+										<div class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="badge bg-primary">1위</span>
+											<div>
+												<h5 class="mb-1">John Doe</h5>
+												<p class="mb-1">Position: Software Engineer</p>
+											</div>
+										</div>
+										<!-- 직원 2 -->
+										<div class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="badge bg-primary">2위</span>
+											<div>
+												<h5 class="mb-1">Jane Smith</h5>
+												<p class="mb-1">Position: Data Analyst</p>
+											</div>
+										</div>
+										<!-- 직원 3 -->
+										<div class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="badge bg-primary">3위</span>
+											<div>
+												<h5 class="mb-1">Michael Lee</h5>
+												<p class="mb-1">Position: Product Manager</p>
+											</div>
+										</div>
+										<!-- 직원 4 -->
+										<div class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="badge bg-primary">4위</span>
+											<div>
+												<h5 class="mb-1">Emily Johnson</h5>
+												<p class="mb-1">Position: Marketing Specialist</p>
+											</div>
+										</div>
+										<!-- 직원 5 -->
+										<div class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="badge bg-primary">5위</span>
+											<div>
+												<h5 class="mb-1">David Kim</h5>
+												<p class="mb-1">Position: Sales Representative</p>
+											</div>
+										</div>
+										<!-- 직원 6 -->
+										<div class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="badge bg-primary">6위</span>
+											<div>
+												<h5 class="mb-1">Sarah Lee</h5>
+												<p class="mb-1">Position: Customer Support</p>
+											</div>
+										</div>
+										<!-- 직원 7 -->
+										<div class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="badge bg-primary">7위</span>
+											<div>
+												<h5 class="mb-1">Chris Brown</h5>
+												<p class="mb-1">Position: Software Developer</p>
+											</div>
+										</div>
+										<!-- 직원 8 -->
+										<div class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="badge bg-primary">8위</span>
+											<div>
+												<h5 class="mb-1">Olivia Davis</h5>
+												<p class="mb-1">Position: HR Specialist</p>
+											</div>
+										</div>
+										<!-- 직원 9 -->
+										<div class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="badge bg-primary">9위</span>
+											<div>
+												<h5 class="mb-1">James Wilson</h5>
+												<p class="mb-1">Position: Data Scientist</p>
+											</div>
+										</div>
+										<!-- 직원 10 -->
+										<div class="list-group-item d-flex justify-content-between align-items-center">
+											<span class="badge bg-primary">10위</span>
+											<div>
+												<h5 class="mb-1">Sophia Martinez</h5>
+												<p class="mb-1">Position: Business Analyst</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="row">
+						<!-- 제일 비싼 거래 카드 -->
+						<div class="col-xl-6">
+							<div class="card mb-4 border-primary shadow-lg">
+								<div class="card-header bg-primary text-white">
+									<i class="fas fa-chart-bar me-1"></i>
+									제일 비싼 거래
+								</div>
+								<div class="card-body text-center">
+									<h2 class="display-4 text-success">₩ 300,000,000</h2>
+									<p class="lead">역대 최대 거래 금액</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- 이달의 사원 카드 -->
+						<div class="col-xl-6">
+							<div class="card mb-4 border-warning shadow-lg">
+								<div class="card-header bg-warning text-white">
+									<i class="fas fa-star me-1"></i>
+									이달의 사원
+								</div>
+								<div class="card-body text-center">
+									<h2 class="display-4 text-dark">김동현</h2>
+									<p class="lead">최고의 성과를 낸 사원</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-xl-6">
 							<div class="card mb-4">
 								<div class="card-header">
 									<i class="fas fa-chart-area me-1"></i>
@@ -165,32 +310,6 @@
 						</div>
 					</div>
 
-					<!-- 월별 자동차 판매 최고 금액 -->
-					<div class="row">
-						<div class="col-xl-6">
-							<div class="card mb-4">
-								<div class="card-header">
-									<i class="fas fa-chart-bar me-1"></i>
-									제일 비싼 거래
-								</div>
-								<div class="card-body">
-									300000000
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-6">
-							<div class="card mb-4">
-								<div class="card-header">
-									<i class="fas fa-chart-bar me-1"></i>
-									이달의 사원
-								</div>
-								<div class="card-body">
-									김동현
-								</div>
-							</div>
-						</div>
-					</div>
-
 					<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 						crossorigin="anonymous"></script>
 					<script src="js/scripts.js"></script>
@@ -203,4 +322,5 @@
 						crossorigin="anonymous"></script>
 					<script src="js/datatables-simple-demo.js"></script>
 </body>
+
 </html>
