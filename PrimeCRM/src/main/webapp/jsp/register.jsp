@@ -30,6 +30,7 @@
 			out.print("EX");
 			return;
 		}
+		
 		if (dao.insert(jsonstr, branch)) {
 			out.print("OK");
 		} else {
