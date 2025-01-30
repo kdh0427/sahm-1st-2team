@@ -10,8 +10,7 @@ public class EmpDAO {
 	    Connection conn = null;
 	    PreparedStatement stmt = null;
 	    try {
-	        // INSERT문에서 Emp_Id는 자동으로 생성됩니다.
-	    	String sql = "INSERT INTO Employee (Emp_Id, jsonstr, Branch_Id) VALUES (emp_seq.NEXTVAL, ?, ?)";
+	    	String sql = "INSERT INTO Employee (Emp_Id, jsonstr, Branch_Id) VALUES(emp_seq.NEXTVAL, ?, ?)";
 
 	        conn = ConnectionPool.get();
 	        stmt = conn.prepareStatement(sql);
@@ -34,7 +33,7 @@ public class EmpDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT Emp_Id FROM Employee where  JSON_VALUE(jsonstr, '$.Emp_Email') = ?";
+			String sql = "SELECT Emp_Id FROM Employee where JSON_VALUE(jsonstr, '$.E_email') = ?";
 			
 			conn = ConnectionPool.get();
 			stmt = conn.prepareStatement(sql);
