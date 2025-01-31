@@ -188,9 +188,9 @@ function displayCuList(cuList) {
 
 // 로그인 상태 확인 함수
 function checkLoginStatus() {
-	var isLoggedIn = localStorage.getItem("isLoggedIn"); // 로컬 스토리지에서 로그인 여부 확인
+	var isEmail = localStorage.getItem("email"); // 로컬 스토리지에서 로그인 여부 확인
 
-	if (!isLoggedIn) {
+	if (!isEmail) {
 		alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
 		window.location.href = "login.html";  // 로그인 페이지로 이동
 	} else {
@@ -206,13 +206,12 @@ function checkLoginStatus() {
 
 function logout() {
     // 로컬 스토리지에서 로그인 정보 삭제
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("userId");
+    localStorage.removeItem("email");
 
     // 로그아웃 상태인지 확인
-    var isLoggedIn = localStorage.getItem("isLoggedIn");
+    var isEmail = localStorage.getItem("email");
 
-    if (!isLoggedIn) {
+    if (!isEmail) {
         alert("로그아웃되었습니다."); // 로그아웃 성공
         window.location.href = "login.html"; // 로그인 페이지로 이동
     } else {
