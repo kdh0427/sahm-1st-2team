@@ -104,68 +104,54 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">고객 등록</h1>
+					<h1 class="mt-4">정보 변경</h1>
 					<div class="card mb-4">
 						<div class="card-header d-flex flex-column">
-							<span><i class="fas fa-user me-1"></i> 고객 정보</span>
-							<form>
+							<span><i class="fas fa-user me-1"></i> 내 정보</span>
+							<form id="userForm">
 								<div class="row mb-3">
-									<!-- 이름 -->
 									<div class="col-md-3">
-										<label for="Cust_Name" class="form-label">이름</label> <input
-											type="text" class="form-control form-control-sm"
-											id="Cust_Name" name="Cust_Name" placeholder="이름을 입력하세요">
+										<label for="Emp_Name" class="form-label">이름</label>
+										<input type="text" class="form-control form-control-sm" id="Emp_Name" name="Emp_Name" placeholder="이전 이름" disabled>
 									</div>
-									<!-- 생년월일 -->
 									<div class="col-md-3">
-										<label for="Cust_Birth_Date" class="form-label">생년월일</label> <input
-											type="date" class="form-control form-control-sm"
-											id="Cust_Birth_Date" name="Cust_Birth_Date">
+										<label for="Email_Address" class="form-label">이메일</label>
+										<input type="email" class="form-control form-control-sm" id="Email_Address" name="Email_Address" placeholder="이전 이메일" disabled>
 									</div>
-									<!-- 전화번호 -->
 									<div class="col-md-3">
-										<label for="Cust_Phone" class="form-label">전화번호</label> <input
-											type="tel" class="form-control form-control-sm"
-											id="Cust_Phone" name="Cust_Phone"
-											placeholder="전화번호를 입력하세요">
+										<label for="Emp_Pwd" class="form-label">비밀번호</label>
+										<input type="text" class="form-control form-control-sm" id="Emp_Pwd" name="Emp_Pwd" disabled>
 									</div>
 								</div>
 								<div class="row mb-3">
-									<!-- 이메일 -->
 									<div class="col-md-3">
-										<label for="Cust_Email" class="form-label">이메일</label> <input
-											type="email" class="form-control form-control-sm"
-											id="Cust_Email" name="Cust_Email" placeholder="이메일을 입력하세요">
+										<label for="Emp_Phone" class="form-label">전화번호</label>
+										<input type="tel" class="form-control form-control-sm" id="Emp_Phone" name="Emp_Phone" placeholder="이전 전화번호" disabled>
 									</div>
-									<!-- 주소 -->
-									<div class="col-md-6">
-										<label for="Cust_Address" class="form-label">주소</label> <input
-											type="text" class="form-control form-control-sm"
-											id="Cust_Address" name="Cust_Address" placeholder="주소를 입력하세요">
+									<div class="col-md-3">
+										<label for="Emp_Position" class="form-label">직급</label>
+										<select class="form-select form-select-sm" id="Emp_Position" name="Emp_Position" disabled>
+											<option value="position_a">사장</option>
+											<option value="position_b">부장</option>
+											<option value="position_c">차장</option>
+											<option value="position_d">과장</option>
+											<option value="position_e">대리</option>
+											<option value="position_f">주임</option>
+											<option value="position_h">사원</option>
+											
+										</select>
+									</div>
+									<div class="col-md-3">
+										<label for="Branch_Name" class="form-label">근무 지점</label>
+										<select class="form-select form-select-sm" id="Branch_Name" name="Branch_Name" disabled>
+											<option value="branch_a">A지점</option>
+											<option value="branch_b">B지점</option>
+											<option value="branch_c">C지점</option>
+										</select>
 									</div>
 								</div>
-								<div class="row mb-3">
-									<!-- 회원타입 -->
-									<div class="col-md-3">
-											<label for="Cust_Type" class="form-label">회원 타입</label> <select
-												class="form-select form-select-sm" id="Cust_Type"
-												name="Cust_Type">
-												<option value="individual">개인 회원</option>
-												<option value="corporate">법인 회원</option>
-											</select>
-									</div>
-									<!-- 특이사항 -->
-									<div class="col-md-6">
-										<div style="width: 100%;">
-											<label for="Cust_Status" class="form-label">특이사항</label>
-											<textarea class="form-control form-control-sm"
-												id="Cust_Status" name="Cust_Status" rows="3"
-												style="overflow-y: auto; resize: none;"></textarea>
-										</div>
-									</div>
-								</div>
-								<div class="d-flex">
-									<button type="submit" class="btn btn-primary btn-sm">등록</button>
+								<div class="button-group">
+									<button type="button" class="btn btn-primary btn-sm" id="toggleBtn">수정</button>
 								</div>
 							</form>
 						</div>
@@ -174,13 +160,16 @@
 			</main>
 		</div>
 	</div>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
 	<script src="js/scripts.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 	<script src="assets/demo/chart-area-demo.js"></script>
 	<script src="assets/demo/chart-bar-demo.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+		crossorigin="anonymous"></script>
 	<script src="js/datatables-simple-demo.js"></script>
+	<script src="js/user.js"></script>
 </body>
 
 </html>
