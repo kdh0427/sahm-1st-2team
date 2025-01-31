@@ -25,7 +25,7 @@ function login() {
 			localStorage.setItem("email", email);
 			window.location.href = "login.html";
 		} else if (code == "ER") {
-			alert("회원가입 처리 중 에러가 발생하였습니다.");
+			alert("로그인 처리 중 에러가 발생하였습니다.");
 		}
 	});
 }
