@@ -60,3 +60,4 @@ INSERT INTO Employee (Emp_ID, jsonstr) VALUES ('E020', '{"Emp_Name": "박성호"
 
 
 
+//Purchase
