@@ -25,7 +25,6 @@ public class EmpDAO {
 	        if (conn != null) conn.close();
 	    }
 	}
-
 	
 	public boolean exists(String email) throws NamingException, SQLException{
 		Connection conn = null;
@@ -91,4 +90,29 @@ public class EmpDAO {
 			if (conn != null) {conn.close();}
 		}
 	}
+	
+	public boolean login(String email, String pwd) throws NamingException, SQLException{
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT Emp_Id FROM Employee where JSON_VALUE(jsonstr, '$.E_email') = ? AND JSON_VALUE(jsonstr, '$.E_pwd') = ?";
+			
+			conn = ConnectionPool.get();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, email);
+			stmt.setString(2, pwd);
+			
+			rs = stmt.executeQuery();
+			
+			return rs.next();
+			
+		}finally {
+			if(rs != null) {rs.close();}
+			if(stmt != null) {stmt.close();}
+			if(conn != null) {conn.close();}
+		}
+	}
 }
+

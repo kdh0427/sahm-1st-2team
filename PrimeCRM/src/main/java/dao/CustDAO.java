@@ -27,6 +27,32 @@ public class CustDAO {
 		}
 	}
 	
+	public String getList() throws NamingException, SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT * FROM Customer";
+
+            conn = ConnectionPool.get();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+                
+            String str = "[";
+            int cnt = 0;
+            while(rs.next()) {
+                if (cnt++ > 0) str += ", ";
+                str += rs.getString("jsonstr");
+            }
+            return str + "]";
+                
+        } finally {
+            if (rs != null) rs.close(); 
+            if (stmt != null) stmt.close(); 
+            if (conn != null) conn.close();
+        }
+    }
+	
 	public boolean exists(String id) throws NamingException, SQLException{
 		Connection conn = null;
 		PreparedStatement stmt = null;
