@@ -1,4 +1,4 @@
-//CAR
+//Car
 INSERT INTO Car (Car_ID, jsonstr) VALUES ('CAR001', '{"Name": "Avante", "Type": "Sedan", "Option": "B"}');
 INSERT INTO Car (Car_ID, jsonstr) VALUES ('CAR001', '{"Name": "Avante", "Type": "Sedan", "Option": "P"}');
 INSERT INTO Car (Car_ID, jsonstr) VALUES ('CAR002', '{"Name": "Sonata", "Type": "Sedan", "Option": "B"}');
