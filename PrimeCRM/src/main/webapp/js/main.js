@@ -1,15 +1,19 @@
 var jsonData;  // 전역 변수로 jsonData를 선언
 
-var url = "jsp/main.jsp";
-AJAX.call(url, function(data) {
-	var json = data.trim();
+$(document).ready(function() {
+    Page.init(start);
+});
 
+var url = "jsp/main.jsp";
+AJAX.call(url, null, function(data) {
+	var json = data.trim();
+	console.log("여긴 도달됨?");
 	try {
 		// JSON 문자열을 객체로 변환
 		jsonData = JSON.parse(json);  // jsonData를 전역 변수로 저장
 
 		// 오류 코드 구분 (status)
-		var statusCode = jsonData.code;
+/*		var statusCode = jsonData.code;
 		var message = jsonData.msg;
 		if (statusCode == 500) {
 			alert("오류: " + message);  // 사용자에게 오류 메시지 알림
@@ -25,29 +29,29 @@ AJAX.call(url, function(data) {
 			alert("오류: " + message);  // 사용자에게 오류 메시지 알림
 			window.location.href = "401.html";
 			return;  // 오류 발생 시, 더 이상 진행하지 않음
-		}
+		} 
 		// 성공한 경우 데이터 분리
 		var topPrice = jsonData.data.topPrice;
 		var topEmp = jsonData.data.topEmp;
 		var customer = jsonData.data.customer;
-
+		*/
 		// List 데이터
 		var empList = jsonData.data.emplist;
-		var cuList = jsonData.data.culist;
+/*		var cuList = jsonData.data.culist;
 
 		// 이미지 URL
 		var imageUrl = jsonData.data.imageUrl;
-
+		*/
 		window.onload = function() {
 			checkLoginStatus(); // 로그인 상태 확인 함수
-			loadImage(imageUrl);  // 최고의 모델 로드 함수
+//			loadImage(imageUrl);  // 최고의 모델 로드 함수
 			displayEmpList(empList); // 에이스 top10 로드 함수
-			displayTopPrice(topPrice); // 제일 비싼 거래 로드 함수
-			displayTopEmp(topEmp) // 이달의 사원 로드 함수
-			displayCustomer(customer); // 총 고객 수 로드 함수
-			displayCuList(cuList) // 고객 분류 로드 함수
+//			displayTopPrice(topPrice); // 제일 비싼 거래 로드 함수
+//			displayTopEmp(topEmp) // 이달의 사원 로드 함수
+//			displayCustomer(customer); // 총 고객 수 로드 함수
+//			displayCuList(cuList) // 고객 분류 로드 함수
 		};
-
+		
 	} catch (e) {
 		console.error("JSON 파싱 오류:", e);
 		alert("서버 응답 처리 중 오류가 발생했습니다. 관리자에게 문의하세요.");
@@ -195,11 +199,11 @@ function checkLoginStatus() {
 		window.location.href = "login.html";  // 로그인 페이지로 이동
 	} else {
 		// 로컬 스토리지에서 사용자 아이디 가져오기
-		var userId = localStorage.getItem("userId");
+		var uemail = localStorage.getItem("email");
 
 		// "userId"라는 ID를 가진 div 요소를 찾음
-		var userIdElement = document.getElementById("userId");
-		userIdElement.textContent = userId;
+		var userIdElement = document.getElementById("uemail");
+		userIdElement.textContent = uemail;
 		console.log("로그인 상태입니다.");
 	}
 }

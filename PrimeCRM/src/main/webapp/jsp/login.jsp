@@ -14,23 +14,23 @@
 		JSONObject jsonObj = (JSONObject) parser.parse(jsonstr);
 		String email = (String) jsonObj.get("E_email");
 		String pwd = (String) jsonObj.get("E_pwd");
-		
 		EmpDAO dao = new EmpDAO();
 		
 		if(dao.login(email, pwd)){
+			session.setAttribute("email", email);
 			out.print("SU");
 		}
 		else{
 			if(dao.exists(email)){
-				out.print("PFA");
+				out.print("ER");
 				return;
 			}
 			else{
-				out.print("FA");
+				out.print("ER");
 				return;
 			}
 		}
-	}catch (ParseException e) {
+	}catch (Exception e) {
 		out.print("ER");
 		e.printStackTrace();
 	}

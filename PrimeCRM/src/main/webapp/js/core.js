@@ -27,14 +27,14 @@ var AJAX = {
 var Page = {
 	init: function (cbfunc, url) {
 		AJAX.call("jsp/session.jsp", null, function(data) {
-			var uid = data.trim();
-			if (uid == "null") {
+			var uemail = data.trim();
+			if (uemail == "null") {
 				alert("로그인이 필요한 서비스 입니다.");
 				window.location.href = "login.html";
 			}
 			else {
 				var param =(url == null)? null : SessionStore.get(url);
-				if(cbfunc != null)cbfunc(uid, param);
+				if(cbfunc != null)cbfunc(uemail, param);
 			}
 		});
 	}, 

@@ -114,5 +114,48 @@ public class EmpDAO {
 			if(conn != null) {conn.close();}
 		}
 	}
+	
+	public String getList() throws NamingException, SQLException {
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    try {
+	        String sql = "SELECT E_name, E_position FROM ("
+	                + "    SELECT JSON_VALUE(E.jsonstr, '$.E_name') AS E_name, "
+	                + "           JSON_VALUE(E.jsonstr, '$.E_position') AS E_position, "
+	                + "           COUNT(*) AS purchase_count "
+	                + "    FROM PURCHASE P "
+	                + "    JOIN EMPLOYEE E ON P.EMP_ID = E.EMP_ID "
+	                + "    GROUP BY P.EMP_ID, "
+	                + "             JSON_VALUE(E.jsonstr, '$.E_name'), "
+	                + "             JSON_VALUE(E.jsonstr, '$.E_position') "
+	                + "    ORDER BY purchase_count DESC"
+	                + ") "
+	                + "WHERE ROWNUM <= 10 "
+	                + "ORDER BY purchase_count DESC";
+
+	        conn = ConnectionPool.get();
+	        stmt = conn.prepareStatement(sql);
+	        rs = stmt.executeQuery();
+
+	        StringBuilder str = new StringBuilder("{\"empList\": [");
+	        int cnt = 0;
+	        while (rs.next()) {
+	            if (cnt++ > 0) str.append(", ");
+	            str.append("{ \"empName\": \"")
+	               .append(rs.getString("E_name"))
+	               .append("\", \"position\": \"")
+	               .append(rs.getString("E_position"))
+	               .append("\" }");
+	        }
+	        return str.append("]}").toString();
+	    } finally {
+	        if (rs != null) rs.close(); 
+	        if (stmt != null) stmt.close(); 
+	        if (conn != null) conn.close();
+	    }
+	}
+
+
 }
 
