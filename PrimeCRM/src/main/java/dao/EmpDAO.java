@@ -138,7 +138,7 @@ public class EmpDAO {
 	        stmt = conn.prepareStatement(sql);
 	        rs = stmt.executeQuery();
 
-	        StringBuilder str = new StringBuilder("{\"empList\": [");
+	        StringBuilder str = new StringBuilder("\"emplist\": [");
 	        int cnt = 0;
 	        while (rs.next()) {
 	            if (cnt++ > 0) str.append(", ");
@@ -148,7 +148,7 @@ public class EmpDAO {
 	               .append(rs.getString("E_position"))
 	               .append("\" }");
 	        }
-	        return str.append("]}").toString();
+	        return str.append("],").toString();
 	    } finally {
 	        if (rs != null) rs.close(); 
 	        if (stmt != null) stmt.close(); 
@@ -156,6 +156,50 @@ public class EmpDAO {
 	    }
 	}
 
+	public String getTopEmp() throws NamingException, SQLException {
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    try {
+	        String sql = "SELECT JSON_VALUE(E.JSONSTR, '$.E_name') topEmp\r\n"
+	        		+ "FROM EMPLOYEE E\r\n"
+	        		+ "JOIN (\r\n"
+	        		+ "    SELECT P.EMP_ID, COUNT(*) AS purchase_count\r\n"
+	        		+ "    FROM PURCHASE P\r\n"
+	        		+ "    WHERE TO_CHAR(TO_DATE(JSON_VALUE(P.jsonstr, '$.Sale_date'), 'YYYY-MM-DD'), 'YYYY-MM') = TO_CHAR(SYSDATE, 'YYYY-MM')\r\n"
+	        		+ "    GROUP BY P.EMP_ID\r\n"
+	        		+ ") employee_sales\r\n"
+	        		+ "ON E.EMP_ID = employee_sales.EMP_ID\r\n"
+	        		+ "WHERE employee_sales.purchase_count = (\r\n"
+	        		+ "    SELECT MAX(purchase_count)\r\n"
+	        		+ "    FROM (\r\n"
+	        		+ "        SELECT COUNT(*) AS purchase_count\r\n"
+	        		+ "        FROM PURCHASE P\r\n"
+	        		+ "        WHERE TO_CHAR(TO_DATE(JSON_VALUE(P.jsonstr, '$.Sale_date'), 'YYYY-MM-DD'), 'YYYY-MM') = TO_CHAR(SYSDATE, 'YYYY-MM')\r\n"
+	        		+ "        GROUP BY P.EMP_ID\r\n"
+	        		+ "    )\r\n"
+	        		+ ")";
+
+	        conn = ConnectionPool.get();
+	        stmt = conn.prepareStatement(sql);
+	        rs = stmt.executeQuery();
+
+	        StringBuilder str = new StringBuilder("\"topEmp\": \"");
+	        
+	        if (rs.next()) {
+	        	String topEmp = rs.getString("topEmp");
+	        	str.append(topEmp != null ? topEmp : "0").append("\"");
+	        } else {
+	            str.append("0\""); // 데이터가 없을 경우 기본값 설정
+	        }
+	        
+	        return str.append(",").toString();
+	    } finally {
+	        if (rs != null) rs.close(); 
+	        if (stmt != null) stmt.close(); 
+	        if (conn != null) conn.close();
+	    }
+	}
 
 }
 

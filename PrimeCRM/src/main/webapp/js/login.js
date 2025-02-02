@@ -21,8 +21,7 @@ function login() {
 		var code = data.trim();
 		if (code == "SU") {
 			alert("로그인 되었습니다.");
-			//var email = $("#inputEmail").val().trim();
-			//localStorage.setItem("email", email);
+			localStorage.setItem("email", email);
 			window.location.href = "main.html";
 		} else if (code == "ER") {
 			alert("로그인 처리 중 에러가 발생하였습니다.");

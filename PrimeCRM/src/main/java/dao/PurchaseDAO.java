@@ -88,4 +88,35 @@ public class PurchaseDAO {
 			if (conn != null) {conn.close();}
 		}
 	}
+	
+	public String getTop() throws NamingException, SQLException {
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        String sql = "SELECT MAX(JSON_VALUE(jsonstr, '$.Car_price')) AS Car_price\r\n"
+	        		+ "FROM PURCHASE\r\n"
+	        		+ "WHERE TO_CHAR(TO_DATE(JSON_VALUE(jsonstr, '$.Sale_date'), 'YYYY-MM-DD'), 'YYYY-MM') = (SELECT TO_CHAR(SYSDATE, 'YYYY-MM') FROM DUAL)";
+
+	        conn = ConnectionPool.get();
+	        stmt = conn.prepareStatement(sql);
+	        rs = stmt.executeQuery();
+
+	        StringBuilder str = new StringBuilder("\"topPrice\": \"");
+	        
+	        if (rs.next()) {
+	            String topPrice = rs.getString("Car_price");
+	            str.append(topPrice != null ? topPrice : "0").append("\"");
+	        } else {
+	            str.append("0\""); // 데이터가 없을 경우 기본값 설정
+	        }
+
+	        return str.append(",").toString();
+	    } finally {
+	        if (rs != null) rs.close();
+	        if (stmt != null) stmt.close();
+	        if (conn != null) conn.close();
+	    }
+	}
 }

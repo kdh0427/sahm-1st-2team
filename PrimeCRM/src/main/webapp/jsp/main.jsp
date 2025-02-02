@@ -5,8 +5,11 @@
 <%@ page import="dao.PurchaseDAO" %>
 
 <%
-	String employeeListJson = new EmpDAO().getList();  // getList()가 JSON 문자열을 반환한다고 가정
-	response.setContentType("application/json");  // 응답의 콘텐츠 타입을 JSON으로 설정
-	out.print(employeeListJson);
-	System.out.println("여긴 도달");
+	EmpDAO edao = new EmpDAO();
+	CustDAO cudao = new CustDAO();
+	CarDAO cardao = new CarDAO();
+	PurchaseDAO pdao = new PurchaseDAO();
+	
+	response.setContentType("application/json; charset=UTF-8");
+	out.print(cudao.getCTList() + edao.getList() + cudao.getTotalC() + edao.getTopEmp() + pdao.getTop() + cardao.getImage());
 %>
