@@ -5,8 +5,6 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
 	<title>PrimeCRM</title>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="css/styles.css" rel="stylesheet" />
@@ -15,10 +13,13 @@
 
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+
+		<!-- 사이트 이름 -->
 		<a class="navbar-brand ps-3" href="main.html">PrimeCRM</a>
-		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
-			<i class="fas fa-bars"></i>
-		</button>
+
+		<!-- 사이드바 토글 -->
+		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+				class="fas fa-bars"></i></button>
 	</nav>
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_nav">
@@ -29,6 +30,7 @@
 						<!-- 메뉴 툴바 -->
 						<div class="sb-sidenav-menu-heading">메뉴</div>
 
+						<!-- 대쉬보드 -->
 						<a class="nav-link" href="main.html">
 							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
 							대쉬보드
@@ -90,14 +92,16 @@
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSettings">
 								<a class="nav-link" href="user.html">정보 변경</a>
-								<a class="nav-link" href="login.html">로그 아웃</a>
+								<a class="nav-link" href="#" onclick="logout()">로그 아웃</a>
 							</nav>
 						</div>
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
 					<div class="small">Logged in as:</div>
-					user1234
+					<div id="userId">
+
+					</div>
 				</div>
 			</nav>
 		</div>
@@ -121,120 +125,196 @@
 						<table id="datatablesSimple" class="table">
 							<thead>
 								<tr style="text-align: center;">
-									<th>ID</th>
 									<th>이름</th>
 									<th>생년월일</th>
 									<th>이메일</th>
+									<th>특이사항</th>
 									<th>수정날짜</th>
 									<th>주소</th>
 									<th>전화번호</th>
 									<th>회원타입</th>
-									<th>특이사항</th>
 									<th>선택</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td>000000</td>
-									<td>홍길동</td>
-									<td>2000/01/01</td>
-									<td>hong@gmail.com</td>
-									<td>2013/08/11</td>
-									<td>서울</td>
-									<td>010-000-0000</td>
-									<td>개인</td>
-									<td>특이사항</td>
-									<td><input type="checkbox" class="row-select"></td>
-								</tr>
+								
 							</tbody>
 						</table>
+						<div id="pagination" class="pagination"></div>
 					</div>
 				</div>
 			</main>
 		</div>
 	</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
 	<script src="js/scripts.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-	<script src="assets/demo/chart-area-demo.js"></script>
-	<script src="assets/demo/chart-bar-demo.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
 		crossorigin="anonymous"></script>
-	<script src="js/datatables-simple-demo.js"></script>
+	<script src="js/jquery-3.7.1.min.js"></script>
 	<script src="js/custSearch.js"></script>
+	<script>
+	$(document).ready(function () {
+	    let currentPage = 1;
+	    const rowsPerPage = 10;
+	    let customers = [];
+	    let editMode = false;
+
+	    function formatDate(dateString) {
+	        if (!dateString) return "N/A";
+	        return dateString.split(" ")[0]; // "YYYY-MM-DD HH:mm:ss" -> "YYYY-MM-DD"
+	    }
+
+	    function loadCustomers() {
+	        $.post("/jsp/customer.jsp", { action: "search" }, function (response) {
+	            console.log("서버 응답:", response);
+
+	            try {
+	                customers = JSON.parse(response);
+	                console.log("파싱된 데이터:", customers);
+
+	                if (!Array.isArray(customers) || customers.length === 0) {
+	                    console.warn("서버에서 받은 데이터가 배열이 아니거나 빈 값입니다.");
+	                    return;
+	                }
+
+	                renderTable();
+	                setupPagination(customers.length);
+	            } catch (error) {
+	                console.error("JSON 파싱 오류:", error);
+	            }
+	        }).fail(function (jqXHR, textStatus, errorThrown) {
+	            console.error("AJAX 요청 실패:", textStatus, errorThrown);
+	        });
+	    }
+
+	    function renderTable() {
+	        let tbody = "";
+	        let start = (currentPage - 1) * rowsPerPage;
+	        let end = start + rowsPerPage;
+	        let paginatedCustomers = customers.slice(start, end);
+
+	        paginatedCustomers.forEach(function (customer) {
+	            tbody += `<tr data-id="${customer.cust_id}">
+	                <td class="text">${customer.name}</td>
+	                <td class="text">${formatDate(customer.birth_date)}</td>
+	                <td class="text">${customer.email}</td>
+	                <td class="text">${customer.status ? customer.status : "N/A"}</td>
+	                <td class="text">${formatDate(customer.update_date)}</td>
+	                <td class="text">${customer.address}</td>
+	                <td class="text">${customer.phone}</td>
+	                <td class="text">${customer.type}</td>
+	                <td><input type='checkbox' class='customer-select' data-id='${customer.cust_id}'></td>
+	            </tr>`;
+	        });
+
+	        $("#datatablesSimple tbody").html(tbody);
+	        console.log("테이블 업데이트 완료");
+	    }
+
+	    function setupPagination(totalRows) {
+	        let totalPages = Math.ceil(totalRows / rowsPerPage);
+	        let paginationHtml = `<div class="pagination-container" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">`;
+
+	        paginationHtml += `<button class="page-arrow prev" ${currentPage === 1 ? "disabled" : ""}>&#9664;</button>`; // ◀ 이전
+	        paginationHtml += `<button class="current-page-btn">${currentPage}</button>`; // 현재 페이지
+	        paginationHtml += `<button class="page-arrow next" ${currentPage === totalPages ? "disabled" : ""}>&#9654;</button>`; // ▶ 다음
+	        paginationHtml += `</div>`;
+
+	        $("#pagination").html(paginationHtml);
+
+	        $(".prev").click(function () {
+	            if (currentPage > 1) {
+	                currentPage--;
+	                renderTable();
+	                setupPagination(totalRows);
+	            }
+	        });
+
+	        $(".next").click(function () {
+	            if (currentPage < totalPages) {
+	                currentPage++;
+	                renderTable();
+	                setupPagination(totalRows);
+	            }
+	        });
+	    }
+
+	    loadCustomers();
+
+	    $("#deleteSelected").click(function () {
+	        let selectedIds = $(".customer-select:checked").map(function () {
+	            return $(this).data("id");
+	        }).get();
+
+	        if (selectedIds.length === 0) {
+	            alert("삭제할 고객을 선택하세요.");
+	            return;
+	        }
+
+	        $.post("/jsp/customer.jsp", { action: "delete", cust_id: selectedIds.join(",") }, function (response) {
+	            if (response.trim() === "OK") {
+	                alert("삭제 완료");
+	                loadCustomers();
+	            } else {
+	                alert("삭제 실패. 서버 응답: " + response);
+	            }
+	        });
+	    });
+
+	    $("#editRows").click(function () {
+	        if (editMode) return; // 이미 수정 모드면 중복 실행 방지
+	        editMode = true;
+
+	        $("#datatablesSimple tbody tr").each(function () {
+	            $(this).find("td.text").each(function () {
+	                let text = $(this).text();
+	                $(this).html(`<input type='text' class='form-control edit-input' value='${text}'>`);
+	            });
+	        });
+	    });
+
+	    $("#saveRows").click(function () {
+	        let updatedCustomers = [];
+
+	        $("#datatablesSimple tbody tr").each(function () {
+	            let custId = $(this).find(".customer-select").data("id");
+	            let inputs = $(this).find(".edit-input");
+
+	            if (inputs.length === 0) return;
+
+	            let customerData = {
+	                cust_id: custId,
+	                name: inputs.eq(0).val(),
+	                birth_date: inputs.eq(1).val(),
+	                email: inputs.eq(2).val(),
+	                status: inputs.eq(3).val() || "N/A",
+	                address: inputs.eq(4).val(),
+	                phone: inputs.eq(5).val(),
+	                type: inputs.eq(6).val()
+	            };
+
+	            updatedCustomers.push(customerData);
+	        });
+
+	        if (updatedCustomers.length === 0) {
+	            alert("수정할 데이터가 없습니다.");
+	            return;
+	        }
+
+	        $.post("/jsp/customer.jsp", { action: "update", jsonstr: JSON.stringify(updatedCustomers) }, function (response) {
+	            if (response.trim() === "OK") {
+	                alert("수정 완료");
+	                loadCustomers();
+	            } else {
+	                alert("수정 실패. 서버 응답: " + response);
+	            }
+	        });
+	    });
+	});
+
+</script>
+
 </body>
 
 </html>
