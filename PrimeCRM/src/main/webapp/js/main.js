@@ -10,10 +10,11 @@ function fetchEmpList() {
 		try {
 			// JSON 문자열을 객체로 변환
 			var jsonData = JSON.parse(json);  // jsonData를 전역 변수로 저장
-			//console.log("파싱된 JSON 데이터:", jsonData);
+			console.log("파싱된 JSON 데이터:", jsonData);
 			
 			// 성공한 경우 데이터 분리
 			var imageUrl = jsonData.imageUrl;
+			//console.log(imageUrl);
 			var topPrice = jsonData.topPrice;
 			var topEmp = jsonData.topEmp;
 			var customer = jsonData.customer;
@@ -47,8 +48,7 @@ function loadImage(imageUrl) {
 
     // 이미지 로드 오류 발생 시 기본 이미지로 변경
     imgElement.onerror = function() {
-        console.warn("Failed to load image. Setting placeholder.");
-        imgElement.src = "placeholder.png";  // 기본 이미지 경로
+        console.warn("Failed to load image. Setting placeholder."); // 기본 이미지 경로
     };
 
     imgElement.src = imageUrl;  // 이미지 변경
@@ -166,7 +166,7 @@ function displayCuList(cuList) {
 			tdBasis.textContent = cu.basis; // basis (예: 20대)
 
 			var tdPercentage = document.createElement("td");
-			tdPercentage.textContent = cu.percentage; // percentage (예: 30%)
+			tdPercentage.textContent = cu.percentage + "%"; // percentage (예: 30%)
 
 			// <td> 요소들을 <tr>에 추가
 			tr.appendChild(tdBasis);
@@ -192,7 +192,7 @@ function checkLoginStatus() {
     var emailElement = document.getElementById("uemail");
     if (emailElement) {
         emailElement.textContent = "Logged in as: " + isEmail;
-        console.log("로그인 상태입니다: " + isEmail);
+        //console.log("로그인 상태입니다: " + isEmail);
     } else {
         console.warn("⚠ 'uemail' ID를 가진 요소가 없음. HTML 확인 필요!");
     }

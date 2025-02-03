@@ -1,6 +1,6 @@
 -- CAR Data
-INSERT INTO CAR VALUES ('1', '{"Car_Name": "hyunai_santafe", "Car_Type": "SUV" , "Option: B"}');
-INSERT INTO CAR VALUES ('2', '{"Car_Name": "hyunai_santafe", "Car_Type": "SUV" , "Option: P"}');
+INSERT INTO CAR VALUES ('1', '{"Car_Name": "hyundai_santafe", "Car_Type": "SUV" , "Option: B"}');
+INSERT INTO CAR VALUES ('2', '{"Car_Name": "hyundai_santafe", "Car_Type": "SUV" , "Option: P"}');
 
 -- TEMPLATE Data
 INSERT INTO TEMPLATE VALUES ('NEW', 'TEMP');

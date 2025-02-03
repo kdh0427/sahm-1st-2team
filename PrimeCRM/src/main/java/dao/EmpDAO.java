@@ -69,18 +69,26 @@ public class EmpDAO {
 		}
 	}
 	
-	public boolean update(String Name, String jsonstr, String branch) throws NamingException, SQLException{
+	public boolean update(String email, String password, String phone) throws NamingException, SQLException{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
 		try {
-			String sql = "UPDATE Employee SET jsonstr = ? where Emp_Name = ? AND Branch_Id = ?";
+			String sql = "UPDATE EMPLOYEE\r\n"
+					+ "SET jsonstr = JSON_OBJECT(\r\n"
+					+ "    'E_name' VALUE JSON_VALUE(jsonstr, '$.E_name'),\r\n"
+					+ "    'E_email' VALUE JSON_VALUE(jsonstr, '$.E_email'),\r\n"
+					+ "    'E_phone' VALUE ?,\r\n"
+					+ "    'E_pwd' VALUE ?,\r\n"
+					+ "    'E_position' VALUE JSON_VALUE(jsonstr, '$.E_position')\r\n"
+					+ ")\r\n"
+					+ "WHERE JSON_VALUE(jsonstr, '$.E_email') = ?";
 			
 			conn = ConnectionPool.get();
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, jsonstr);
-			stmt.setString(2, Name);
-			stmt.setString(3, branch);
+			stmt.setString(1, phone);
+			stmt.setString(2, password);
+			stmt.setString(3,  email);
 			
 			int count = stmt.executeUpdate();
 			return (count == 1) ? true : false;
@@ -200,6 +208,48 @@ public class EmpDAO {
 	        if (conn != null) conn.close();
 	    }
 	}
+
+	public String getInpo(String email) throws NamingException, SQLException {
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    String json = "{}"; // 기본적으로 빈 JSON 반환
+
+	    try {
+	        String sql = "SELECT " +
+	                "JSON_VALUE(jsonstr, '$.E_name') AS Name, " +
+	                "JSON_VALUE(jsonstr, '$.E_email') AS Email, " +
+	                "JSON_VALUE(jsonstr, '$.E_position') AS Position, " +
+	                "(SELECT BRANCH_NAME FROM BRANCH B WHERE B.BRANCH_ID = E.BRANCH_ID) AS Branch_Id " +
+	                "FROM EMPLOYEE E WHERE JSON_VALUE(jsonstr, '$.E_email') = ?";
+
+
+	        conn = ConnectionPool.get();
+	        stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, email);
+	        rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            String name = rs.getString("Name");
+	            String eemail = rs.getString("Email");
+	            String position = rs.getString("Position");
+	            String branch = rs.getString("Branch_Id");
+
+	            // JSON 문자열 직접 생성
+	            json = String.format("{\"Name\":\"%s\", \"Email\":\"%s\", \"Position\": \"%s\", \"Branch\": \"%s\"}",
+	                    name != null ? name : "",
+	                    eemail != null ? eemail : "",
+	                    position != null ? position : "",
+	                    branch != null ? branch : "");
+	        }
+	    } finally {
+	        if (rs != null) rs.close();
+	        if (stmt != null) stmt.close();
+	        if (conn != null) conn.close();
+	    }
+	    return json;
+	}
+
 
 }
 

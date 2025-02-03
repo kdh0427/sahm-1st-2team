@@ -36,12 +36,12 @@ public class CarDAO {
 	        String sql = "SELECT JSON_VALUE(C.JSONSTR, '$.Car_Name') AS Car_Name\r\n"
 	        		+ "FROM CAR C\r\n"
 	        		+ "JOIN (\r\n"
-	        		+ "    SELECT CAR_ID\r\n"
-	        		+ "    FROM PURCHASE\r\n"
-	        		+ "    GROUP BY CAR_ID\r\n"
-	        		+ "    ORDER BY COUNT(*) DESC\r\n"
-	        		+ "    FETCH FIRST 1 ROWS ONLY\r\n"
-	        		+ ") P ON C.CAR_ID = P.CAR_ID";
+	        		+ "	 SELECT CAR_ID\r\n"
+	        		+ "	 FROM PURCHASE\r\n"
+	        		+ "	 GROUP BY CAR_ID\r\n"
+	        		+ "	 ORDER BY COUNT(*) DESC\r\n"
+	        		+ "	 FETCH FIRST 1 ROWS ONLY\r\n"
+	        		+ "	 ) P ON C.CAR_ID = P.CAR_ID";
 
 	        conn = ConnectionPool.get();
 	        stmt = conn.prepareStatement(sql);
@@ -49,7 +49,7 @@ public class CarDAO {
 
 	        StringBuilder str = new StringBuilder("\"imageUrl\": \"");
 	        
-	        str.append("/PrimeCRM//assets/img/photo/");
+	        str.append("/PrimeCRM/assets/img/photo/");
 	        if (rs.next()) {
 	        	String topCar = rs.getString("Car_Name");
 	        	str.append(topCar != null ? topCar : "0").append(".png\"");
