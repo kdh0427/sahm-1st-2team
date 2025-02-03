@@ -2,28 +2,35 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<title>PrimeCRM</title>
-	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-	<link href="css/styles.css" rel="stylesheet" />
-	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<title>PrimeCRM</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
+	rel="stylesheet" />
+<link href="css/styles.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+	crossorigin="anonymous"></script>
 </head>
-
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 
+		<!-- 사이드바 토글 -->
+		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+			id="sidebarToggle" href="#!">
+			<i class="fas fa-bars"></i>
+		</button>
 		<!-- 사이트 이름 -->
 		<a class="navbar-brand ps-3" href="main.html">PrimeCRM</a>
 
-		<!-- 사이드바 토글 -->
-		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-				class="fas fa-bars"></i></button>
 	</nav>
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_nav">
-			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+			<nav class="sb-sidenav accordion sb-sidenav-dark"
+				id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 
@@ -32,76 +39,94 @@
 
 						<!-- 대쉬보드 -->
 						<a class="nav-link" href="main.html">
-							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-							대쉬보드
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-tachometer-alt"></i>
+							</div> 대쉬보드
 						</a>
 
 						<!-- 고객관리 -->
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-							data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-							<div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-							고객 관리
-							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+							data-bs-target="#collapseLayouts" aria-expanded="false"
+							aria-controls="collapseLayouts">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-columns"></i>
+							</div> 고객 관리
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
 						</a>
-						<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
-							data-bs-parent="#sidenavAccordion">
+						<div class="collapse" id="collapseLayouts"
+							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="custSearch.html">고객 조회</a>
-								<a class="nav-link" href="custRegister.html">고객 등록</a>
+								<a class="nav-link" href="custSearch.html">고객 조회</a> <a
+									class="nav-link" href="custRegister.html">고객 등록</a>
 							</nav>
 						</div>
 
 						<!-- 영업관리 -->
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSales"
-							aria-expanded="false" aria-controls="collapseSales">
-							<div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-							영업 관리
-							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapseSales" aria-expanded="false"
+							aria-controls="collapseSales">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-book-open"></i>
+							</div> 영업 관리
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
 						</a>
-						<div class="collapse" id="collapseSales" aria-labelledby="headingSales"
-							data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSales">
-								<a class="nav-link" href="complain.html">문의 내역</a>
-								<a class="nav-link" href="salesHistory.html">영업 내역</a>
+						<div class="collapse" id="collapseSales"
+							aria-labelledby="headingSales" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav accordion"
+								id="sidenavAccordionSales">
+								<a class="nav-link" href="complain.html">문의 내역</a> <a
+									class="nav-link" href="salesHistory.html">영업 내역</a>
 							</nav>
 						</div>
 
 						<!-- 통계 -->
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseStats"
-							aria-expanded="false" aria-controls="collapseStats">
-							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-							통계
-							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapseStats" aria-expanded="false"
+							aria-controls="collapseStats">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-area"></i>
+							</div> 통계
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
 						</a>
-						<div class="collapse" id="collapseStats" aria-labelledby="headingStats"
-							data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionStats">
-								<a class="nav-link" href="carChart.html">자동차 통계</a>
-								<a class="nav-link" href="empChart.html">직원 통계</a>
+						<div class="collapse" id="collapseStats"
+							aria-labelledby="headingStats" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav accordion"
+								id="sidenavAccordionStats">
+								<a class="nav-link" href="carChart.html">자동차 통계</a> <a
+									class="nav-link" href="empChart.html">직원 통계</a>
 							</nav>
 						</div>
 
 						<!-- 설정 -->
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-							data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
-							<div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
-							설정
-							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+							data-bs-target="#collapseSettings" aria-expanded="false"
+							aria-controls="collapseSettings">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-cogs"></i>
+							</div> 설정
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
 						</a>
-						<div class="collapse" id="collapseSettings" aria-labelledby="headingSettings"
+						<div class="collapse" id="collapseSettings"
+							aria-labelledby="headingSettings"
 							data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSettings">
-								<a class="nav-link" href="user.html">정보 변경</a>
-								<a class="nav-link" href="#" onclick="logout()">로그 아웃</a>
+							<nav class="sb-sidenav-menu-nested nav accordion"
+								id="sidenavAccordionSettings">
+								<a class="nav-link" href="user.html">정보 변경</a> <a
+									class="nav-link" href="#" onclick="logout()">로그 아웃</a>
 							</nav>
 						</div>
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
-					<div id="userId">
-
-					</div>
+					<div class="small" id="uemail"></div>
 				</div>
 			</nav>
 		</div>
@@ -121,12 +146,11 @@
 							<!-- 최고의 모델 카드 -->
 							<div class="card mb-4">
 								<div class="card-header">
-									<i class="fas fa-chart-area me-1"></i>
-									최고의 모델
+									<i class="fas fa-chart-area me-1"></i> 최고의 모델
 								</div>
 								<div class="card-body p-0">
 									<img id="dynamicImage" src="" alt="최고의 모델 이미지"
-										style="width: 100%; height: 300px; object-fit: cover; border-radius: 5px;">
+										style="width: 100%; max-height: 500px; object-fit: cover; border-radius: 5px;">
 								</div>
 							</div>
 						</div>
@@ -135,14 +159,11 @@
 							<!-- 에이스 top10 카드 -->
 							<div class="card mb-4">
 								<div class="card-header">
-									<i class="fas fa-chart-bar me-1"></i>
-									에이스 top10
+									<i class="fas fa-chart-bar me-1"></i> 에이스 top10
 								</div>
 								<div class="card-body p-0"
-									style="height: 300px; overflow-y: auto; background-color: #f9f9f9;">
-									<div id="empListContainer" class="list-group">
-
-									</div>
+									style="max-height: 500px; object-fit: cover; overflow-y: auto; background-color: #f9f9f9;">
+									<div id="empListContainer" class="list-group"></div>
 								</div>
 							</div>
 						</div>
@@ -154,8 +175,7 @@
 						<div class="col-xl-6">
 							<div class="card mb-4 border-primary shadow-lg">
 								<div class="card-header bg-primary text-white">
-									<i class="fas fa-chart-bar me-1"></i>
-									제일 비싼 거래
+									<i class="fas fa-chart-bar me-1"></i> 제일 비싼 거래
 								</div>
 								<div class="card-body text-center">
 									<h2 id="topPriceContainer" class="display-4 text-success">
@@ -170,13 +190,10 @@
 						<div class="col-xl-6">
 							<div class="card mb-4 border-warning shadow-lg">
 								<div class="card-header bg-warning text-white">
-									<i class="fas fa-star me-1"></i>
-									이달의 사원
+									<i class="fas fa-star me-1"></i> 이달의 사원
 								</div>
 								<div class="card-body text-center">
-									<h2 id="topEmpContainer" class="display-4 text-dark">
-
-									</h2>
+									<h2 id="topEmpContainer" class="display-4 text-dark"></h2>
 									<p class="lead">최고의 성과를 낸 사원</p>
 								</div>
 							</div>
@@ -188,14 +205,11 @@
 						<div class="col-xl-6">
 							<div class="card mb-4">
 								<div class="card-header">
-									<i class="fas fa-users me-1"></i>
-									총 고객 수
+									<i class="fas fa-users me-1"></i> 총 고객 수
 								</div>
 								<div class="card-body">
 									<h5 class="card-title">현재 고객 수</h5>
-									<p id="customerContainer" class="card-text">
-
-									</p>
+									<p id="customerContainer" class="card-text"></p>
 								</div>
 							</div>
 						</div>
@@ -204,12 +218,12 @@
 						<div class="col-xl-6">
 							<div class="card mb-4 border-info shadow-lg">
 								<div class="card-header bg-info text-white">
-									<i class="fas fa-newspaper me-1"></i>
-									최신 뉴스
+									<i class="fas fa-newspaper me-1"></i> 최신 뉴스
 								</div>
 								<div class="card-body">
 									<h5 class="card-title">최신 뉴스</h5>
-									<p class="card-text">우리 회사는 새로운 서비스 론칭을 기념하여 다양한 혜택을 제공합니다. 지금 바로 확인해보세요!</p>
+									<p class="card-text">우리 회사는 새로운 서비스 론칭을 기념하여 다양한 혜택을 제공합니다.
+										지금 바로 확인해보세요!</p>
 								</div>
 							</div>
 						</div>
@@ -220,8 +234,7 @@
 						<div class="col-lg-12 col-md-12">
 							<div class="card mb-4">
 								<div class="card-header">
-									<i class="fas fa-table me-1"></i>
-									고객 분류
+									<i class="fas fa-table me-1"></i> 고객 분류
 								</div>
 								<div class="card-body">
 									<table class="table table-striped table-bordered">
@@ -238,19 +251,23 @@
 								</div>
 							</div>
 						</div>
-
-						<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-							crossorigin="anonymous"></script>
-						<script src="js/scripts.js"></script>
-						<script src="js/main.js"></script>
-						<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-							crossorigin="anonymous"></script>
-						<script src="assets/demo/chart-area-demo.js"></script>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+	<script src="js/core.js"></script>
+	<script src="js/jquery-3.7.1.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<script src="js/scripts.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+	<!--					<script src="assets/demo/chart-area-demo.js"></script>
 						<script src="assets/demo/chart-bar-demo.js"></script>
 						<script
 							src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
 							crossorigin="anonymous"></script>
-						<script src="js/datatables-simple-demo.js"></script>
+						<script src="js/datatables-simple-demo.js"></script> -->
 </body>
 
 </html>

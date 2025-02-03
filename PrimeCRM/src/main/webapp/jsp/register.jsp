@@ -11,8 +11,8 @@
 	String jsonstr = request.getParameter("jsonstr");
 	String branch = request.getParameter("branch_Id");
 
-	System.out.println("Received jsonstr: " + jsonstr);
-	System.out.println("Received branch: " + branch);
+	//System.out.println("Received jsonstr: " + jsonstr);
+	//System.out.println("Received branch: " + branch);
 	
 	if (jsonstr == null || branch == null) {
 		out.print("ER");
