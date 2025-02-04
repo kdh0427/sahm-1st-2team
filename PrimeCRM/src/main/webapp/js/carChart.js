@@ -1,51 +1,52 @@
+document.addEventListener("DOMContentLoaded", function() {
+	setTimeout(checkLoginStatus, 100); // 100ms 대기 후 실행
+});
+
 var url = "jsp/carChart.jsp";
-AJAX.call(url, 'month', function(data) {
+AJAX.call(url, { month: "0"}, function(data) {
 	var json = data.trim();
 
 	try {
 		// JSON 문자열을 객체로 변환
 		var jsonData = JSON.parse(json);  // jsonData를 전역 변수로 저장
-
-		// 오류 코드 구분 (status)
-		var statusCode = jsonData.code;
-		var message = jsonData.msg;
-
-		if (statusCode == 500) {
-			alert("오류: " + message);  // 사용자에게 오류 메시지 알림
-			window.location.href = "500.html";
-			return;  // 오류 발생 시, 더 이상 진행하지 않음
-		}
-		if (statusCode == 404) {
-			alert("오류: " + message);  // 사용자에게 오류 메시지 알림
-			window.location.href = "404.html";
-			return;  // 오류 발생 시, 더 이상 진행하지 않음
-		}
-		if (statusCode == 401) {
-			alert("오류: " + message);  // 사용자에게 오류 메시지 알림
-			window.location.href = "401.html";
-			return;  // 오류 발생 시, 더 이상 진행하지 않음
-		}
-
+		/*
+				// 오류 코드 구분 (status)
+				var statusCode = jsonData.code;
+				var message = jsonData.msg;
+		
+				if (statusCode == 500) {
+					alert("오류: " + message);  // 사용자에게 오류 메시지 알림
+					window.location.href = "500.html";
+					return;  // 오류 발생 시, 더 이상 진행하지 않음
+				}
+				if (statusCode == 404) {
+					alert("오류: " + message);  // 사용자에게 오류 메시지 알림
+					window.location.href = "404.html";
+					return;  // 오류 발생 시, 더 이상 진행하지 않음
+				}
+				if (statusCode == 401) {
+					alert("오류: " + message);  // 사용자에게 오류 메시지 알림
+					window.location.href = "401.html";
+					return;  // 오류 발생 시, 더 이상 진행하지 않음
+				}
+		*/
 		// 성공한 경우 데이터 분리
-		var totalSales = jsonData.data.totalSales;
-		var salesByBranchX = jsonData.data.salesByBranchX;
-		var salesByBranchY = jsonData.data.salesByBranchY;
-		var salesDistributionByTypeX = jsonData.data.salesDistributionByType;
-		var salesDistributionByTypeY = jsonData.data.salesDistributionByType;
-		var salesByType = jsonData.data.salesByType;
-		var revenueChartX = jsonData.data.revenueChart;
-		var revenueChartY = jsonData.data.revenueChart;
-		var currentSales = jsonData.data.salesTarget;
+		var totalSales = jsonData.totalSales;
+//		var salesByBranchX = jsonData.salesByBranchX;
+//		var salesByBranchY = jsonData.alesByBranchY;
+//		var salesDistributionByTypeX = jsonData.salesDistributionByType;
+//		var salesDistributionByTypeY = jsonData.salesDistributionByType;
+//		var salesByType = jsonData.salesByType;
+//		var revenueChartX = jsonData.revenueChart;
+//		var revenueChartY = jsonData.revenueChart;
 
-		window.onload = function() {
-			checkLoginStatus(); // 로그인 상태 확인 함수
-			updateTotalSales(totalSales); // 총 판매량 로드
-			updateBarChart(salesByBranchX, salesByBranchY); // BarChart 로드
-			updatePieChart(salesDistributionByTypeX, salesDistributionByTypeY); // PieChart 로드
-			updateSalesTable(salesByType); // 상위 판매 모델 리스트 로드
-			updateAreaChart(revenueChartX, revenueChartY); // AreaChart 로드
-			updateSalesTarget(currentSales); // 목표 달성도 업데이트
-		};
+		checkLoginStatus(); // 로그인 상태 확인 함수
+		updateTotalSales(totalSales); // 총 판매량 로드
+//		updateBarChart(salesByBranchX, salesByBranchY); // BarChart 로드
+//		updatePieChart(salesDistributionByTypeX, salesDistributionByTypeY); // PieChart 로드
+//		updateSalesTable(salesByType); // 상위 판매 모델 리스트 로드
+//		updateAreaChart(revenueChartX, revenueChartY); // AreaChart 로드
+		updateSalesTarget(totalSales); // 목표 달성도 업데이트
 
 	} catch (e) {
 		console.error("JSON 파싱 오류:", e);
@@ -55,14 +56,16 @@ AJAX.call(url, 'month', function(data) {
 
 // 월별, 분기별, 연간 버튼은 눌렀을 때 데이터 요청 함수
 function updateData(period, clickedButton) {
+	var pe = period;
 	var url = "jsp/carChart.jsp";
-	AJAX.call(url, period, function(data) {
+	AJAX.call(url, { month: pe }, function(data) {
 		var json = data.trim();
-
+		console.log(json);
+		
 		try {
 			// JSON 문자열을 객체로 변환
 			var jsonData = JSON.parse(json);  // jsonData를 전역 변수로 저장
-
+/*
 			// 오류 코드 구분 (status)
 			var statusCode = jsonData.code;
 			var message = jsonData.msg;
@@ -82,25 +85,24 @@ function updateData(period, clickedButton) {
 				window.location.href = "401.html";
 				return;  // 오류 발생 시, 더 이상 진행하지 않음
 			}
-
+*/
 			// 성공한 경우 데이터 분리
-			var totalSales = jsonData.data.totalSales;
-			var salesByBranchX = jsonData.data.salesByBranchX;
-			var salesByBranchY = jsonData.data.salesByBranchY;
-			var salesDistributionByTypeX = jsonData.data.salesDistributionByType;
-			var salesDistributionByTypeY = jsonData.data.salesDistributionByType;
-			var salesByType = jsonData.data.salesByType;
-			var revenueChartX = jsonData.data.revenueChart;
-			var revenueChartY = jsonData.data.revenueChart;
+			var totalSales = jsonData.totalSales;
+//			var salesByBranchX = jsonData.data.salesByBranchX;
+//			var salesByBranchY = jsonData.data.salesByBranchY;
+//			var salesDistributionByTypeX = jsonData.data.salesDistributionByType;
+//			var salesDistributionByTypeY = jsonData.data.salesDistributionByType;
+//			var salesByType = jsonData.data.salesByType;
+//			var revenueChartX = jsonData.data.revenueChart;
+//			var revenueChartY = jsonData.data.revenueChart;
 
-			window.onload = function() {
-				checkLoginStatus(); // 로그인 상태 확인 함수
-				updateTotalSales(totalSales); // 총 판매량 로드
-				updateBarChart(salesByBranchX, salesByBranchY); // BarChart 로드
-				updatePieChart(salesDistributionByTypeX, salesDistributionByTypeY); // PieChart 로드
-				updateSalesTable(salesByType); // 상위 판매 모델 리스트 로드
-				updateAreaChart(revenueChartX, revenueChartY); // AreaChart 로드
-			};
+			checkLoginStatus(); // 로그인 상태 확인 함수
+			updateTotalSales(totalSales); // 총 판매량 로드
+//			updateBarChart(salesByBranchX, salesByBranchY); // BarChart 로드
+//			updatePieChart(salesDistributionByTypeX, salesDistributionByTypeY); // PieChart 로드
+//			updateSalesTable(salesByType); // 상위 판매 모델 리스트 로드
+//			updateAreaChart(revenueChartX, revenueChartY); // AreaChart 로드
+			updateSalesTarget(totalSales);
 
 		} catch (e) {
 			console.error("JSON 파싱 오류:", e);
@@ -276,7 +278,7 @@ function updateAreaChart(revenueChartX, revenueChartY) {
 }
 
 // 연간 목표 달성도 업데이트 함수
-function updateSalesTarget(currentSales) {
+function updateSalesTarget(totalSales) {
 	var progressBar = document.querySelector(".progress-bar"); // 프로그레스 바
 	var targetElement = document.querySelector(".card-body p:nth-of-type(1)"); // 목표 텍스트 요소
 
@@ -289,35 +291,32 @@ function updateSalesTarget(currentSales) {
 	let targetSales = parseInt(targetElement.innerText.replace(/[^\d]/g, ''), 10);
 
 	// 목표 달성률 계산 (최대 100% 제한)
-	let achievementRate = Math.min(100, Math.round((currentSales / targetSales) * 100));
+	let achievementRate = Math.min(100, Math.round((totalSales / targetSales) * 100));
 
 	// 프로그레스 바 업데이트
 	progressBar.style.width = achievementRate + "%";
 	progressBar.setAttribute("aria-valuenow", achievementRate);
 	progressBar.innerText = achievementRate + "%";
-
-	// 텍스트 업데이트
-	currentElement.innerText = `현재 판매: ${currentSales.toLocaleString()}대`;
 }
 
 // 로그인 상태 확인 함수
 function checkLoginStatus() {
-	var isEmail = localStorage.getItem("email"); // 로컬 스토리지에서 로그인 여부 확인
+    var isEmail = localStorage.getItem("email");
 
-	if (!isEmail) {
-		alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
-		window.location.href = "login.html";  // 로그인 페이지로 이동
-	} else {
-		// 로컬 스토리지에서 사용자 아이디 가져오기
-		var userId = localStorage.getItem("userId");
+    if (!isEmail || isEmail === "null") {
+        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+        window.location.href = "login.html";
+        return;
+    }
 
-		// "userId"라는 ID를 가진 div 요소를 찾음
-		var userIdElement = document.getElementById("userId");
-		userIdElement.textContent = userId;
-		console.log("로그인 상태입니다.");
-	}
+    var emailElement = document.getElementById("uemail");
+    if (emailElement) {
+        emailElement.textContent = "Logged in as: " + isEmail;
+        //console.log("로그인 상태입니다: " + isEmail);
+    } else {
+        console.warn("⚠ 'uemail' ID를 가진 요소가 없음. HTML 확인 필요!");
+    }
 }
-
 function logout() {
 	// 로컬 스토리지에서 로그인 정보 삭제
 	localStorage.removeItem("email");

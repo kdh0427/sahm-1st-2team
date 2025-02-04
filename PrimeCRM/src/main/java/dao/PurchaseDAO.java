@@ -48,47 +48,6 @@ public class PurchaseDAO {
 		}
 	}
 	
-	public boolean delete(String id) throws NamingException, SQLException{
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		
-		try {
-			String sql = "DELETE FROM Purchase where Sale_id = ?"; 
-					
-			conn = ConnectionPool.get();
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, id);
-			
-			int count = stmt.executeUpdate();
-			return (count == 1) ? true : false;
-			
-		}finally {
-			if (stmt != null) stmt.close();
-			if (conn != null) conn.close();
-		}
-	}
-	
-	public boolean update(String id, String jsonstr) throws NamingException, SQLException{
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		
-		try {
-			String sql = "UPDATE Purchase SET jsonstr = ? where Sale_id = ?";
-				
-			conn = ConnectionPool.get();
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, jsonstr);
-			stmt.setString(2, id);
-			
-			int count = stmt.executeUpdate();
-			return (count == 1) ? true : false;
-			
-		}finally {
-			if (stmt != null) {stmt.close();}
-			if (conn != null) {conn.close();}
-		}
-	}
-	
 	public String getTop() throws NamingException, SQLException {
 	    Connection conn = null;
 	    PreparedStatement stmt = null;
@@ -119,4 +78,37 @@ public class PurchaseDAO {
 	        if (conn != null) conn.close();
 	    }
 	}
+	
+	public String getSales(String period) throws NamingException, SQLException {
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        String sql = "SELECT COUNT(*) AS COUNT FROM PURCHASE\r\n"
+	        		+ "WHERE TO_CHAR(TO_DATE(JSON_VALUE(jsonstr, '$.Sale_date'), 'YYYY-MM-DD'), 'YYYY-MM') BETWEEN TO_CHAR(ADD_MONTHS(SYSDATE, ?), 'YYYY-MM') \r\n"
+	        		+ "AND TO_CHAR(SYSDATE, 'YYYY-MM')";
+
+	        conn = ConnectionPool.get();
+	        stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, period);
+	        rs = stmt.executeQuery();
+
+	        StringBuilder str = new StringBuilder("{\"totalSales\": \"");
+	        
+	        if (rs.next()) {
+	            String totalslaes = rs.getString("COUNT");
+	            str.append(totalslaes != null ? totalslaes : "0").append("\"");
+	        } else {
+	            str.append("0\""); // 데이터가 없을 경우 기본값 설정
+	        }
+
+	        return str.append("}").toString();
+	    } finally {
+	        if (rs != null) rs.close();
+	        if (stmt != null) stmt.close();
+	        if (conn != null) conn.close();
+	    }
+	}
+	
 }
