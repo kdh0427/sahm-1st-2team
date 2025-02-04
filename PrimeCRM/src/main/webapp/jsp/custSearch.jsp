@@ -4,7 +4,6 @@
 <%
 	CustDAO cudao = new CustDAO();
 
-	
 	response.setContentType("application/json; charset=UTF-8");
 	out.print(cudao.getList());
 %>
