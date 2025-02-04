@@ -1,5 +1,8 @@
+// 오늘 날짜 기준으로 현재 연도 계산
+var currentYear = new Date().getFullYear();
+
 var url = "jsp/carChart.jsp";
-AJAX.call(url, 'month', function(data) {
+AJAX.call(url, currentYear, function(data) {
 	var json = data.trim();
 
 	try {
@@ -54,9 +57,12 @@ AJAX.call(url, 'month', function(data) {
 });
 
 // 월별, 분기별, 연간 버튼은 눌렀을 때 데이터 요청 함수
-function updateData(period, clickedButton) {
+function updateData() {
+	// 날짜 입력란에서 선택한 날짜 가져오기
+	var startDate = document.getElementById('startDateInput').value;
+
 	var url = "jsp/carChart.jsp";
-	AJAX.call(url, period, function(data) {
+	AJAX.call(url, startDate, function(data) {
 		var json = data.trim();
 
 		try {
