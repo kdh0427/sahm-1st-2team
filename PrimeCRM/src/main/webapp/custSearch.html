@@ -1,320 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<title>PrimeCRM</title>
-	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-	<link href="css/styles.css" rel="stylesheet" />
-	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>PrimeCRM - 고객 조회</title>
+    
+    <!-- CSS 및 아이콘 -->
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
 <body class="sb-nav-fixed">
-	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- 사이드바 토글 -->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+            id="sidebarToggle" title="사이드바 열기">
+            <i class="fas fa-bars"></i>
+        </button>
+        <!-- 사이트 이름 -->
+        <a class="navbar-brand ps-3" href="main.html">PrimeCRM</a>
+    </nav>
 
-		<!-- 사이트 이름 -->
-		<a class="navbar-brand ps-3" href="main.html">PrimeCRM</a>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">메뉴</div>
+                        <a class="nav-link" href="main.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div> 대쉬보드
+                        </a>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div> 고객 관리
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="custSearch.html">고객 조회</a>
+                                <a class="nav-link" href="custRegister.html">고객 등록</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseSales" aria-expanded="false" aria-controls="collapseSales">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div> 영업 관리
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseSales" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="complain.html">문의 내역</a>
+                                <a class="nav-link" href="salesHistory.html">영업 내역</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
+                            <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div> 설정
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseSettings" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="user.html">정보 변경</a>
+                                <a class="nav-link" href="#" onclick="logout()">로그 아웃</a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small" id="uemail"></div>
+                </div>
+            </nav>
+        </div>
 
-		<!-- 사이드바 토글 -->
-		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-				class="fas fa-bars"></i></button>
-	</nav>
-	<div id="layoutSidenav">
-		<div id="layoutSidenav_nav">
-			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-				<div class="sb-sidenav-menu">
-					<div class="nav">
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">고객 조회</h1>
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-table me-1"></i> 고객 목록</span>
+                            <div class="ms-auto">
+                                <button id="editRows" class="btn btn-dark btn-sm" title="수정하기">수정</button>
+                                <button id="saveRows" class="btn btn-dark btn-sm" title="저장하기">저장</button>
+                                <button id="deleteSelected" class="btn btn-danger btn-sm" title="선택된 항목 삭제">선택삭제</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple" class="table table-striped table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>이름</th>
+                                        <th>생년월일</th>
+                                        <th>이메일</th>
+                                        <th>수정날짜</th>
+                                        <th>주소</th>
+                                        <th>전화번호</th>
+                                        <th>회원타입</th>
+                                        <th>선택</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customerContainer">
+                                    <!-- JavaScript에서 데이터 추가 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
 
-						<!-- 메뉴 툴바 -->
-						<div class="sb-sidenav-menu-heading">메뉴</div>
-
-						<!-- 대쉬보드 -->
-						<a class="nav-link" href="main.html">
-							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-							대쉬보드
-						</a>
-
-						<!-- 고객관리 -->
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-							data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-							<div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-							고객 관리
-							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-						</a>
-						<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
-							data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="custSearch.html">고객 조회</a>
-								<a class="nav-link" href="custRegister.html">고객 등록</a>
-							</nav>
-						</div>
-
-						<!-- 영업관리 -->
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSales"
-							aria-expanded="false" aria-controls="collapseSales">
-							<div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-							영업 관리
-							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-						</a>
-						<div class="collapse" id="collapseSales" aria-labelledby="headingSales"
-							data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSales">
-								<a class="nav-link" href="complain.html">문의 내역</a>
-								<a class="nav-link" href="salesHistory.html">영업 내역</a>
-							</nav>
-						</div>
-
-						<!-- 통계 -->
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseStats"
-							aria-expanded="false" aria-controls="collapseStats">
-							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-							통계
-							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-						</a>
-						<div class="collapse" id="collapseStats" aria-labelledby="headingStats"
-							data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionStats">
-								<a class="nav-link" href="carChart.html">자동차 통계</a>
-								<a class="nav-link" href="empChart.html">직원 통계</a>
-							</nav>
-						</div>
-
-						<!-- 설정 -->
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-							data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
-							<div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
-							설정
-							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-						</a>
-						<div class="collapse" id="collapseSettings" aria-labelledby="headingSettings"
-							data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSettings">
-								<a class="nav-link" href="user.html">정보 변경</a>
-								<a class="nav-link" href="#" onclick="logout()">로그 아웃</a>
-							</nav>
-						</div>
-					</div>
-				</div>
-				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
-					<div id="userId">
-
-					</div>
-				</div>
-			</nav>
-		</div>
-		<div id="layoutSidenav_content">
-			<main>
-				<div class="container-fluid px-4">
-
-					<!-- 제목 -->
-					<h1 class="mt-4">고객 조회</h1>
-					<div class="card mb-4">
-						<div class="card-header d-flex justify-content-between align-items-center">
-							<span><i class="fas fa-table me-1"></i> 고객 목록</span>
-							<div class="ms-auto">
-								<!-- 수정 및 저장 버튼 -->
-								<button id="editRows" class="btn btn-dark btn-sm">수정</button>
-								<button id="saveRows" class="btn btn-dark btn-sm">저장</button>
-								<!-- 삭제 버튼 -->
-								<button id="deleteSelected" class="btn btn-danger btn-sm">선택삭제</button>
-							</div>
-						</div>
-						<table id="datatablesSimple" class="table">
-							<thead>
-								<tr style="text-align: center;">
-									<th>이름</th>
-									<th>생년월일</th>
-									<th>이메일</th>
-									<th>특이사항</th>
-									<th>수정날짜</th>
-									<th>주소</th>
-									<th>전화번호</th>
-									<th>회원타입</th>
-									<th>선택</th>
-								</tr>
-							</thead>
-							<tbody>
-								
-							</tbody>
-						</table>
-						<div id="pagination" class="pagination"></div>
-					</div>
-				</div>
-			</main>
-		</div>
-	</div>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/jquery-3.7.1.min.js"></script>
-	<script src="js/custSearch.js"></script>
-	<script>
-	$(document).ready(function () {
-	    let currentPage = 1;
-	    const rowsPerPage = 10;
-	    let customers = [];
-	    let editMode = false;
-
-	    function formatDate(dateString) {
-	        if (!dateString) return null; // "N/A" 대신 null 반환
-	        return dateString.split(" ")[0]; // "YYYY-MM-DD HH:mm:ss" -> "YYYY-MM-DD"
-	    }
-
-	    function loadCustomers() {
-	        $.post("/jsp/customer.jsp", { action: "search" }, function (response) {
-	            console.log("서버 응답:", response);
-
-	            try {
-	                customers = JSON.parse(response);
-	                console.log("파싱된 데이터:", customers);
-
-	                if (!Array.isArray(customers) || customers.length === 0) {
-	                    console.warn("서버에서 받은 데이터가 배열이 아니거나 빈 값입니다.");
-	                    return;
-	                }
-
-	                renderTable();
-	                setupPagination(customers.length);
-	            } catch (error) {
-	                console.error("JSON 파싱 오류:", error);
-	            }
-	        }).fail(function (jqXHR, textStatus, errorThrown) {
-	            console.error("AJAX 요청 실패:", textStatus, errorThrown);
-	        });
-	    }
-
-	    function renderTable() {
-	        let tbody = "";
-	        let start = (currentPage - 1) * rowsPerPage;
-	        let end = start + rowsPerPage;
-	        let paginatedCustomers = customers.slice(start, end);
-
-	        paginatedCustomers.forEach(function (customer) {
-	            tbody += `<tr data-id="${customer.cust_id}">
-	                <td class="text">${customer.name}</td>
-	                <td class="text">${formatDate(customer.birth_date)}</td>
-	                <td class="text">${customer.email}</td>
-	                <td class="text">${customer.status || ""}</td>  <!-- status가 null이면 빈 값 -->
-	                <td class="text">${formatDate(customer.update_date)}</td>
-	                <td class="text">${customer.address}</td>
-	                <td class="text">${customer.phone}</td>
-	                <td class="text">${customer.type}</td>
-	                <td><input type='checkbox' class='customer-select' data-id='${customer.cust_id}'></td>
-	            </tr>`;
-	        });
-
-	        $("#datatablesSimple tbody").html(tbody);
-	        console.log("테이블 업데이트 완료");
-	    }
-
-	    function setupPagination(totalRows) {
-	        let totalPages = Math.ceil(totalRows / rowsPerPage);
-	        let paginationHtml = `<div class="pagination-container" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">`;
-
-	        paginationHtml += `<button class="page-arrow prev" ${currentPage === 1 ? "disabled" : ""}>&#9664;</button>`; // ◀ 이전
-	        paginationHtml += `<button class="current-page-btn">${currentPage}</button>`; // 현재 페이지
-	        paginationHtml += `<button class="page-arrow next" ${currentPage === totalPages ? "disabled" : ""}>&#9654;</button>`; // ▶ 다음
-	        paginationHtml += `</div>`;
-
-	        $("#pagination").html(paginationHtml);
-
-	        $(".prev").click(function () {
-	            if (currentPage > 1) {
-	                currentPage--;
-	                renderTable();
-	                setupPagination(totalRows);
-	            }
-	        });
-
-	        $(".next").click(function () {
-	            if (currentPage < totalPages) {
-	                currentPage++;
-	                renderTable();
-	                setupPagination(totalRows);
-	            }
-	        });
-	    }
-
-	    loadCustomers();
-
-	    $("#deleteSelected").click(function () {
-	        let selectedIds = $(".customer-select:checked").map(function () {
-	            return $(this).data("id");
-	        }).get();
-
-	        if (selectedIds.length === 0) {
-	            alert("삭제할 고객을 선택하세요.");
-	            return;
-	        }
-
-	        $.post("/jsp/customer.jsp", { action: "delete", cust_id: selectedIds.join(",") }, function (response) {
-	            if (response.trim() === "OK") {
-	                alert("삭제 완료");
-	                loadCustomers();
-	            } else {
-	                alert("삭제 실패. 서버 응답: " + response);
-	            }
-	        });
-	    });
-
-	    $("#editRows").click(function () {
-	        if (editMode) return; // 이미 수정 모드면 중복 실행 방지
-	        editMode = true;
-
-	        $("#datatablesSimple tbody tr").each(function () {
-	            $(this).find("td.text").each(function () {
-	                let text = $(this).text();
-	                $(this).html(`<input type='text' class='form-control edit-input' value='${text}'>`);
-	            });
-	        });
-	    });
-
-	    $("#saveRows").click(function () {
-	        let updatedCustomers = [];
-
-	        $("#datatablesSimple tbody tr").each(function () {
-	            let custId = $(this).find(".customer-select").data("id");
-	            let inputs = $(this).find(".edit-input");
-
-	            if (inputs.length === 0) return;
-
-	            let customerData = {
-	                cust_id: custId,
-	                name: inputs.eq(0).val(),
-	                birth_date: inputs.eq(1).val(),
-	                email: inputs.eq(2).val(),
-	                status: inputs.eq(3).val() || null, // null로 저장되도록 변경
-	                update_date: formatDate(new Date().toISOString().split('T')[0]), // YYYY-MM-DD 형식 유지
-	                address: inputs.eq(4).val(),
-	                phone: inputs.eq(5).val(),
-	                type: inputs.eq(6).val()
-	            };
-
-	            updatedCustomers.push(customerData);
-	        });
-
-	        if (updatedCustomers.length === 0) {
-	            alert("수정할 데이터가 없습니다.");
-	            return;
-	        }
-
-	        $.post("/jsp/customer.jsp", { action: "update", jsonstr: JSON.stringify(updatedCustomers) }, function (response) {
-	            if (response.trim() === "OK") {
-	                alert("수정 완료");
-	                loadCustomers();
-	            } else {
-	                alert("수정 실패. 서버 응답: " + response);
-	            }
-	        });
-	    });
-	});
-</script>
-
+    <!-- JS 스크립트 -->
+    <script src="js/core.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/custSearch.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="js/datatables-simple-demo.js"></script>
 </body>
 
 </html>
