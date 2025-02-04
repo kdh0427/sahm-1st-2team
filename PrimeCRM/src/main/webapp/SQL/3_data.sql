@@ -98,18 +98,18 @@ INSERT INTO EMPLOYEE VALUES ('5', '{"E_name": "정유진", "E_email": "yujin@exa
 INSERT INTO EMPLOYEE VALUES ('6', '{"E_name": "최진수", "E_email": "jinsu@example.com", "E_phone": "01056789012", "E_pwd": "ASDF1234", "E_position": "developer"}', 'B01');
 INSERT INTO EMPLOYEE VALUES ('7', '{"E_name": "한지민", "E_email": "jimin@example.com", "E_phone": "01067890123", "E_pwd": "ZXC1234", "E_position": "developer"}', 'B01');
 INSERT INTO EMPLOYEE VALUES ('8', '{"E_name": "유동민", "E_email": "dongmin@example.com", "E_phone": "01078901234", "E_pwd": "QAZ12345", "E_position": "designer"}', 'B01');
-INSERT INTO EMPLOYEE VALUES ('9', '{"E_name": "김지영", "E_email": "jiyeong@example.com", "E_phone": "01089012345", "E_pwd": "123QAZ", "E_position": "manager"}', 'B01');
-INSERT INTO EMPLOYEE VALUES ('10', '{"E_name": "박준영", "E_email": "junyoung@example.com", "E_phone": "01090123456", "E_pwd": "password", "E_position": "developer"}', 'B01');
-INSERT INTO EMPLOYEE VALUES ('11', '{"E_name": "최수빈", "E_email": "soobin@example.com", "E_phone": "01091234567", "E_pwd": "abc12345", "E_position": "developer"}', 'B01');
-INSERT INTO EMPLOYEE VALUES ('12', '{"E_name": "이정민", "E_email": "jeongmin@example.com", "E_phone": "01092345678", "E_pwd": "XYZ4567", "E_position": "manager"}', 'B01');
-INSERT INTO EMPLOYEE VALUES ('13', '{"E_name": "홍성호", "E_email": "seongho@example.com", "E_phone": "01093456789", "E_pwd": "QWEASD12", "E_position": "developer"}', 'B01');
-INSERT INTO EMPLOYEE VALUES ('14', '{"E_name": "김가영", "E_email": "gayoung@example.com", "E_phone": "01094567890", "E_pwd": "MNBVCXZ1", "E_position": "designer"}', 'B01');
-INSERT INTO EMPLOYEE VALUES ('15', '{"E_name": "오윤희", "E_email": "yunhee@example.com", "E_phone": "01095678901", "E_pwd": "ASDFGHJK", "E_position": "developer"}', 'B01');
-INSERT INTO EMPLOYEE VALUES ('16', '{"E_name": "한서진", "E_email": "seojin@example.com", "E_phone": "01096789012", "E_pwd": "ZXCVBNM1", "E_position": "manager"}', 'B01');
-INSERT INTO EMPLOYEE VALUES ('17', '{"E_name": "정세훈", "E_email": "sehoon@example.com", "E_phone": "01097890123", "E_pwd": "YUIOP123", "E_position": "developer"}', 'B01');
-INSERT INTO EMPLOYEE VALUES ('18', '{"E_name": "김소희", "E_email": "sohee@example.com", "E_phone": "01098901234", "E_pwd": "QAZ12345", "E_position": "designer"}', 'B01');
-INSERT INTO EMPLOYEE VALUES ('19', '{"E_name": "박선영", "E_email": "sunyoung@example.com", "E_phone": "01099012345", "E_pwd": "5678JKL", "E_position": "manager"}', 'B01');
-INSERT INTO EMPLOYEE VALUES ('20', '{"E_name": "이도윤", "E_email": "doyun@example.com", "E_phone": "01012341234", "E_pwd": "REWQ1234", "E_position": "developer"}', 'B01');
+INSERT INTO EMPLOYEE VALUES ('9', '{"E_name": "김지영", "E_email": "jiyeong@example.com", "E_phone": "01089012345", "E_pwd": "123QAZ", "E_position": "manager"}', 'B02');
+INSERT INTO EMPLOYEE VALUES ('10', '{"E_name": "박준영", "E_email": "junyoung@example.com", "E_phone": "01090123456", "E_pwd": "password", "E_position": "developer"}', 'B02');
+INSERT INTO EMPLOYEE VALUES ('11', '{"E_name": "최수빈", "E_email": "soobin@example.com", "E_phone": "01091234567", "E_pwd": "abc12345", "E_position": "developer"}', 'B02');
+INSERT INTO EMPLOYEE VALUES ('12', '{"E_name": "이정민", "E_email": "jeongmin@example.com", "E_phone": "01092345678", "E_pwd": "XYZ4567", "E_position": "manager"}', 'B02');
+INSERT INTO EMPLOYEE VALUES ('13', '{"E_name": "홍성호", "E_email": "seongho@example.com", "E_phone": "01093456789", "E_pwd": "QWEASD12", "E_position": "developer"}', 'B02');
+INSERT INTO EMPLOYEE VALUES ('14', '{"E_name": "김가영", "E_email": "gayoung@example.com", "E_phone": "01094567890", "E_pwd": "MNBVCXZ1", "E_position": "designer"}', 'B02');
+INSERT INTO EMPLOYEE VALUES ('15', '{"E_name": "오윤희", "E_email": "yunhee@example.com", "E_phone": "01095678901", "E_pwd": "ASDFGHJK", "E_position": "developer"}', 'B03');
+INSERT INTO EMPLOYEE VALUES ('16', '{"E_name": "한서진", "E_email": "seojin@example.com", "E_phone": "01096789012", "E_pwd": "ZXCVBNM1", "E_position": "manager"}', 'B03');
+INSERT INTO EMPLOYEE VALUES ('17', '{"E_name": "정세훈", "E_email": "sehoon@example.com", "E_phone": "01097890123", "E_pwd": "YUIOP123", "E_position": "developer"}', 'B03');
+INSERT INTO EMPLOYEE VALUES ('18', '{"E_name": "김소희", "E_email": "sohee@example.com", "E_phone": "01098901234", "E_pwd": "QAZ12345", "E_position": "designer"}', 'B03');
+INSERT INTO EMPLOYEE VALUES ('19', '{"E_name": "박선영", "E_email": "sunyoung@example.com", "E_phone": "01099012345", "E_pwd": "5678JKL", "E_position": "manager"}', 'B03');
+INSERT INTO EMPLOYEE VALUES ('20', '{"E_name": "이도윤", "E_email": "doyun@example.com", "E_phone": "01012341234", "E_pwd": "REWQ1234", "E_position": "developer"}', 'B03');
 
 -- PURCHASE Data
 INSERT INTO PURCHASE VALUES ('1', '1', '1', '1', '{"Sale_date": "2024-02-01", "Car_price": "25000000"}');
