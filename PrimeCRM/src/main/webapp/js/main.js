@@ -14,7 +14,6 @@ function fetchEmpList() {
 			
 			// 성공한 경우 데이터 분리
 			var imageUrl = jsonData.imageUrl;
-			//console.log(imageUrl);
 			var topPrice = jsonData.topPrice;
 			var topEmp = jsonData.topEmp;
 			var customer = jsonData.customer;
