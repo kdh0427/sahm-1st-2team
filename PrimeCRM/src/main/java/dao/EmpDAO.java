@@ -249,7 +249,4 @@ public class EmpDAO {
 	    }
 	    return json;
 	}
-
-
 }
-
