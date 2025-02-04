@@ -104,12 +104,24 @@
 					<h1 class="mt-4">통계</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item active">자동차 통계</li>
+						<div class="ms-auto d-flex align-items-center">
+							<!-- 시작 날짜 안내문구 -->
+							<label for="startDateInput" class="me-2 mb-0">시작 날짜:</label>
 
+<<<<<<< HEAD
 						<!-- 기간 선택 버튼 -->
 						<div class="ms-auto">
 							<button class="btn btn-primary me-2" onclick="updateData('0', this)">월별</button>
 							<button class="btn btn-secondary me-2" onclick="updateData('-3', this)">분기별</button>
 							<button class="btn btn-secondary me-2" onclick="updateData('-12', this)">연간</button>
+=======
+							<!-- 시작 날짜 입력란 -->
+							<input type="date" id="startDateInput" class="form-control ms-2"
+								style="flex-grow: 0; flex-shrink: 0; width: auto;" />
+
+							<!-- 검색 버튼 -->
+							<button class="btn btn-primary ms-2" onclick="updateData()">검색</button>
+>>>>>>> branch 'master' of https://github.com/kdh0427/sahm-1st-2team.git
 						</div>
 					</ol>
 					<div class="row">
