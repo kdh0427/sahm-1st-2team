@@ -161,7 +161,7 @@
 	    let editMode = false;
 
 	    function formatDate(dateString) {
-	        if (!dateString) return "N/A";
+	        if (!dateString) return null; // "N/A" 대신 null 반환
 	        return dateString.split(" ")[0]; // "YYYY-MM-DD HH:mm:ss" -> "YYYY-MM-DD"
 	    }
 
@@ -199,7 +199,7 @@
 	                <td class="text">${customer.name}</td>
 	                <td class="text">${formatDate(customer.birth_date)}</td>
 	                <td class="text">${customer.email}</td>
-	                <td class="text">${customer.status ? customer.status : "N/A"}</td>
+	                <td class="text">${customer.status || ""}</td>  <!-- status가 null이면 빈 값 -->
 	                <td class="text">${formatDate(customer.update_date)}</td>
 	                <td class="text">${customer.address}</td>
 	                <td class="text">${customer.phone}</td>
@@ -288,7 +288,8 @@
 	                name: inputs.eq(0).val(),
 	                birth_date: inputs.eq(1).val(),
 	                email: inputs.eq(2).val(),
-	                status: inputs.eq(3).val() || "N/A",
+	                status: inputs.eq(3).val() || null, // null로 저장되도록 변경
+	                update_date: formatDate(new Date().toISOString().split('T')[0]), // YYYY-MM-DD 형식 유지
 	                address: inputs.eq(4).val(),
 	                phone: inputs.eq(5).val(),
 	                type: inputs.eq(6).val()
@@ -312,7 +313,6 @@
 	        });
 	    });
 	});
-
 </script>
 
 </body>

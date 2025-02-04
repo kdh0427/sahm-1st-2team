@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="4.0">
+    <!-- 서블릿, 필터, 오류 페이지 설정 등 -->
+    <error-page>
+        <error-code>401</error-code>
+        <location>/error/401.html</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.html</location>
+    </error-page>
+    
+     <error-page>
+        <error-code>500</error-code>
+        <location>/error/500.html</location>
+    </error-page>
+</web-app>

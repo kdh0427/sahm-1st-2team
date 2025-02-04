@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Context>
-    <Resource name="jdbc/primecrm"
+       <Resource name="jdbc/primecrm"
               auth="Container"
               type="javax.sql.DataSource"
               maxTotal="20"
               maxIdle="10"
               minIdle="5"
-              driverClassName="com.primecrm.cj.jdbc.Driver"
-              url="jdbc:oracle://localhost:3306/primecrm?serverTimezone=UTC"
-              username="root"
-              password="1111" />
+              driverClassName="oracle.jdbc.OracleDriver"
+              url="jdbc:oracle:thin:@localhost:1521/orcl"
+              username="c##crm"
+              password="qwer1234" />
 </Context>
