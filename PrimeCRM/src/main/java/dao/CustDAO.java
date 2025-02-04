@@ -121,7 +121,7 @@ public class CustDAO {
 	    ResultSet rs = null;
 
 	    try {
-	        String sql = "SELECT COUNT(*) customer FROM EMPLOYEE ";
+	        String sql = "SELECT COUNT(*) customer FROM CUSTOMER ";
 
 	        conn = ConnectionPool.get();
 	        stmt = conn.prepareStatement(sql);
