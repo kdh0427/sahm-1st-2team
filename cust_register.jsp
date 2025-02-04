@@ -19,6 +19,7 @@
     }
     
     try {
+
         JSONParser parser = new JSONParser();
         JSONObject jsonObj = (JSONObject) parser.parse(jsonstr);
         
@@ -27,11 +28,13 @@
         
         CustDAO dao = new CustDAO();
         
+
         if (dao.exists(custId)) {
             out.print("EX");
             return;
         }
         
+ 
         boolean insertSuccess = dao.insert(custId, jsonstr);
         System.out.println("Insert result: " + insertSuccess);
         
