@@ -237,7 +237,7 @@ public class PurchaseDAO {
 	        stmt.setString(1, date);
 	        rs = stmt.executeQuery();
 
-	        StringBuilder revenueChartY = new StringBuilder("\"revenueChartY\": [");
+	        StringBuilder revenueChartY = new StringBuilder("{\"revenueChartY\": [");
 	        StringBuilder revenueChartX = new StringBuilder("\"revenueChartX\": [");
 
 	        int cnt = 0;
@@ -250,7 +250,7 @@ public class PurchaseDAO {
 	            revenueChartX.append("\"").append(rs.getString("TOTAL_SALES")).append("\"");
 	        }
 
-	        return "{" + revenueChartY.append("], ").toString() + revenueChartX.append("],").toString();
+	        return revenueChartY.append("], ").toString() + revenueChartX.append("]").toString() + ", ";
 	    } finally {
 	        if (rs != null) rs.close(); 
 	        if (stmt != null) stmt.close(); 

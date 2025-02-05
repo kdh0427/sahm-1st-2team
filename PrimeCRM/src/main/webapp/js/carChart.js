@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function() {
 	setTimeout(checkLoginStatus, 100); // 100ms 대기 후 실행
 });
@@ -12,7 +11,6 @@ AJAX.call(url, { date: startdate }, function(data) {
 	try {
 		// JSON 문자열을 객체로 변환
 		var jsonData = JSON.parse(json);  // jsonData를 전역 변수로 저장
-		console.log(Chart.version);
 
 		// 성공한 경우 데이터 분리
 		var totalSales = jsonData.totalSales;

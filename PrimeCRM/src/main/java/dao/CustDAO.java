@@ -193,4 +193,55 @@ public class CustDAO {
 	        if (conn != null) conn.close();
 	    }
 	}
+	
+	public String getMyCust(String email) throws NamingException, SQLException {
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        String sql = "SELECT JSON_VALUE(C.jsonstr, '$.CuName') AS NAME,\r\n"
+	        		+ "JSON_VALUE(C.jsonstr, '$.CuBday') AS BirthDay, \r\n"
+	        		+ "JSON_VALUE(C.jsonstr, '$.CuEmail') AS Email, \r\n"
+	        		+ "JSON_VALUE(C.jsonstr, '$.CuNum') AS  phone_number,\r\n"
+	        		+ "JSON_VALUE(A.jsonstr, '$.Car_Name') AS CarName,\r\n"
+	        		+ "JSON_VALUE(P.jsonstr, '$.Car_price') AS Car_price, \r\n"
+	        		+ "JSON_VALUE(P.jsonstr, '$.Sale_date') AS Sales_date, \r\n"
+	        		+ "C.CUST_STATUS FROM CUSTOMER C JOIN PURCHASE P ON C.CUST_ID = P.CUST_ID JOIN CAR A ON P.CAR_ID = A.CAR_ID JOIN EMPLOYEE E ON E.EMP_ID = P.EMP_ID \r\n"
+	        		+ "WHERE JSON_VALUE(E.jsonstr, '$.E_email') = ?";
+
+	        conn = ConnectionPool.get();
+	        stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, email);
+	        rs = stmt.executeQuery();
+	        
+	        StringBuilder str = new StringBuilder("{\"list\": [");
+	        boolean first = true;
+
+	        while (rs.next()) {
+	            if (!first) {
+	                str.append(", ");
+	            }
+	            first = false;
+
+	            str.append("{")
+	               .append("\"name\": \"").append(rs.getString("NAME")).append("\", ")
+	               .append("\"birthDay\": \"").append(rs.getString("BirthDay")).append("\", ")
+	               .append("\"email\": \"").append(rs.getString("Email")).append("\", ")
+	               .append("\"phone_number\": \"").append(rs.getString("phone_number")).append("\", ")
+	               .append("\"carName\": \"").append(rs.getString("CarName")).append("\", ")
+	               .append("\"car_price\": \"").append(rs.getString("Car_price")).append("\", ")
+	               .append("\"sales_date\": \"").append(rs.getString("Sales_date")).append("\", ")
+	               .append("\"cust_status\": \"").append(rs.getString("CUST_STATUS")).append("\"")
+	               .append("}");
+	        }
+
+	        str.append("]}"); // JSON 닫기
+	        return str.toString();
+	    } finally {
+	        if (rs != null) rs.close();
+	        if (stmt != null) stmt.close();
+	        if (conn != null) conn.close();
+	    }
+	}
 }

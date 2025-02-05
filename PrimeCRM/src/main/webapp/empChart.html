@@ -10,16 +10,16 @@
 	<link href="css/styles.css" rel="stylesheet" />
 	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-
-		<!-- 사이트 이름 -->
-		<a class="navbar-brand ps-3" href="main.html">DataUp</a>
-
 		<!-- 사이드바 토글 -->
-		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-				class="fas fa-bars"></i></button>
+		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+			id="sidebarToggle" href="#!">
+			<i class="fas fa-bars"></i>
+		</button>
+		<!-- 사이트 이름 -->
+		<a class="navbar-brand ps-3" href="main.html">PrimeCRM</a>
 	</nav>
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_nav">
@@ -97,8 +97,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
-					user1234
+					<div class="small" id="uemail"></div>
 				</div>
 			</nav>
 		</div>
@@ -108,6 +107,15 @@
 					<h1 class="mt-4">통계</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item active">직원 통계</li>
+						<div class="ms-auto d-flex align-items-center">
+							<select id="branch-select" class="form-select"
+								onchange="updateData(this.value)">
+								<option value="null">전체</option>
+								<option value="B01">서울 지점</option>
+								<option value="B02">부산 지점</option>
+								<option value="B03">인천 지점</option>
+							</select>
+						</div>
 					</ol>
 					<div class="row">
 						<!-- 총 직원 수 -->
@@ -128,7 +136,7 @@
 							<div class="card mb-4">
 								<div class="card-header">
 									<i class="fas fa-building me-1"></i>
-									지점별 직원 수
+									직원별 판매대수
 								</div>
 								<div class="card-body">
 									<canvas id="myBarChart"></canvas>
@@ -141,7 +149,7 @@
 							<div class="card mb-4">
 								<div class="card-header">
 									<i class="fas fa-pie-chart me-1"></i>
-									급여 구간별 비율
+									지점별 직원비율
 								</div>
 								<div class="card-body">
 									<canvas id="myPieChart" width="100%" height="40"></canvas>
@@ -156,15 +164,15 @@
 							<div class="card mb-4">
 								<div class="card-header">
 									<i class="fas fa-table me-1"></i>
-									지점별 평균 급여 순위
+									인센티브 순위 ( 상위 5명 )
 								</div>
 								<div class="card-body">
 									<table class="table table-striped">
 										<thead>
 											<tr>
 												<th>순위</th>
-												<th>지점명</th>
-												<th>평균 급여 (만원)</th>
+												<th>직원명</th>
+												<th class="text-end">인센티브</th>
 											</tr>
 										</thead>
 										<tbody id="salaryTableBody">
@@ -196,20 +204,7 @@
 								<div class="card">
 									<div class="card-header">
 										<i class="fas fa-users me-1"></i>
-										지점별 직원 목록
-
-										<!-- 지점 선택 드롭다운 -->
-										<div class="float-end">
-											<select id="branch-select" class="form-select"
-												onchange="updateData(this.value)">
-												<option value="all">전체</option>
-												<option value="b1">지점 1</option>
-												<option value="b2">지점 2</option>
-												<option value="b3">지점 3</option>
-												<option value="b4">지점 4</option>
-												<option value="b5">지점 5</option>
-											</select>
-										</div>
+										직원 목록
 									</div>
 									<div class="card-body">
 										<table class="table table-striped">
@@ -217,12 +212,18 @@
 												<tr>
 													<th>이름</th>
 													<th>직급</th>
-													<th>급여</th>
+													<th class="text-end">예상 급여</th>
 												</tr>
 											</thead>
 											<tbody id="employee-list">
 											</tbody>
 										</table>
+										<div class="d-flex justify-content-center mt-3">
+										<button id="prevPage" class="btn btn-secondary me-2"
+											onclick="goToPrevPage()">이전</button>
+										<button id="nextPage" class="btn btn-secondary"
+											onclick="goToNextPage()">다음</button>
+									</div>
 									</div>
 								</div>
 							</div>
@@ -231,12 +232,12 @@
 			</main>
 		</div>
 	</div>
+	<script src="js/core.js"></script>
+	<script src="js/jquery-3.7.1.min.js"></script>
 	<script src="js/empChart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-	<script src="assets/demo/chart-bar-demo.js"></script>
-	<script src="assets/demo/chart-pie-demo.js"></script>
 </body>
 
 </html>
