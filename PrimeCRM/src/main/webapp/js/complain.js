@@ -15,7 +15,7 @@ AJAX.call(url, null, function(data) {
 		var temList = jsonData.temList;
 
 		checkLoginStatus(); // 로그인 상태 확인 함수
-		updateComList(comList, temList); // 문의 목록 업데이트
+		updateComList(comList); // 문의 목록 업데이트
 		updateTemplateList(temList); // 템플릿 목록 업데이트
 
 	} catch (e) {
@@ -39,64 +39,175 @@ function updateComList(comList, temList) {
             <td>${inquiry.type}</td>
             <td>${inquiry.date}</td>
             <td>
-                <span class="badge ${inquiry.status === 'DONE' ? 'bg-success' : 'bg-warning'} text-dark rounded-pill px-3">
-                    ${inquiry.status === 'DONE' ? 'DONE' : 'NONE'}
+                <span class="badge ${inquiry.status === 'DONE' ? '답변' : 'bg-warning'} text-dark rounded-pill px-3">
+                    ${inquiry.status === 'DONE' ? '답변' : '미답변'}
                 </span>
             </td>
-            <td><button class="btn btn-outline-danger btn-sm" onclick="deleteInquiry(${inquiry.id})">삭제</button></td>
+            <td>
+				<button class="btn btn-outline-info btn-sm ms-2" onclick="toggleDetails(${inquiry.id}, this)">보기</button>
+                <button class="btn btn-outline-danger btn-sm" onclick="deleteInquiry(${inquiry.id})">삭제</button>              
+            </td>
         `;
 		row.style.cursor = "pointer"; // 클릭 가능하도록 설정
-		row.onclick = () => comDetail(inquiry.id, row, temList); // 클릭 시 상세 내용 로드
 		tbody.appendChild(row);
+
+		// 상세 내용을 위한 빈 행 추가 (보기 버튼 클릭 시 내용이 보이도록)
+		const detailRow = document.createElement("tr");
+		detailRow.id = `detailRow${inquiry.id}`;
+		detailRow.style.display = "none"; // 기본적으로 숨김
+		detailRow.innerHTML = `
+            <td colspan="6">
+                <div class="p-3 bg-light border-start border-primary shadow-sm">
+                    <p class="fw-bold">📌 문의 내용:</p>
+                    <p>${inquiry.content}</p>
+                </div>
+                <div class="p-3 bg-light border-start border-primary shadow-sm mt-2"> <!-- mt-3으로 위쪽 여백 추가 -->
+                    <!-- 미답변인 경우에만 답변 작성란과 버튼 추가 -->
+                    ${inquiry.status === 'DONE' ? `
+                        <p class="fw-bold">📌 답변 내용:</p>
+                        <p>${inquiry.response}</p>
+                    ` : `
+                        <label for="responseText${inquiry.id}" class="fw-bold">📌 답변 작성:</label>
+                        <textarea class="form-control mb-3" id="responseText${inquiry.id}" rows="3" placeholder="답변을 입력하세요..."></textarea>
+                        <button class="btn btn-primary btn-sm mb-3" onclick="sendResponse(${inquiry.id})">답변하기</button>
+                    `}
+                </div>
+            </td>
+        `;
+		tbody.appendChild(detailRow);
 	});
 }
 
-// 특정 문의의 상세 내용을 동적으로 생성하는 함수
-function comDetail(inquiryId, row, temList) {
-	// 이미 상세 내용이 있는 경우 삭제하여 토글 동작
-	const existingDetailRow = document.getElementById(`detailRow${inquiryId}`);
-	if (existingDetailRow) {
-		existingDetailRow.remove();
+
+// '보기' 버튼 클릭 시 문의 내역을 토글하는 함수
+function toggleDetails(inquiryId, button) {
+	const detailRow = document.getElementById(`detailRow${inquiryId}`);
+	const isVisible = detailRow.style.display === "table-row"; // 현재 상세 내용이 보이는지 확인
+
+	if (isVisible) {
+		// 상세 내용 숨기기
+		detailRow.style.display = "none";
+		button.textContent = "보기"; // 버튼 텍스트 변경
+	} else {
+		// 상세 내용 보이기
+		detailRow.style.display = "table-row";
+		button.textContent = "접기"; // 버튼 텍스트 변경
+	}
+}
+
+// 답변 전송 함수 (미답변 시 사용)
+function sendResponse(inquiryId) {
+	const responseText = document.getElementById(`responseText${inquiryId}`).value;
+	if (!responseText.trim()) {
+		alert("답변을 입력하세요.");
 		return;
 	}
 
-	// 문의 데이터 찾기
-	const inquiry = comList.find(item => item.id === inquiryId);
-	if (!inquiry) return;
+	// 서버로 전송할 데이터 준비
+	const params = {
+		jsonstr: JSON.stringify({
+			inquiryId: inquiryId,
+			response: responseText
+		})
+	};
 
-	// 상세 내용 행 생성
-	const detailRow = document.createElement("tr");
-	detailRow.id = `detailRow${inquiryId}`;
-	detailRow.innerHTML = `
-        <td colspan="6">
-            <div class="p-3 bg-light border-start border-primary shadow-sm">
-                <p class="fw-bold">📌 문의 내용:</p>
-                <p>${inquiry.content}</p>
+	// 서버에 답변 전송
+	var url = "jsp/complain.jsp";
+	AJAX.call(url, params, function(data) {
+		var json = data.trim();
 
-                <!-- 템플릿 선택 -->
-                <label for="templateSelect${inquiry.id}" class="fw-bold">📌 답변 작성:</label>
-                <select class="form-select mb-2" id="templateSelect${inquiry.id}" onchange="applyTemplate(${inquiry.id})">
-                    <option value="">템플릿을 선택하세요</option>
-                    ${temList.map(template => `<option value="${template.content}">📌 ${template.type} 답변</option>`).join("")}
-                </select>
+		try {
+			// JSON 문자열을 객체로 변환
+			var jsonData = JSON.parse(json);
 
-                <!-- 답변 입력 -->
-                <textarea class="form-control mb-2" id="responseText${inquiry.id}" rows="3" placeholder="답변을 입력하세요..."></textarea>
-                <button class="btn btn-primary btn-sm" onclick="sendResponse(${inquiry.id})">답변</button>
-            </div>
-        </td>
-    `;
+			// 오류 코드 구분 (status)
+			var statusCode = jsonData.code;
+			var message = jsonData.msg;
 
-	// 클릭한 행 바로 아래에 상세 내용 추가
-	row.after(detailRow);
+			// 200이 아닌 경우 오류 처리
+			if (statusCode !== 200) {
+				alert("오류: " + message);
+				window.location.href = statusCode + ".html";
+				return;
+			}
+
+			// 성공한 경우 상태 변경 및 문의 목록 갱신
+			alert("답변이 전송되었습니다.");
+
+			// comList에서 해당 문의의 상태를 '답변'으로 업데이트
+			const updatedInquiry = comList.find(inquiry => inquiry.id === inquiryId);
+			if (updatedInquiry) {
+				updatedInquiry.status = "DONE"; // 상태를 '답변'으로 변경
+				updatedInquiry.response = responseText; // 답변 내용 추가
+			}
+
+			// 문의 목록 갱신
+			updateComList(comList, temList);
+
+		} catch (e) {
+			console.error("JSON 파싱 오류:", e);
+			alert("서버 응답 처리 중 오류가 발생했습니다. 관리자에게 문의하세요.");
+		}
+	});
 }
 
-// 템플릿 선택 시 답변 입력란에 자동 입력
-function applyTemplate(inquiryId) {
-	const selectElement = document.getElementById(`templateSelect${inquiryId}`);
-	const textArea = document.getElementById(`responseText${inquiryId}`);
-	textArea.value = selectElement.value; // 선택된 템플릿 내용 적용
+
+// 답변 전송 함수 (미답변 시 사용)
+function sendResponse(inquiryId) {
+	const responseText = document.getElementById(`responseText${inquiryId}`).value;
+	if (!responseText.trim()) {
+		alert("답변을 입력하세요.");
+		return;
+	}
+
+	// 서버로 전송할 데이터 준비
+	const params = {
+		jsonstr: JSON.stringify({
+			inquiryId: inquiryId,
+			response: responseText
+		})
+	};
+
+	// 서버에 답변 전송
+	var url = "jsp/complain.jsp";
+	AJAX.call(url, params, function(data) {
+		var json = data.trim();
+
+		try {
+			// JSON 문자열을 객체로 변환
+			var jsonData = JSON.parse(json);
+
+			// 오류 코드 구분 (status)
+			var statusCode = jsonData.code;
+			var message = jsonData.msg;
+
+			// 200이 아닌 경우 오류 처리
+			if (statusCode !== 200) {
+				alert("오류: " + message);
+				window.location.href = statusCode + ".html";
+				return;
+			}
+
+			// 성공한 경우 상태 변경 및 문의 목록 갱신
+			alert("답변이 전송되었습니다.");
+
+			// comList에서 해당 문의의 상태를 '답변'으로 업데이트
+			const updatedInquiry = comList.find(inquiry => inquiry.id === inquiryId);
+			if (updatedInquiry) {
+				updatedInquiry.status = "DONE"; // 상태를 '답변'으로 변경
+				updatedInquiry.response = responseText; // 답변 내용 추가
+			}
+
+			// 문의 목록 갱신
+			updateComList(comList, temList);
+
+		} catch (e) {
+			console.error("JSON 파싱 오류:", e);
+			alert("서버 응답 처리 중 오류가 발생했습니다. 관리자에게 문의하세요.");
+		}
+	});
 }
+
 
 // 문의 삭제 함수
 function deleteInquiry(inquiryId) {
@@ -225,7 +336,7 @@ function updateTemplateList(temList) {
 		answerRow.classList.add("collapse");
 		answerRow.innerHTML = `
             <td colspan="2" class="bg-light p-3">
-                <strong class="text-muted">답변:</strong> ${template.content}
+                <strong class="text-muted"></strong> ${template.content}
             </td>
         `;
 

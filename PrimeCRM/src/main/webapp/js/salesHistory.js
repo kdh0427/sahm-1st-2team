@@ -13,6 +13,8 @@ AJAX.call(url, { Email: email }, function(data) {
 		// 성공한 경우 데이터 분리
 		var list = jsonData.list;
 
+		list = list.filter(item => item !== null && item !== undefined);
+		
 		checkLoginStatus(); // 로그인 상태 확인 함수
 		updateSalesList(list); // 영업 목록 업데이트
 	} catch (e) {
@@ -24,6 +26,7 @@ AJAX.call(url, { Email: email }, function(data) {
 // 영업 목록 업데이트 함수
 function updateSalesList(list) {
     const tbody = document.getElementById("salesList");
+	console.log(tbody);
     tbody.innerHTML = ""; // 기존 데이터를 초기화
 
     if (!list || list.length === 0) {

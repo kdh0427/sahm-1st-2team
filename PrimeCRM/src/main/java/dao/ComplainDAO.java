@@ -60,7 +60,7 @@ public class ComplainDAO {
 	        stmt = conn.prepareStatement(sql);
 	        rs = stmt.executeQuery();
 	        
-	        StringBuilder str = new StringBuilder("{\"comList\": [");
+	        StringBuilder str = new StringBuilder("\"comList\": [");
 	        boolean first = true;
 
 	        while (rs.next()) {
@@ -81,6 +81,42 @@ public class ComplainDAO {
 	        }
 
 	        str.append("]}"); // JSON 닫기
+	        return str.toString();
+	    } finally {
+	        if (rs != null) rs.close();
+	        if (stmt != null) stmt.close();
+	        if (conn != null) conn.close();
+	    }
+	}
+	
+	public String getCommet() throws NamingException, SQLException {
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+
+	    try {
+	        String sql = "SELECT CUST_STATUS, TEMPLATE_DETAIL FROM TEMPLATE";
+
+	        conn = ConnectionPool.get();
+	        stmt = conn.prepareStatement(sql);
+	        rs = stmt.executeQuery();
+	        
+	        StringBuilder str = new StringBuilder("{\"temList\": [");
+	        boolean first = true;
+
+	        while (rs.next()) {
+	            if (!first) {
+	                str.append(", ");
+	            }
+	            first = false;
+
+	            str.append("{")
+	               .append("\"type\": \"").append(rs.getString("CUST_STATUS")).append("\", ")
+	               .append("\"content\": \"").append(rs.getString("TEMPLATE_DETAIL")).append("\"")
+	               .append("}");
+	        }
+
+	        str.append("],"); // JSON 닫기
 	        return str.toString();
 	    } finally {
 	        if (rs != null) rs.close();
