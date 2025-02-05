@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function() {
+	setTimeout(checkLoginStatus, 100); // 100ms 대기 후 실행
+});
+
 var url = "jsp/complain.jsp";
 AJAX.call(url, null, function(data) {
 	var json = data.trim();
@@ -6,26 +10,13 @@ AJAX.call(url, null, function(data) {
 		// JSON 문자열을 객체로 변환
 		var jsonData = JSON.parse(json);
 
-		// 오류 코드 구분 (status)
-		var statusCode = jsonData.code;
-		var message = jsonData.msg;
-
-		// 200이 아닌 경우 오류 처리
-		if (statusCode !== 200) {
-			alert("오류: " + message);
-			window.location.href = statusCode + ".html";
-			return;
-		}
-
 		// 성공한 경우 데이터 분리
 		var comList = jsonData.comList;
 		var temList = jsonData.temList;
 
-		window.onload = function() {
-			checkLoginStatus(); // 로그인 상태 확인 함수
-			updateComList(comList, temList); // 문의 목록 업데이트
-			updateTemplateList(temList); // 템플릿 목록 업데이트
-		};
+		checkLoginStatus(); // 로그인 상태 확인 함수
+		updateComList(comList, temList); // 문의 목록 업데이트
+		updateTemplateList(temList); // 템플릿 목록 업데이트
 
 	} catch (e) {
 		console.error("JSON 파싱 오류:", e);
@@ -33,63 +24,7 @@ AJAX.call(url, null, function(data) {
 	}
 });
 
-// 페이지가 완전히 로드된 후 실행
-document.addEventListener("DOMContentLoaded", function() {
-	updateComList(); // 문의 목록 업데이트
-	updateTemplateList(); // 템플릿 목록 업데이트
-});
 
-/*
-// 문의 내역 데이터
-const comList = [
-	{
-		id: 1,
-		email: "hong@gmail.com",
-		name: "홍길동",
-		type: "제품 문의",
-		date: "2025-01-24",
-		status: "미답변",
-		content: "제품 문의 입니다."
-	},
-	{
-		id: 2,
-		email: "kim@gmail.com",
-		name: "김철수",
-		type: "서비스 문의",
-		date: "2025-01-23",
-		status: "미답변",
-		content: "서비스 관련 문의입니다."
-	},
-	{
-		id: 3,
-		email: "kim@gmail.com",
-		name: "김철수",
-		type: "서비스 문의",
-		date: "2025-01-23",
-		status: "답변",
-		content: "서비스 관련 문의입니다."
-	}
-];
-
-// 템플릿 데이터
-const temList = [
-	{
-		id: 1,
-		type: "제품 문의",
-		content: "제품 문의에 대한 답변입니다."
-	},
-	{
-		id: 2,
-		type: "서비스 문의",
-		content: "서비스 문의에 대한 답변입니다."
-	},
-	{
-		id: 3,
-		type: "배달 문의",
-		content: "배달 문의에 대한 답변입니다."
-	}
-];
-*/
 
 // 문의 목록을 동적으로 생성하는 함수
 function updateComList(comList, temList) {
@@ -104,8 +39,8 @@ function updateComList(comList, temList) {
             <td>${inquiry.type}</td>
             <td>${inquiry.date}</td>
             <td>
-                <span class="badge ${inquiry.status === '답변' ? 'bg-success' : 'bg-warning'} text-dark rounded-pill px-3">
-                    ${inquiry.status === '답변' ? '답변 완료' : '미답변'}
+                <span class="badge ${inquiry.status === 'DONE' ? 'bg-success' : 'bg-warning'} text-dark rounded-pill px-3">
+                    ${inquiry.status === 'DONE' ? 'DONE' : 'NONE'}
                 </span>
             </td>
             <td><button class="btn btn-outline-danger btn-sm" onclick="deleteInquiry(${inquiry.id})">삭제</button></td>
@@ -115,7 +50,6 @@ function updateComList(comList, temList) {
 		tbody.appendChild(row);
 	});
 }
-
 
 // 특정 문의의 상세 내용을 동적으로 생성하는 함수
 function comDetail(inquiryId, row, temList) {
@@ -465,20 +399,21 @@ function editTem() {
 
 // 로그인 상태 확인 함수
 function checkLoginStatus() {
-	var isEmail = localStorage.getItem("email"); // 로컬 스토리지에서 로그인 여부 확인
+    var isEmail = localStorage.getItem("email");
 
-	if (!isEmail) {
-		alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
-		window.location.href = "login.html";  // 로그인 페이지로 이동
-	} else {
-		// 로컬 스토리지에서 사용자 아이디 가져오기
-		var userId = localStorage.getItem("userId");
+    if (!isEmail || isEmail === "null") {
+        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+        window.location.href = "login.html";
+        return;
+    }
 
-		// "userId"라는 ID를 가진 div 요소를 찾음
-		var userIdElement = document.getElementById("userId");
-		userIdElement.textContent = userId;
-		console.log("로그인 상태입니다.");
-	}
+    var emailElement = document.getElementById("uemail");
+    if (emailElement) {
+        emailElement.textContent = "Logged in as: " + isEmail;
+        //console.log("로그인 상태입니다: " + isEmail);
+    } else {
+        console.warn("⚠ 'uemail' ID를 가진 요소가 없음. HTML 확인 필요!");
+    }
 }
 
 function logout() {
