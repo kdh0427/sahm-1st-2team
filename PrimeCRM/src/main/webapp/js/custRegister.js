@@ -62,7 +62,7 @@ function custRegister() {
 		Cust_Status: status
 	};
 
-	var url = "/jsp/custRegister.jsp";
+	var url = "jsp/custRegister.jsp";
 	AJAX.call(url, params, function(data) {
 		var code = data.trim();
 		if (code == "EX") {
