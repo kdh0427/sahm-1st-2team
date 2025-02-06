@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>DataUp</title>
+	<title>PrimeCRM</title>
 	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 	<link href="css/styles.css" rel="stylesheet" />
 	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -197,10 +197,6 @@
 															onclick="editTem()" id="editTemplateBtn">
 															<i class="fas fa-edit me-1"></i> 수정
 														</button>
-														<button class="btn btn-outline-danger fw-semibold shadow-sm"
-															onclick="deleteTem()" id="deleteTemplateBtn">
-															<i class="fas fa-trash-alt me-1"></i> 삭제
-														</button>
 													</div>
 												</tr>
 											</thead>
@@ -211,21 +207,19 @@
 									</div>
 
 									<!-- 새로운 템플릿 추가 폼 -->
-									<div id="templateForm" class="mt-4 p-3 border rounded">
+									<div id="templateForm" class="mt-4 p-3 border rounded" style="display: none;">
 										<form id="addTemplateForm">
 											<div class="mb-3">
-												<label for="templateType" class="form-label">제목</label>
+												<label for="templateType" class="form-label">유형</label>
 												<input list="templateTypeList" id="templateType" class="form-control"
-													placeholder="제목을 입력하세요" required>
+													placeholder="유형을 입력하세요" required>
 											</div>
 											<div class="mb-3">
-												<label for="templateAnswer" class="form-label">답변 내용</label>
+												<label for="templateAnswer" class="form-label">템플릿 내용</label>
 												<textarea id="templateAnswer" class="form-control" rows="4"
-													placeholder="답변을 입력하세요" required></textarea>
+													placeholder="템플릿 내용을 입력하세요" required></textarea>
 											</div>
-											<button type="submit" class="btn btn-primary w-100" onClick="addTem()">
-												<i class="fas fa-plus-circle me-2"></i> 템플릿 추가
-											</button>
+											<button class="btn btn-primary w-100" onClick="temEdit()">템플릿 수정</button>
 										</form>
 									</div>
 								</div>

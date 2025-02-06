@@ -2,7 +2,23 @@
 <%@ page import="dao.ComplainDAO"%>
 
 <%
+	String id = request.getParameter("inquiryId");
+	String res = request.getParameter("response");
+	
+	if (id == null || id.equals("null")) id = "";
+	if (res == null || res.equals("null")) res = "";
+	
 	ComplainDAO cdao = new ComplainDAO();
 	
-	out.print(cdao.getCommet() + cdao.getComplain());
+	if(id.isEmpty() && res.isEmpty()){
+		out.print(cdao.getCommet() + cdao.getComplain());
+	}
+	else{
+		if(cdao.getRequest(id, res)){
+			out.print("SU");
+		}
+		else{
+			out.print("FA");
+		}
+	}
 %>
