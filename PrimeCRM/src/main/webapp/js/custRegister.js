@@ -61,7 +61,8 @@ function custRegister() {
 		jsonstr: JSON.stringify(usrobj),
 		Cust_Status: status
 	};
-
+	console.log(params);
+	
 	var url = "jsp/custRegister.jsp";
 	AJAX.call(url, params, function(data) {
 		var code = data.trim();
@@ -71,7 +72,6 @@ function custRegister() {
 			alert("고객 등록 중 에러가 발생하였습니다.");
 		} else {
 			alert("고객 등록이 완료되었습니다.");
-			window.location.href = "custSearch.html";
 		}
 	});
 }
