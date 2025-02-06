@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PrimeCRM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            max-width: 500px;
+            margin-top: 5rem;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .form-label {
+            font-size: 1.1rem;
+            color: #333;
+        }
+        .form-control {
+            padding: 1.1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #777;
+        }
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>고객 회원가입</h1>
+            <p class="lead">CRM 시스템에 가입하여 관리 기능을 이용해보세요.</p>
+        </div>
+
+        <!-- Form Section -->
+        <form>
+        	<!-- ID -->
+            <div class="mb-4">
+                <label for="id" class="form-label">고객번호</label>
+                <input type="text" id="id" class="form-control" placeholder="고객번호" required>
+            </div>
+            
+            <!-- Full Name -->
+            <div class="mb-4">
+                <label for="name" class="form-label">이름</label>
+                <input type="text" id="name" class="form-control" placeholder="홍길동" required>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-4">
+                <label for="email" class="form-label">이메일 주소</label>
+                <input type="email" id="email" class="form-control" placeholder="example@email.com" required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-4">
+                <label for="password" class="form-label">비밀번호</label>
+                <input type="password" id="password" class="form-control" placeholder="비밀번호" required>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-4">
+                <label for="confirmPassword" class="form-label">비밀번호 확인</label>
+                <input type="password" id="confirmPassword" class="form-control" placeholder="비밀번호 확인" required>
+            </div>
+            
+            <!-- Submit Button -->
+            <div>
+                <button type="submit" class="btn btn-primary" onclick="signup()">회원가입</button>
+            </div>
+        </form>
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <p>이미 계정이 있으신가요? <a href="custLogin.html">로그인</a></p>
+        </div>
+    </div>
+  
+  <!-- 회원가입 -->				
+ <script src="js/jquery-3.7.1.min.js"></script>
+ <script src="js/core.js"></script>
+ <script>
+ function signup() {
+	 var id = $("#id").val().trim();
+	    if (id == "") {
+	        alert("고객번호를 입력해 주세요.");
+	        $("#id").focus();
+	        return;
+	    }
+	    var name = $("#name").val().trim();
+	    if (name == "") {
+	        alert("이름을 입력해 주세요.");
+	        $("#name").focus();
+	        return;
+	    }
+
+	    var email = $("#email").val().trim();
+	    if (email == "") {
+	        alert("이메일을 입력해 주세요.");
+	        $("#email").focus();
+	        return;
+	    }
+
+	    var pwd = $("#password").val().trim();
+	    if (pwd== "") {
+	        alert("패스워드를 입력해 주세요.");
+	        $("#password").focus();
+	        return;
+	    }
+
+	    var pwd2 = $("#confirmPassword").val().trim();
+	    if (pwd != pwd2) {
+	        alert("입력된 두 개의 패스워드가 일치하지 않습니다.");
+	        $("#confirmPassword").focus();
+	        return;
+	    }
+	    
+		var params = { CuID: id, CuName: name, CuEmail: email, CuPwd: pwd };
+	    
+	    var url = "jsp/custLoginRegister.jsp";
+	    AJAX.call(url, params, function(data) {
+	        var code = data.trim();
+	        if(code == "EX") {
+	            alert("이미 가입한 회원입니다.");
+	        } else if(code == "ER") {
+	            alert("회원가입 처리 중 에러가 발생하였습니다.");
+	        } else {
+	            alert("회원 가입이 완료되었습니다.");
+	            window.location.href = "custLogin.html";
+	        }
+	    });
+	}
+</script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
+</body>
+</html>
