@@ -19,7 +19,7 @@
 	try {
 		LoginDAO dao = new LoginDAO();
 
-		if (dao.exists(id)) {
+		if (dao.exists(email)) {
 			out.print("EX");
 			return;
 		}

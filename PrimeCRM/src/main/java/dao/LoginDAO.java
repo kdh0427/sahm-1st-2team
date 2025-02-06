@@ -6,7 +6,7 @@ import util.*;
 
 public class LoginDAO {
 
-    public boolean insert(String name, String email, String pwd, String id) throws NamingException, SQLException {
+    public boolean insert(String id, String name, String email, String pwd) throws NamingException, SQLException {
         Connection conn = null;
 	    PreparedStatement stmt = null;
 	    
