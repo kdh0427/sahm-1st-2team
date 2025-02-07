@@ -123,6 +123,33 @@ public class EmpDAO {
 		}
 	}
 	
+	public String getPwd(String email) throws NamingException, SQLException{
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT JSON_VALUE(jsonstr, '$.E_pwd') AS PWD FROM EMPLOYEE WHERE JSON_VALUE(jsonstr, '$.E_email') = ?";
+			
+			conn = ConnectionPool.get();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, email);
+			rs = stmt.executeQuery();
+			
+			String pwd = "";
+			if (rs.next()) {
+				pwd = rs.getString("PWD");
+			}
+			 
+			return pwd;
+			
+		}finally{
+			if (rs != null) {rs.close();}
+			if (stmt != null) stmt.close(); 
+            if (conn != null) conn.close();
+		}
+	} 
+	
 	public String getList() throws NamingException, SQLException {
 	    Connection conn = null;
 	    PreparedStatement stmt = null;

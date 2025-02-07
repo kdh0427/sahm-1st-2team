@@ -61,8 +61,7 @@ function custRegister() {
 		jsonstr: JSON.stringify(usrobj),
 		Cust_Status: status
 	};
-	console.log(params);
-	
+
 	var url = "jsp/custRegister.jsp";
 	AJAX.call(url, params, function(data) {
 		var code = data.trim();
