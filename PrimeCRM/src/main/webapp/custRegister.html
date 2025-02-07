@@ -177,17 +177,20 @@
 									<div class="col-md-3">
 										<label for="type" class="form-label">회원 타입</label> <select
 											class="form-select form-select-sm" id="type" name="type">
-											<option value="individual">개인 회원</option>
-											<option value="corporate">법인 회원</option>
+											<option value="I">개인 회원</option>
+											<option value="C">법인 회원</option>
 										</select>
 									</div>
 									<!-- 특이사항 -->
 									<div class="col-md-6">
 										<div style="width: 100%;">
-											<label for="status" class="form-label">특이사항</label>
-											<textarea class="form-control form-control-sm" id="status"
-												name="status" rows="3" placeholder="특이사항을 입력하세요"
-												style="overflow-y: auto; resize: none;"></textarea>
+											<label for="status" class="form-label">특이사항</label> 
+											<select id="status" class="form-select" onchange="updateData(this.value)">
+												<option value="NEW">신규 고객</option>
+												<option value="ACD">사고 고객</option>
+												<option value="PRB">문제 고객</option>
+												<option value="COM">문의 고객</option>
+											</select>
 										</div>
 										<div class="row mt-3">
 											<div class="col-md-12 d-flex justify-content-end">

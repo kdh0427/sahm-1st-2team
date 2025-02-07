@@ -6,17 +6,17 @@ import util.*;
 
 public class CustDAO {
 	
-	public boolean insert(String id, String jsonstr) throws NamingException, SQLException{
+	public boolean insert(String jsonstr, String status) throws NamingException, SQLException{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
 		try {
-			String sql = "INSERT INTO Customer(Cust_id, jsonstr) VALUES (?, ?)";
+			String sql = "INSERT INTO Customer(jsonstr, CUST_STATUS) VALUES (?, ?)";
 			
 			conn = ConnectionPool.get();
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, id);
-			stmt.setString(2, jsonstr);
+			stmt.setString(1, jsonstr);
+			stmt.setString(2, status);
 			
 			int count = stmt.executeUpdate();
 			return (count == 1)? true : false;
@@ -27,17 +27,17 @@ public class CustDAO {
 		}
 	}
 	
-	public boolean exists(String id) throws NamingException, SQLException{
+	public boolean exists(String email) throws NamingException, SQLException{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT Cust_Id FROM Customer where Cust_id = ?";
+			String sql = "SELECT JSON_VALUE(jsonstr, '$.CuName') as email FROM CUSTOMER WHERE JSON_VALUE(jsonstr, '$.CuEmail') = ?";
 			
 			conn = ConnectionPool.get();
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, id);
+			stmt.setString(1, email);
 
 			rs = stmt.executeQuery();
 			return rs.next();
@@ -94,19 +94,38 @@ public class CustDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            String sql = "SELECT * FROM Customer";
+            String sql = "SELECT Cust_ID, JSON_VALUE(jsonstr, '$.CuName') AS NAME , \r\n"
+            		+ "JSON_VALUE(jsonstr, '$.CuBday') AS BDAY,  JSON_VALUE(jsonstr, '$.CuEmail') AS EMAIL, \r\n"
+            		+ "JSON_VALUE(jsonstr, '$.CuUpdate') AS UDATE, JSON_VALUE(jsonstr, '$.CusAdd') AS ADDRESS, \r\n"
+            		+ "JSON_VALUE(jsonstr, '$.CuNum') AS NUM, JSON_VALUE(jsonstr, '$.CuType') AS TYPE, Cust_status\r\n"
+            		+ "FROM Customer";
 
             conn = ConnectionPool.get();
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
-                
-            String str = "[";
-            int cnt = 0;
-            while(rs.next()) {
-                if (cnt++ > 0) str += ", ";
-                str += rs.getString("jsonstr");
+
+            StringBuilder str = new StringBuilder("{\"cuList\": [");
+            
+            boolean first = true;
+
+	        while (rs.next()) {
+	            if (!first) {
+	                str.append(", ");
+	            }
+	            first = false;
+            	str.append("{")
+	               .append("\"id\": \"").append(rs.getString("Cust_ID")).append("\", ")
+	               .append("\"name\": \"").append(rs.getString("NAME")).append("\", ")
+	               .append("\"bday\": \"").append(rs.getString("BDAY")).append("\", ")
+	               .append("\"email\": \"").append(rs.getString("EMAIL")).append("\", ")
+	               .append("\"udate\": \"").append(rs.getString("UDATE")).append("\", ")
+	               .append("\"address\": \"").append(rs.getString("ADDRESS")).append("\", ")
+	               .append("\"phone\": \"").append(rs.getString("NUM")).append("\", ")
+	               .append("\"type\": \"").append(rs.getString("TYPE")).append("\", ")
+	               .append("\"status\": \"").append(rs.getString("Cust_status")).append("\" ")
+	               .append("}");
             }
-            return str + "]";
+            return str.append("]}").toString();
                 
         } finally {
             if (rs != null) rs.close(); 

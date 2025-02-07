@@ -17,7 +17,6 @@
 	    }
 	    
 	    try {
-	
 	        JSONParser parser = new JSONParser();
 	        JSONObject jsonObj = (JSONObject) parser.parse(jsonstr);
 	        String email = (String) jsonObj.get("CuEmail");

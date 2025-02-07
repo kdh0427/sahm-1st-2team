@@ -48,12 +48,16 @@ function custRegister() {
 		return;
 	}
 
+	const today = new Date();
+	const formattedDate = today.toISOString().split('T')[0]; // "YYYY-MM-DD"
+	
 	var usrobj = {
 		CuName: name,
 		CuBday: bday,
 		CuEmail: email,
-		CuNum: phone,
+		CuUpdate: formattedDate,
 		CusAdd: address,
+		CuNum: phone,
 		CuType: type
 	};
 

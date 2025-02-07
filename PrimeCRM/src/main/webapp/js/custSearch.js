@@ -1,26 +1,19 @@
+document.addEventListener("DOMContentLoaded", function() {
+	setTimeout(checkLoginStatus, 100); // 100ms 대기 후 실행
+});
+
 var url = "jsp/custSearch.jsp";
-AJAX.call(url, null, function (data) {
+AJAX.call(url, { Email: 'null'}, function(data) {
     var json = data.trim();
 
     try {
         var jsonData = JSON.parse(json);
 
-        // 오류 코드 확인
-        var statusCode = jsonData.code;
-        var message = jsonData.msg;
-
-        if (statusCode !== 200) { 
-            alert("오류: " + message);
-            window.location.href = statusCode + ".html";
-            return;
-        }
-
         // 고객 목록 업데이트
         var cuList = jsonData.cuList;
-        window.onload = function () {
-            checkLoginStatus();
-            updateCuTable(cuList);
-        };
+			
+        checkLoginStatus();
+        updateCuTable(cuList);
 
     } catch (e) {
         console.error("JSON 파싱 오류:", e);
@@ -29,30 +22,70 @@ AJAX.call(url, null, function (data) {
 });
 
 // 고객 목록 테이블 업데이트 함수
+let currentPage = 1;
+const rowsPerPage = 20;
+let customerData = [];
+
 function updateCuTable(cuList) {
+    customerData = cuList; // 데이터를 전역 변수에 저장
+    renderTable();
+}
+
+function renderTable() {
     var tableBody = document.getElementById("customerContainer");
     tableBody.innerHTML = ""; 
 
-    if (!cuList.length) { 
+    if (!customerData.length) { 
         tableBody.innerHTML = "<tr><td colspan='9' class='text-center'>고객 정보가 없습니다.</td></tr>";
         return;
     }
 
-    cuList.forEach((customer) => {
+    // 현재 페이지에 해당하는 데이터 슬라이싱
+    let startIndex = (currentPage - 1) * rowsPerPage;
+    let endIndex = startIndex + rowsPerPage;
+    let paginatedData = customerData.slice(startIndex, endIndex);
+
+    paginatedData.forEach((customer) => {
         var row = document.createElement("tr");
         row.innerHTML = `
             <td>${customer.name}</td>
-            <td>${customer.date}</td>
+            <td>${customer.bday}</td>
             <td>${customer.email}</td>
-            <td>${customer.status}</td>
-            <td>${customer.update}</td>
+            <td>${customer.udate}</td>
             <td>${customer.address}</td>
             <td>${customer.phone}</td>
-            <td>${customer.type}</td>
+            <td>${customer.type === "I" ? "개인" : customer.type === "C" ? "기업" : "알 수 없음"}</td>
+            <td>${customer.status}</td>
             <td><input type="checkbox" class="customer-select"></td>
         `;
         tableBody.appendChild(row);
     });
+
+    updatePaginationControls();
+}
+
+function updatePaginationControls() {
+    const totalPages = Math.ceil(customerData.length / rowsPerPage);
+    document.getElementById("page-info").textContent = ` ${currentPage} / ${totalPages}  `;
+
+    document.getElementById("prevPage").disabled = currentPage === 1;
+    document.getElementById("nextPage").disabled = currentPage === totalPages || totalPages === 0;
+}
+
+// 페이지 이동 함수
+function goToPrevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        renderTable();
+    }
+}
+
+function goToNextPage() {
+    var totalPages = Math.ceil(customerData.length / rowsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderTable();
+    }
 }
 
 // 선택된 행 수정 기능
@@ -174,20 +207,21 @@ function saveSelectedRow() {
 
 // 로그인 상태 확인 함수
 function checkLoginStatus() {
-	var isEmail = localStorage.getItem("email"); // 로컬 스토리지에서 로그인 여부 확인
+    var isEmail = localStorage.getItem("email");
 
-	if (!isEmail) {
-		alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
-		window.location.href = "login.html";  // 로그인 페이지로 이동
-	} else {
-		// 로컬 스토리지에서 사용자 아이디 가져오기
-		var userId = localStorage.getItem("userId");
+    if (!isEmail || isEmail === "null") {
+        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+        window.location.href = "login.html";
+        return;
+    }
 
-		// "userId"라는 ID를 가진 div 요소를 찾음
-		var userIdElement = document.getElementById("userId");
-		userIdElement.textContent = userId;
-		console.log("로그인 상태입니다.");
-	}
+    var emailElement = document.getElementById("uemail");
+    if (emailElement) {
+        emailElement.textContent = "Logged in as: " + isEmail;
+        //console.log("로그인 상태입니다: " + isEmail);
+    } else {
+        console.warn("⚠ 'uemail' ID를 가진 요소가 없음. HTML 확인 필요!");
+    }
 }
 
 function logout() {
