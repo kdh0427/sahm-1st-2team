@@ -158,7 +158,7 @@
 	    
 		var params = { CuID: id, CuName: name, CuEmail: email, CuPwd: pwd };
 	    
-	    var url = "jsp/custLoginRegister.jsp";
+	    var url = "jsp/custJoin.jsp";
 	    AJAX.call(url, params, function(data) {
 	        var code = data.trim();
 	        if(code == "EX") {

@@ -95,9 +95,6 @@ INSERT INTO CUSTOMER VALUES ('48', '{"CuName": "한상엽", "CuBday": "1989-11-0
 INSERT INTO CUSTOMER VALUES ('49', '{"CuName": "최성훈", "CuBday": "1983-01-13", "CuEmail": "seonghoon83@example.com", "CuUpdate": "2025-04-14", "CusAdd": "Busan", "CuNum": "01066778899", "CuTpye": "C"}', 'NEW');
 INSERT INTO CUSTOMER VALUES ('50', '{"CuName": "유승호", "CuBday": "1993-04-17", "CuEmail": "seungho93@example.com", "CuUpdate": "2025-04-17", "CusAdd": "Incheon", "CuNum": "01077889900", "CuTpye": "I"}', 'NEW');
 
--- CUSTOEMR_LOGIN Data
-INSERT INTO Customer_Login VALUES ('33cksdud@gmail.com','qwer1234' ,'1');
-
 -- EMPLOYEE Data
 INSERT INTO EMPLOYEE VALUES ('1', '{"E_name": "나찬영", "E_email": "33cksdud@gmail.com", "E_phone": "01032006913", "E_pwd": "QWE", "E_position": "manager"}', 'B01');
 INSERT INTO EMPLOYEE VALUES ('2', '{"E_name": "김민수", "E_email": "minsu@example.com", "E_phone": "01012345678", "E_pwd": "ABC123", "E_position": "developer"}', 'B01');
