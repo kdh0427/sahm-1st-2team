@@ -3,14 +3,14 @@ package dao;
 public class LoginVO {
 	private String email, pwd, id;
 	
-	public LoginVO(String email, String pwd, String id) {
+	public LoginVO(String id, String email, String pwd) {
+		this.id = id;
 		this.email=email;
 		this.pwd = pwd;
-		this.id = id;
 	}
 
+	public String getCId() {return this.id;}
 	public String getCEmail() {return this.email;}
 	public String getCPwd() {return this.pwd;}
-	public String getCId() {return this.id;}
 }
 	

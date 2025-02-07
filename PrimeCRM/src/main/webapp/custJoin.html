@@ -75,13 +75,16 @@
 
         <!-- Form Section -->
         <form>
-        	<!-- ID -->
-            <div class="mb-4">
-                <label for="id" class="form-label">고객번호</label>
-                <input type="text" id="id" class="form-control" placeholder="고객번호" required>
-            </div>
-            
-            <!-- Full Name -->
+			<!-- ID -->
+			<div class="mb-4">
+				<div class="d-flex justify-content-between">
+					<label for="id" class="form-label">고객번호</label>
+					<a class="small" href="custID.html">고객번호 찾기</a>
+				</div>
+				<input type="text" id="id" class="form-control" placeholder="고객번호" required>
+			</div>
+
+			<!-- Full Name -->
             <div class="mb-4">
                 <label for="name" class="form-label">이름</label>
                 <input type="text" id="name" class="form-control" placeholder="홍길동" required>
@@ -112,66 +115,16 @@
         </form>
 
         <!-- Footer Section -->
-        <div class="footer">
-            <p>이미 계정이 있으신가요? <a href="custLogin.html">로그인</a></p>
-        </div>
-    </div>
+		<div class="footer">
+		<p>이미 계정이 있으신가요? <a href="custLogin.html">로그인</a></p>
+		</div>
+
+	</div>
   
   <!-- 회원가입 -->				
  <script src="js/jquery-3.7.1.min.js"></script>
  <script src="js/core.js"></script>
- <script>
- function signup() {
-	 var id = $("#id").val().trim();
-	    if (id == "") {
-	        alert("고객번호를 입력해 주세요.");
-	        $("#id").focus();
-	        return;
-	    }
-	    var name = $("#name").val().trim();
-	    if (name == "") {
-	        alert("이름을 입력해 주세요.");
-	        $("#name").focus();
-	        return;
-	    }
-
-	    var email = $("#email").val().trim();
-	    if (email == "") {
-	        alert("이메일을 입력해 주세요.");
-	        $("#email").focus();
-	        return;
-	    }
-
-	    var pwd = $("#password").val().trim();
-	    if (pwd== "") {
-	        alert("패스워드를 입력해 주세요.");
-	        $("#password").focus();
-	        return;
-	    }
-
-	    var pwd2 = $("#confirmPassword").val().trim();
-	    if (pwd != pwd2) {
-	        alert("입력된 두 개의 패스워드가 일치하지 않습니다.");
-	        $("#confirmPassword").focus();
-	        return;
-	    }
-	    
-		var params = { CuID: id, CuName: name, CuEmail: email, CuPwd: pwd };
-	    
-	    var url = "jsp/custJoin.jsp";
-	    AJAX.call(url, params, function(data) {
-	        var code = data.trim();
-	        if(code == "EX") {
-	            alert("이미 가입한 회원입니다.");
-	        } else if(code == "ER") {
-	            alert("회원가입 처리 중 에러가 발생하였습니다.");
-	        } else {
-	            alert("회원 가입이 완료되었습니다.");
-	            window.location.href = "custLogin.html";
-	        }
-	    });
-	}
-</script>
+ <script src="js/custJoin.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
 </body>
 </html>

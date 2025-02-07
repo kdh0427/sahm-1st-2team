@@ -29,7 +29,9 @@ CREATE TABLE Customer_Login (
     CuName VARCHAR(20) NOT NULL,
     CuEmail VARCHAR(50) NOT NULL,
     CuPwd VARCHAR(20) NOT NULL,
-    CONSTRAINT PK_Customer_Login PRIMARY KEY (CuID)
+    CONSTRAINT PK_Customer_Login_ID PRIMARY KEY (CuID),
+    CONSTRAINT UQ_Customer_Login_Email UNIQUE (CuEmail),
+    CONSTRAINT FK_Customer_Login_Customer_ID FOREIGN KEY (CuID) REFERENCES CUSTOMER(Cust_ID) ON DELETE CASCADE;
 );
 
 -- CUSTOMER 테이블 생성

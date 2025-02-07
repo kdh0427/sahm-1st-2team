@@ -7,9 +7,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import util.ConnectionPool;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 
 public class CustDAO {
@@ -207,4 +204,32 @@ public class CustDAO {
         }
         return customers;
     }
+    
+    //회원가입 고객번호 찾기
+    public String getid(String name) throws NamingException, SQLException{
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {	
+			String sql = "SELECT Cust_ID AS ID FROM CUSTOMER WHERE JSON_VALUE(jsonstr, '$.CuName') = ?";
+			
+			conn = ConnectionPool.get();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, name);
+			rs = stmt.executeQuery();
+			
+			String id = "";
+			if (rs.next()) {
+				id = rs.getString("ID");
+			}
+			 
+			return id;
+			
+		}finally{
+			if (rs != null) {rs.close();}
+			if (stmt != null) stmt.close(); 
+            if (conn != null) conn.close();
+		}
+	} 
 }
