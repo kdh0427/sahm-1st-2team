@@ -5,7 +5,6 @@ import javax.naming.NamingException;
 import util.*;
 
 public class LoginDAO {
-
     public boolean insert(String email, String pwd, String id) throws NamingException, SQLException {
         Connection conn = null;
 	    PreparedStatement stmt = null;

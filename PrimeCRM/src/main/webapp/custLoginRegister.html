@@ -64,18 +64,23 @@
         }
     </style>
 </head>
-<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <body>
 
     <div class="container">
         <!-- Header Section -->
         <div class="header">
-            <h1>관리자 회원가입</h1>
-            <p class="lead">CRM 시스템에 가입하여 관리 기능을 이용해보세요.</p>
+            <h1>고객 회원가입</h1>
+            <p class="lead">CRM 시스템에 가입하여 문의 기능을 이용해보세요.</p>
         </div>
 
         <!-- Form Section -->
         <form>
+        	<!-- ID -->
+            <div class="mb-4">
+                <label for="id" class="form-label">고객번호</label>
+                <input type="text" id="id" class="form-control" placeholder="고객번호" required>
+            </div>
+            
             <!-- Full Name -->
             <div class="mb-4">
                 <label for="name" class="form-label">이름</label>
@@ -86,12 +91,6 @@
             <div class="mb-4">
                 <label for="email" class="form-label">이메일 주소</label>
                 <input type="email" id="email" class="form-control" placeholder="example@email.com" required>
-            </div>
-
-            <!-- Phone Number -->
-            <div class="mb-4">
-                <label for="phone" class="form-label">전화번호</label>
-                <input type="tel" id="phone" class="form-control" placeholder="010-1234-5678" required>
             </div>
 
             <!-- Password -->
@@ -105,45 +104,74 @@
                 <label for="confirmPassword" class="form-label">비밀번호 확인</label>
                 <input type="password" id="confirmPassword" class="form-control" placeholder="비밀번호 확인" required>
             </div>
-
-            <!-- Position -->
-            <div class="mb-4">
-                <label for="position" class="form-label">직급</label>
-                <select id="position" class="form-control">
-                	<option value="" selected>직급을 선택하세요</option>
-                    <option value="manager">매니저</option>
-                    <option value="staff">스태프</option>
-                    <option value="director">디렉터</option>
-                </select>
-            </div>
-
-            <!-- Branch -->
-            <div class="mb-4">
-                <label for="branch" class="form-label">소속 지점</label>
-                <select id="branch" class="form-control">
-                	<option value="" selected>지점을 선택하세요</option>
-                    <option value="B01">서울</option>
-                    <option value="B02">부산</option>
-                    <option value="B03">인천</option>
-                </select>
-            </div>
-
+            
             <!-- Submit Button -->
             <div>
-                <button class="btn btn-primary" onclick="signup()">회원가입</button>
+                <button type="submit" class="btn btn-primary" onclick="signup()">회원가입</button>
             </div>
         </form>
 
         <!-- Footer Section -->
         <div class="footer">
-            <p>이미 계정이 있으신가요? <a href="login.html">로그인</a></p>
+            <p>이미 계정이 있으신가요? <a href="custLogin.html">로그인</a></p>
         </div>
     </div>
   
   <!-- 회원가입 -->				
  <script src="js/jquery-3.7.1.min.js"></script>
  <script src="js/core.js"></script>
- <script src="js/register.js"></script>
+ <script>
+ function signup() {
+	 var id = $("#id").val().trim();
+	    if (id == "") {
+	        alert("고객번호를 입력해 주세요.");
+	        $("#id").focus();
+	        return;
+	    }
+	    var name = $("#name").val().trim();
+	    if (name == "") {
+	        alert("이름을 입력해 주세요.");
+	        $("#name").focus();
+	        return;
+	    }
+
+	    var email = $("#email").val().trim();
+	    if (email == "") {
+	        alert("이메일을 입력해 주세요.");
+	        $("#email").focus();
+	        return;
+	    }
+
+	    var pwd = $("#password").val().trim();
+	    if (pwd== "") {
+	        alert("패스워드를 입력해 주세요.");
+	        $("#password").focus();
+	        return;
+	    }
+
+	    var pwd2 = $("#confirmPassword").val().trim();
+	    if (pwd != pwd2) {
+	        alert("입력된 두 개의 패스워드가 일치하지 않습니다.");
+	        $("#confirmPassword").focus();
+	        return;
+	    }
+	    
+		var params = { CuID: id, CuName: name, CuEmail: email, CuPwd: pwd };
+	    
+	    var url = "jsp/custLoginRegister.jsp";
+	    AJAX.call(url, params, function(data) {
+	        var code = data.trim();
+	        if(code == "EX") {
+	            alert("이미 가입한 회원입니다.");
+	        } else if(code == "ER") {
+	            alert("회원가입 처리 중 에러가 발생하였습니다.");
+	        } else {
+	            alert("회원 가입이 완료되었습니다.");
+	            window.location.href = "custLogin.html";
+	        }
+	    });
+	}
+</script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@ public class LoginVO {
 		this.pwd = pwd;
 		this.id = id;
 	}
-	
+
 	public String getCEmail() {return this.email;}
 	public String getCPwd() {return this.pwd;}
 	public String getCId() {return this.id;}
