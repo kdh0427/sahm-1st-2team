@@ -19,17 +19,16 @@ function fetchEmpList() {
 			var customer = jsonData.customer;
 			
 			// List 데이터
-			var empList = jsonData.emplist;
 			var cuList = jsonData.culist;
 		
 			checkLoginStatus(); // 로그인 상태 확인 함수
-			loadImage(imageUrl);  // 최고의 모델 로드 함수
-			displayEmpList(empList); // 에이스 top10 로드 함수
+			 loadVideo(imageUrl);  // 최고의 모델 로드 함수
 			displayTopPrice(topPrice); // 제일 비싼 거래 로드 함수
 			displayTopEmp(topEmp) // 이달의 사원 로드 함수
 			displayCustomer(customer); // 총 고객 수 로드 함수
 			displayCuList(cuList) // 고객 분류 로드 함수
-
+			
+			var popupWindow = window.open("topEmp.html", "AceTop10Popup", "width=600,height=400");
 		} catch (e) {
 			console.error("JSON 파싱 오류:", e);
 			alert("서버 응답 처리 중 오류가 발생했습니다. 관리자에게 문의하세요.");
@@ -37,7 +36,7 @@ function fetchEmpList() {
 	});
 }
 // 이미지 로드 함수
-function loadImage(imageUrl) {
+function loadVideo(imageUrl) {
     var imgElement = document.getElementById("dynamicImage");
 
     if (!imgElement) {
