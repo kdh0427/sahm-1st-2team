@@ -19,7 +19,8 @@
 			<i class="fas fa-bars"></i>
 		</button>
 		<!-- 사이트 이름 -->
-		<a class="navbar-brand ps-3" href="main.html">PrimeCRM</a>
+		<a class="navbar-brand ps-3" href="main.html">
+		 <img src="/PrimeCRM/assets/img/photo/logo.png" alt="PrimeCRM Logo" style="max-width: 150px; height: auto;"></a>
 	</nav>
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_nav">
@@ -72,11 +73,11 @@
 							통계
 							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 						</a>
-						<div class="collapse" id="collapseStats" aria-labelledby="headingStats"
+						<div class="collapse show" id="collapseStats" aria-labelledby="headingStats"
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionStats">
 								<a class="nav-link" href="carChart.html">자동차 통계</a>
-								<a class="nav-link" href="empChart.html">직원 통계</a>
+								<a class="nav-link active" href="empChart.html">직원 통계</a>
 							</nav>
 						</div>
 
@@ -104,9 +105,8 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">통계</h1>
+					<h1 class="mt-4" style="text-align: center">직원 통계</h1>
 					<ol class="breadcrumb mb-4">
-						<li class="breadcrumb-item active">직원 통계</li>
 						<div class="ms-auto d-flex align-items-center">
 							<select id="branch-select" class="form-select"
 								onchange="updateData(this.value)">

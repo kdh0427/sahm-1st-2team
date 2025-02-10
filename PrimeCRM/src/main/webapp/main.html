@@ -50,7 +50,8 @@
 			<i class="fas fa-bars"></i>
 		</button>
 		<!-- 사이트 이름 -->
-		<a class="navbar-brand ps-3" href="main.html">PrimeCRM</a>
+		<a class="navbar-brand ps-3" href="main.html">
+		 <img src="/PrimeCRM/assets/img/photo/logo.png" alt="PrimeCRM Logo" style="max-width: 150px; height: auto;"></a>
 
 	</nav>
 	<div id="layoutSidenav">
@@ -147,7 +148,7 @@
 								id="sidenavAccordionSettings">
 								<a class="nav-link" href="user.html">정보 변경</a> <a
 									class="nav-link" href="#" onclick="logout()">로그 아웃</a>
-							</nav>
+							</nav>	
 						</div>
 					</div>
 				</div>
@@ -187,7 +188,7 @@
 								<div class="card-header">
 									<i class="fas fa-chart-bar me-1"></i> 에이스 top10
 								</div>
-								<div class="card-body p-0"
+								<div class="card-body"
 									style="max-height: 500px; object-fit: cover; overflow-y: auto; background-color: #f9f9f9;">
 									<div id="empListContainer" class="list-group"></div>
 								</div>
@@ -203,11 +204,11 @@
 								<div class="card-header bg-primary text-white">
 									<i class="fas fa-chart-bar me-1"></i> 제일 비싼 거래
 								</div>
-								<div class="card-body text-center">
-									<h2 id="topPriceContainer" class="display-4 text-success">
-
-									</h2>
-									<p class="lead">역대 최대 거래 금액</p>
+								<div class="card-body text-center"
+									style="min-height: 200px; background: url('/PrimeCRM/assets/img/photo/topPrice.jpg') no-repeat center center; background-size: cover; border-radius: 0 0 10px 10px;">
+									<h2 id="topPriceContainer" class="display-4"
+										style="font-weight: bold; color: #64810D; -webkit-text-stroke: 0.5px gold;"></h2>
+									<p class="lead" style="font-weight: bold">역대 최대 거래 금액</p>
 								</div>
 							</div>
 						</div>
@@ -221,7 +222,7 @@
 										사원</span>
 								</div>
 								<div class="card-body text-center"
-									style="min-height: 200px; background: url('/PrimeCRM/assets/img/photo/topemp.jpg') no-repeat center center; background-size: cover; color: black; padding: 2rem; border-radius: 0 0 10px 10px;">
+									style="min-height: 200px; background: url('/PrimeCRM/assets/img/photo/topemp.jpg') no-repeat center center; background-size: cover; color: black; border-radius: 0 0 10px 10px; ">
 									<h2 id="topEmpContainer"
 										class="display-4 black-han-sans-regular"></h2>
 									<p class="lead custom-header">최고의 성과를 낸 사원</p>

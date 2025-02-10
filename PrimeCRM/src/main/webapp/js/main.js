@@ -55,25 +55,49 @@ function loadImage(imageUrl) {
 
 // emplist를 웹 페이지에 표시하는 함수
 function displayEmpList(empList) {
-    // empList가 빈 배열이 아니면 처리
     if (empList && empList.length > 0) {
-        var container = document.getElementById("empListContainer"); // 'empListContainer' div 요소 찾기
+        var container = document.getElementById("empListContainer");
+        container.innerHTML = ""; // 기존 내용 비우기
 
-        // 기존의 내용 비우기 (새로운 데이터로 덮어쓰기 위해)
-        container.innerHTML = "";
-
-        // empList 배열을 순회하며 각 항목을 list-group-item으로 생성
         empList.forEach(function(emp, index) {
-            // 직원 순위를 나타낼 span 요소
+            // 순위 배지를 생성
             var rank = document.createElement("span");
             rank.className = "badge bg-primary";
-            rank.textContent = (index + 1) + "위";  // 1위, 2위, 3위 등
 
-            // 직원 정보를 담을 div 요소
+            // 순위별 크기와 색상 변경
+            var fontSize, backgroundColor, icon;
+            if (index === 0) {
+                fontSize = "1.5rem"; // 1위 (가장 큼)
+                backgroundColor = "gold"; // 금색
+                icon = "👑"; // 왕관 아이콘
+            } else if (index === 1) {
+                fontSize = "1.3rem"; // 2위
+                backgroundColor = "silver"; // 은색
+                icon = "🥈"; // 은메달 아이콘
+            } else if (index === 2) {
+                fontSize = "1.1rem"; // 3위
+                backgroundColor = "#cd7f32"; // 동색
+                icon = "🥉"; // 동메달 아이콘
+            } else {
+                fontSize = "1rem"; // 나머지
+                backgroundColor = "#007bff"; // 기본 색상
+                icon = ""; // 아이콘 없음
+            }
+
+            // rank 배지 스타일 설정
+            rank.style.fontSize = fontSize;
+            rank.style.backgroundColor = backgroundColor;
+            rank.style.display = "block"; // 아이콘과 텍스트가 수직으로 배치되도록 설정
+            rank.style.textAlign = "center"; // 중앙 정렬
+            rank.style.marginBottom = "10px"; // 아이콘과 텍스트 간 간격 설정
+            rank.textContent = `${icon} ${index + 1}위`; // 순위 텍스트
+
+            // 직원 항목 div 생성
             var itemDiv = document.createElement("div");
             itemDiv.className = "list-group-item d-flex justify-content-between align-items-center";
+            itemDiv.style.padding = "20px"; // 아이템의 패딩을 더 크게 설정하여 높이 증가
 
-            // 직원 이름과 직책을 담을 div 요소
+            // 직원 정보
             var infoDiv = document.createElement("div");
             var nameElement = document.createElement("h5");
             nameElement.className = "mb-1";
@@ -82,21 +106,15 @@ function displayEmpList(empList) {
             positionElement.className = "mb-1";
             positionElement.textContent = "Position: " + emp.position;
 
-            // 직원 정보 추가
             infoDiv.appendChild(nameElement);
             infoDiv.appendChild(positionElement);
-
-            // 순위와 정보 div를 하나로 합침
             itemDiv.appendChild(rank);
             itemDiv.appendChild(infoDiv);
 
-            // 생성된 list-group-item을 container에 추가
             container.appendChild(itemDiv);
         });
     } else {
-        // empList가 비어있을 경우 안내 메시지 표시
-        var container = document.getElementById("empListContainer");
-        container.innerHTML = "<p>직원 목록이 없습니다.</p>";
+        document.getElementById("empListContainer").innerHTML = "<p>직원 목록이 없습니다.</p>";
     }
 }
 
@@ -109,7 +127,8 @@ function displayTopPrice(topPrice) {
 		// "topPriceContainer"라는 ID를 가진 h2 요소를 찾음
 
 		// h2 요소의 내용 변경
-		priceElement.textContent = "₩ " + topPrice;  // topPrice 값 포맷팅하여 표시
+		var formattedPrice = Number(topPrice).toLocaleString();
+		priceElement.textContent = "₩ " + formattedPrice;
 	} else {
 		// topPrice 값이 없으면 "최고 금액 정보가 없습니다." 텍스트를 표시
 		priceElement.textContent = "최고 금액 정보가 없습니다.";

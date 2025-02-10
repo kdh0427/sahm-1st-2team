@@ -84,13 +84,15 @@ public class PurchaseDAO {
 	    PreparedStatement stmt = null;
 	    ResultSet rs = null;
 
+	    String year = date.substring(0, 4);
 	    try {
-	        String sql = "SELECT COUNT(*) AS COUNT FROM PURCHASE\r\n"
-	        		+ "WHERE TO_DATE(JSON_VALUE(jsonstr, '$.Sale_date'), 'YYYY-MM-DD') BETWEEN TO_DATE(?, 'YYYY-MM') AND SYSDATE";
+	        String sql = "SELECT COUNT(*) AS COUNT FROM PURCHASE \r\n"
+	        		+ "WHERE TO_DATE(JSON_VALUE(jsonstr, '$.Sale_date'), 'YYYY-MM-DD') BETWEEN TO_DATE(?, 'YYYY-MM') AND LAST_DAY(TO_DATE(?, 'YYYY') + INTERVAL '10' MONTH)";
 
 	        conn = ConnectionPool.get();
 	        stmt = conn.prepareStatement(sql);
 	        stmt.setString(1, date);
+	        stmt.setString(2, year);
 	        rs = stmt.executeQuery();
 
 	        StringBuilder str = new StringBuilder("\"totalSales\": \"");
