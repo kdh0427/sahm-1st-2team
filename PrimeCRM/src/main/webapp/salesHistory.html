@@ -2,31 +2,38 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<title>PrimeCRM</title>
-	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-	<link href="css/styles.css" rel="stylesheet" />
-	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<title>PrimeCRM</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
+	rel="stylesheet" />
+<link href="css/styles.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+	crossorigin="anonymous"></script>
 </head>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<div class="d-flex w-100">
 			<!-- 사이드바 토글 -->
-			<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
+			<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+				id="sidebarToggle" href="#!">
 				<i class="fas fa-bars"></i>
 			</button>
 
 			<!-- 사이트 이름 -->
-			<a class="navbar-brand ps-3" href="main.html">
-		 	<img src="/PrimeCRM/assets/img/photo/logo.png" alt="PrimeCRM Logo" style="max-width: 150px; height: auto;"></a>
+			<a class="navbar-brand ps-3" href="main.html"> <img
+				src="/PrimeCRM/assets/img/photo/logo.png" alt="PrimeCRM Logo"
+				style="max-width: 150px; height: auto;"></a>
 		</div>
 	</nav>
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_nav">
-			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+			<nav class="sb-sidenav accordion sb-sidenav-dark"
+				id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 
@@ -35,68 +42,89 @@
 
 						<!-- 대쉬보드 -->
 						<a class="nav-link" href="main.html">
-							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-							대쉬보드
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-tachometer-alt"></i>
+							</div> 대쉬보드
 						</a>
 
 						<!-- 고객관리 -->
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-							data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-							<div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-							고객 관리
-							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+							data-bs-target="#collapseLayouts" aria-expanded="false"
+							aria-controls="collapseLayouts">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-columns"></i>
+							</div> 고객 관리
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
 						</a>
-						<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
-							data-bs-parent="#sidenavAccordion">
+						<div class="collapse" id="collapseLayouts"
+							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="custSearch.html">고객 조회</a>
-								<a class="nav-link" href="custRegister.html">고객 등록</a>
+								<a class="nav-link" href="custSearch.html">고객 조회</a> <a
+									class="nav-link" href="custRegister.html">고객 등록</a>
 							</nav>
 						</div>
 
 						<!-- 영업관리 -->
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSales"
-							aria-expanded="false" aria-controls="collapseSales">
-							<div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-							영업 관리
-							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapseSales" aria-expanded="false"
+							aria-controls="collapseSales">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-book-open"></i>
+							</div> 영업 관리
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
 						</a>
-						<div class="collapse show" id="collapseSales" aria-labelledby="headingSales"
-							data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSales">
-								<a class="nav-link" href="complain.html">문의 내역</a>
-								<a class="nav-link active" href="salesHistory.html">영업 내역</a>
+						<div class="collapse show" id="collapseSales"
+							aria-labelledby="headingSales" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav accordion"
+								id="sidenavAccordionSales">
+								<a class="nav-link" href="complain.html">문의 내역</a> <a
+									class="nav-link active" href="salesHistory.html">영업 내역</a>
 							</nav>
 						</div>
 
 						<!-- 통계 -->
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseStats"
-							aria-expanded="false" aria-controls="collapseStats">
-							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-							통계
-							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapseStats" aria-expanded="false"
+							aria-controls="collapseStats">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-chart-area"></i>
+							</div> 통계
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
 						</a>
-						<div class="collapse" id="collapseStats" aria-labelledby="headingStats"
-							data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionStats">
-								<a class="nav-link" href="carChart.html">자동차 통계</a>
-								<a class="nav-link" href="empChart.html">직원 통계</a>
+						<div class="collapse" id="collapseStats"
+							aria-labelledby="headingStats" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav accordion"
+								id="sidenavAccordionStats">
+								<a class="nav-link" href="carChart.html">자동차 통계</a> <a
+									class="nav-link" href="empChart.html">직원 통계</a>
 							</nav>
 						</div>
 
 
 						<!-- 설정 -->
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-							data-bs-target="#collapseSettings" aria-expanded="false" aria-controls="collapseSettings">
-							<div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
-							설정
-							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+							data-bs-target="#collapseSettings" aria-expanded="false"
+							aria-controls="collapseSettings">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-cogs"></i>
+							</div> 설정
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
 						</a>
-						<div class="collapse" id="collapseSettings" aria-labelledby="headingSettings"
+						<div class="collapse" id="collapseSettings"
+							aria-labelledby="headingSettings"
 							data-bs-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionSettings">
-								<a class="nav-link" href="user.html">정보 변경</a>
-								<a class="nav-link" onclick="logout()">로그 아웃</a>
+							<nav class="sb-sidenav-menu-nested nav accordion"
+								id="sidenavAccordionSettings">
+								<a class="nav-link" href="user.html">정보 변경</a> <a
+									class="nav-link" onclick="logout()">로그 아웃</a>
 							</nav>
 						</div>
 					</div>
@@ -114,8 +142,33 @@
 					<h1 class="mt-4" style="text-align: center">내 영업 내역</h1>
 
 					<div class="card mb-4">
-						<div class="card-header d-flex justify-content-between align-items-center">
+						<div
+							class="card-header d-flex justify-content-between align-items-center">
 							<span><i class="fas fa-table me-1"></i>영업 목록</span>
+							<!-- 전송 버튼 -->
+							<button type="button" class="btn btn-primary btn-sm"
+								onclick="showAlarmModal()">
+								<i class="fas fa-paper-plane"></i> 전송
+							</button>
+
+							<!-- 모달 구조 -->
+							<div class="modal fade" id="alarmModal" tabindex="-1"
+								aria-labelledby="alarmModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="alarmModalLabel">알림</h5>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">알림이 전송 되었습니다.</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">닫기</button>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<table id="datatablesSimple" class="table">
 							<thead>
@@ -128,6 +181,7 @@
 									<th>가격</th>
 									<th>판매일자</th>
 									<th>상태</th>
+									<th>선택</th>
 								</tr>
 							</thead>
 							<tbody id="salesList">
@@ -143,7 +197,7 @@
 	<script src="js/jquery-3.7.1.min.js"></script>
 	<script src="js/scripts.js"></script>
 	<script src="js/salesHistory.js"></script>
-		<script
+	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- crossorigin 제거 -->
 	<script
