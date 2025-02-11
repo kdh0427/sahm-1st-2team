@@ -173,7 +173,7 @@ public class EmpDAO {
 	        stmt = conn.prepareStatement(sql);
 	        rs = stmt.executeQuery();
 
-	        StringBuilder str = new StringBuilder("\"emplist\": [");
+	        StringBuilder str = new StringBuilder("{\"emplist\": [");
 	        int cnt = 0;
 	        while (rs.next()) {
 	            if (cnt++ > 0) str.append(", ");
@@ -183,7 +183,7 @@ public class EmpDAO {
 	               .append(rs.getString("E_position"))
 	               .append("\" }");
 	        }
-	        return str.append("],").toString();
+	        return str.append("]}").toString();
 	    } finally {
 	        if (rs != null) rs.close(); 
 	        if (stmt != null) stmt.close(); 

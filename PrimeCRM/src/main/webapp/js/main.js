@@ -10,7 +10,6 @@ function fetchEmpList() {
 		try {
 			// JSON 문자열을 객체로 변환
 			var jsonData = JSON.parse(json);  // jsonData를 전역 변수로 저장
-			console.log("파싱된 JSON 데이터:", jsonData);
 			
 			// 성공한 경우 데이터 분리
 			var imageUrl = jsonData.imageUrl;
@@ -21,14 +20,13 @@ function fetchEmpList() {
 			// List 데이터
 			var cuList = jsonData.culist;
 		
-			checkLoginStatus(); // 로그인 상태 확인 함수
-			 loadVideo(imageUrl);  // 최고의 모델 로드 함수
+			loadVideo(imageUrl);  // 최고의 모델 로드 함수
 			displayTopPrice(topPrice); // 제일 비싼 거래 로드 함수
 			displayTopEmp(topEmp) // 이달의 사원 로드 함수
 			displayCustomer(customer); // 총 고객 수 로드 함수
 			displayCuList(cuList) // 고객 분류 로드 함수
 			
-			var popupWindow = window.open("topEmp.html", "AceTop10Popup", "width=600,height=400");
+//			window.open('topEmp.html', 'PopupWindow', 'width=500,height=770,scrollbars=no,resizable=no');
 		} catch (e) {
 			console.error("JSON 파싱 오류:", e);
 			alert("서버 응답 처리 중 오류가 발생했습니다. 관리자에게 문의하세요.");
@@ -51,72 +49,6 @@ function loadVideo(imageUrl) {
 
     imgElement.src = imageUrl;  // 이미지 변경
 }
-
-// emplist를 웹 페이지에 표시하는 함수
-function displayEmpList(empList) {
-    if (empList && empList.length > 0) {
-        var container = document.getElementById("empListContainer");
-        container.innerHTML = ""; // 기존 내용 비우기
-
-        empList.forEach(function(emp, index) {
-            // 순위 배지를 생성
-            var rank = document.createElement("span");
-            rank.className = "badge bg-primary";
-
-            // 순위별 크기와 색상 변경
-            var fontSize, backgroundColor, icon;
-            if (index === 0) {
-                fontSize = "1.5rem"; // 1위 (가장 큼)
-                backgroundColor = "gold"; // 금색
-                icon = "👑"; // 왕관 아이콘
-            } else if (index === 1) {
-                fontSize = "1.3rem"; // 2위
-                backgroundColor = "silver"; // 은색
-                icon = "🥈"; // 은메달 아이콘
-            } else if (index === 2) {
-                fontSize = "1.1rem"; // 3위
-                backgroundColor = "#cd7f32"; // 동색
-                icon = "🥉"; // 동메달 아이콘
-            } else {
-                fontSize = "1rem"; // 나머지
-                backgroundColor = "#007bff"; // 기본 색상
-                icon = ""; // 아이콘 없음
-            }
-
-            // rank 배지 스타일 설정
-            rank.style.fontSize = fontSize;
-            rank.style.backgroundColor = backgroundColor;
-            rank.style.display = "block"; // 아이콘과 텍스트가 수직으로 배치되도록 설정
-            rank.style.textAlign = "center"; // 중앙 정렬
-            rank.style.marginBottom = "10px"; // 아이콘과 텍스트 간 간격 설정
-            rank.textContent = `${icon} ${index + 1}위`; // 순위 텍스트
-
-            // 직원 항목 div 생성
-            var itemDiv = document.createElement("div");
-            itemDiv.className = "list-group-item d-flex justify-content-between align-items-center";
-            itemDiv.style.padding = "20px"; // 아이템의 패딩을 더 크게 설정하여 높이 증가
-
-            // 직원 정보
-            var infoDiv = document.createElement("div");
-            var nameElement = document.createElement("h5");
-            nameElement.className = "mb-1";
-            nameElement.textContent = emp.empName;
-            var positionElement = document.createElement("p");
-            positionElement.className = "mb-1";
-            positionElement.textContent = "Position: " + emp.position;
-
-            infoDiv.appendChild(nameElement);
-            infoDiv.appendChild(positionElement);
-            itemDiv.appendChild(rank);
-            itemDiv.appendChild(infoDiv);
-
-            container.appendChild(itemDiv);
-        });
-    } else {
-        document.getElementById("empListContainer").innerHTML = "<p>직원 목록이 없습니다.</p>";
-    }
-}
-
 
 // topPrice를 h2 요소에 표시하는 함수
 function displayTopPrice(topPrice) {
