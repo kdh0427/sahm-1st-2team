@@ -48,12 +48,16 @@ function custRegister() {
 		return;
 	}
 
+	const today = new Date();
+	const formattedDate = today.toISOString().split('T')[0]; // "YYYY-MM-DD"
+	
 	var usrobj = {
 		CuName: name,
 		CuBday: bday,
 		CuEmail: email,
-		CuNum: phone,
+		CuUpdate: formattedDate,
 		CusAdd: address,
+		CuNum: phone,
 		CuType: type
 	};
 
@@ -71,6 +75,7 @@ function custRegister() {
 			alert("고객 등록 중 에러가 발생하였습니다.");
 		} else {
 			alert("고객 등록이 완료되었습니다.");
+			window.location.href = "custSearch.html";
 		}
 	});
 }

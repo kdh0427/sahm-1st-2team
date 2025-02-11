@@ -10,7 +10,6 @@ function fetchEmpList() {
 		try {
 			// JSON 문자열을 객체로 변환
 			var jsonData = JSON.parse(json);  // jsonData를 전역 변수로 저장
-			console.log("파싱된 JSON 데이터:", jsonData);
 			
 			// 성공한 경우 데이터 분리
 			var imageUrl = jsonData.imageUrl;
@@ -19,17 +18,15 @@ function fetchEmpList() {
 			var customer = jsonData.customer;
 			
 			// List 데이터
-			var empList = jsonData.emplist;
 			var cuList = jsonData.culist;
 		
-			checkLoginStatus(); // 로그인 상태 확인 함수
-			loadImage(imageUrl);  // 최고의 모델 로드 함수
-			displayEmpList(empList); // 에이스 top10 로드 함수
+			loadVideo(imageUrl);  // 최고의 모델 로드 함수
 			displayTopPrice(topPrice); // 제일 비싼 거래 로드 함수
 			displayTopEmp(topEmp) // 이달의 사원 로드 함수
 			displayCustomer(customer); // 총 고객 수 로드 함수
 			displayCuList(cuList) // 고객 분류 로드 함수
-
+			
+//			window.open('topEmp.html', 'PopupWindow', 'width=500,height=770,scrollbars=no,resizable=no');
 		} catch (e) {
 			console.error("JSON 파싱 오류:", e);
 			alert("서버 응답 처리 중 오류가 발생했습니다. 관리자에게 문의하세요.");
@@ -37,7 +34,7 @@ function fetchEmpList() {
 	});
 }
 // 이미지 로드 함수
-function loadImage(imageUrl) {
+function loadVideo(imageUrl) {
     var imgElement = document.getElementById("dynamicImage");
 
     if (!imgElement) {
@@ -53,54 +50,6 @@ function loadImage(imageUrl) {
     imgElement.src = imageUrl;  // 이미지 변경
 }
 
-// emplist를 웹 페이지에 표시하는 함수
-function displayEmpList(empList) {
-    // empList가 빈 배열이 아니면 처리
-    if (empList && empList.length > 0) {
-        var container = document.getElementById("empListContainer"); // 'empListContainer' div 요소 찾기
-
-        // 기존의 내용 비우기 (새로운 데이터로 덮어쓰기 위해)
-        container.innerHTML = "";
-
-        // empList 배열을 순회하며 각 항목을 list-group-item으로 생성
-        empList.forEach(function(emp, index) {
-            // 직원 순위를 나타낼 span 요소
-            var rank = document.createElement("span");
-            rank.className = "badge bg-primary";
-            rank.textContent = (index + 1) + "위";  // 1위, 2위, 3위 등
-
-            // 직원 정보를 담을 div 요소
-            var itemDiv = document.createElement("div");
-            itemDiv.className = "list-group-item d-flex justify-content-between align-items-center";
-
-            // 직원 이름과 직책을 담을 div 요소
-            var infoDiv = document.createElement("div");
-            var nameElement = document.createElement("h5");
-            nameElement.className = "mb-1";
-            nameElement.textContent = emp.empName;
-            var positionElement = document.createElement("p");
-            positionElement.className = "mb-1";
-            positionElement.textContent = "Position: " + emp.position;
-
-            // 직원 정보 추가
-            infoDiv.appendChild(nameElement);
-            infoDiv.appendChild(positionElement);
-
-            // 순위와 정보 div를 하나로 합침
-            itemDiv.appendChild(rank);
-            itemDiv.appendChild(infoDiv);
-
-            // 생성된 list-group-item을 container에 추가
-            container.appendChild(itemDiv);
-        });
-    } else {
-        // empList가 비어있을 경우 안내 메시지 표시
-        var container = document.getElementById("empListContainer");
-        container.innerHTML = "<p>직원 목록이 없습니다.</p>";
-    }
-}
-
-
 // topPrice를 h2 요소에 표시하는 함수
 function displayTopPrice(topPrice) {
 	// topPrice 값이 존재할 경우에만 처리
@@ -109,7 +58,8 @@ function displayTopPrice(topPrice) {
 		// "topPriceContainer"라는 ID를 가진 h2 요소를 찾음
 
 		// h2 요소의 내용 변경
-		priceElement.textContent = "₩ " + topPrice;  // topPrice 값 포맷팅하여 표시
+		var formattedPrice = Number(topPrice).toLocaleString();
+		priceElement.textContent = "₩ " + formattedPrice;
 	} else {
 		// topPrice 값이 없으면 "최고 금액 정보가 없습니다." 텍스트를 표시
 		priceElement.textContent = "최고 금액 정보가 없습니다.";

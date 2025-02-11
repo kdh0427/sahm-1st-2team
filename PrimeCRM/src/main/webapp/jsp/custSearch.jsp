@@ -7,28 +7,18 @@
 <%
     request.setCharacterEncoding("utf-8");
 
-    String custId = request.getParameter("Cust_ID");
-    System.out.println("Received Cust_ID: " + custId);
-
-    if (custId == null || custId.trim().isEmpty()) {
-        out.print("{\"status\": \"ER\", \"message\": \"고객 ID가 없습니다.\"}");
-        return;
-    }
+    String email = request.getParameter("Email");
 
     try {
         CustDAO dao = new CustDAO();
-        String customerData = dao.getList(); 
 
-        if (customerData != null && !customerData.equals("[]")) {
-            JSONObject responseJson = new JSONObject();
-            responseJson.put("status", "OK");
-            responseJson.put("customer", customerData);
-            out.print(responseJson.toJSONString());
-        } else {
-            out.print("{\"status\": \"NO_RESULT\", \"message\": \"해당 고객을 찾을 수 없습니다.\"}");
+        if(email.equals("null")){
+        	out.print(dao.getList());
         }
-    } catch (NamingException | SQLException e) {
+        else{
+        	out.print(dao.delete(email));
+        }
+    } catch (Exception e) {
         e.printStackTrace();
-        out.print("{\"status\": \"DB_ERROR\", \"message\": \"데이터베이스 오류가 발생했습니다.\"}");
     }
 %>

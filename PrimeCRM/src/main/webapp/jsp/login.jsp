@@ -22,7 +22,7 @@
 		}
 		else{
 			if(dao.exists(email)){
-				out.print("ER");
+				out.print("EX");
 				return;
 			}
 			else{

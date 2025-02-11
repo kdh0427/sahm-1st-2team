@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>에이스 Top10</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<style>
+/* 화면을 꽉 채우는 스타일 */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden; /* 스크롤 제거 */
+	background-color: #121212; /* 어두운 배경 */
+	color: #fff; /* 글자 색을 하얀색으로 */
+}
+
+.container {
+	height: 100vh; /* 전체 화면 높이 */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.card {
+	width: 90%;
+	height: 90%;
+	max-width: 600px; /* 최대 너비 설정 */
+	max-height: 700px; /* 최대 높이 설정 */
+	background-color: #1f1f1f; /* 카드 배경 어두운 색 */
+	border-radius: 15px; /* 카드 모서리 둥글게 */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+}
+
+.card-header {
+	background-color: #333; /* 카드 헤더 배경 어두운 색 */
+	color: #fff; /* 헤더 글자 색상 */
+	text-align: center;
+	font-size: 1.5rem;
+	border-radius: 15px 15px 0 0; /* 카드 모서리 둥글게 */
+}
+
+.card-body {
+	height: 100%;
+	overflow-y: auto; /* 자동 조절 */
+	max-height: none; /* 높이 제한 해제 */
+	padding: 20px;
+}
+
+#empListContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 3px; /* 간격 줄이기 */
+}
+
+.list-group-item {
+	background-color: #333; /* 아이템 배경 어두운 색 */
+	color: #fff; /* 글자 색상 */
+	border: none; /* 테두리 제거 */
+	padding: 12px;
+	font-size: 1rem;
+	width: 100%;
+	border-radius: 8px;
+}
+
+.list-group-item:hover {
+	background-color: #444; /* 호버 시 배경 색상 */
+}
+
+.badge {
+	background-color: #007bff; /* 배지 색상 */
+}
+</style>
+</head>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<body>
+	<div class="container">
+		<div class="card">
+			<div class="card-header text-center">
+				<i class="fas fa-chart-bar me-1"></i> 에이스 TOP 10
+			</div>
+			<div class="card-body">
+				<div id="empListContainer" class="list-group"></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/core.js"></script>
+	<script src="js/jquery-3.7.1.min.js"></script>
+	<script src="js/topEmp.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

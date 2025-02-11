@@ -24,7 +24,9 @@
 			<i class="fas fa-bars"></i>
 		</button>
 		<!-- 사이트 이름 -->
-		<a class="navbar-brand ps-3" href="main.html">PrimeCRM</a>
+		<a class="navbar-brand ps-3" href="main.html"> <img
+			src="/PrimeCRM/assets/img/photo/logo.png" alt="PrimeCRM Logo"
+			style="max-width: 150px; height: auto;"></a>
 
 	</nav>
 	<div id="layoutSidenav">
@@ -55,10 +57,10 @@
 								<i class="fas fa-angle-down"></i>
 							</div>
 						</a>
-						<div class="collapse" id="collapseLayouts"
+						<div class="collapse show" id="collapseLayouts"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="custSearch.html">고객 조회</a> <a
+								<a class="nav-link active" href="custSearch.html">고객 조회</a> <a
 									class="nav-link" href="custRegister.html">고객 등록</a>
 							</nav>
 						</div>
@@ -139,8 +141,8 @@
 							class="card-header d-flex justify-content-between align-items-center">
 							<span><i class="fas fa-table me-1"></i> 고객 목록</span>
 							<div class="ms-auto">
-								<button id="editRows" class="btn btn-dark btn-sm" title="수정하기">수정</button>
-								<button id="saveRows" class="btn btn-dark btn-sm" title="저장하기">저장</button>
+								<button id="editRows" class="btn btn-dark btn-sm" title="수정하기" onclick='editSelectedRow()'>수정</button>
+								<button id="saveRows" class="btn btn-dark btn-sm" title="저장하기" onclick='saveSelectedRow()'>저장</button>
 								<button id="deleteSelected" class="btn btn-danger btn-sm"
 									title="선택된 항목 삭제">선택삭제</button>
 							</div>
@@ -161,38 +163,26 @@
 									</tr>
 								</thead>
 								<tbody id="customerContainer">
-									<tr>
-										<td>김철수</td>
-										<td>1985-06-15</td>
-										<td>kimcs@example.com</td>
-										<td>2024-02-04</td>
-										<td>서울</td>
-										<td>010-1234-5678</td>
-										<td>개인</td>
-										<td>NEW</td>
-										<td><input type="checkbox" class="customer-select"></td>
-									</tr>
-									<tr>
-										<td>이영희</td>
-										<td>1990-09-22</td>
-										<td>leeyh@example.com</td>
-										<td>2024-02-02</td>
-										<td>부산</td>
-										<td>010-5678-1234</td>
-										<td>개인</td>
-										<td>NEW</td>
-										<td><input type="checkbox" class="customer-select"></td>
-									</tr>
+
 								</tbody>
 							</table>
+							<div
+								class="d-flex justify-content-center align-items-center mt-3">
+								<button id="prevPage" class="btn btn-secondary me-3"
+									onclick="goToPrevPage()">이전</button>
+								<span id="page-info" class="mx-3"></span>
+								<button id="nextPage" class="btn btn-secondary ms-3"
+									onclick="goToNextPage()">다음</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</main>
 		</div>
 	</div>
-	<script src="js/custSearch.js"></script>
+	<script src="js/core.js"></script>
 	<script src="js/jquery-3.7.1.min.js"></script>
+	<script src="js/custSearch.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
 	<script src="js/scripts.js"></script>

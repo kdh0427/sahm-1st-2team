@@ -11,5 +11,5 @@
 	PurchaseDAO pdao = new PurchaseDAO();
 	
 	response.setContentType("application/json; charset=UTF-8");
-	out.print(cudao.getCTList() + edao.getList() + cudao.getTotalC() + edao.getTopEmp() + pdao.getTop() + cardao.getImage());
+	out.print(cudao.getCTList() + cudao.getTotalC() + edao.getTopEmp() + pdao.getTop() + cardao.getImage());
 %>

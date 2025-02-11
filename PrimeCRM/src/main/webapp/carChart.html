@@ -16,7 +16,8 @@
 		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
 			<i class="fas fa-bars"></i>
 		</button>
-		<a class="navbar-brand ps-3" href="main.html">PrimeCRM</a>
+		<a class="navbar-brand ps-3" href="main.html">
+		 <img src="/PrimeCRM/assets/img/photo/logo.png" alt="PrimeCRM Logo" style="max-width: 150px; height: auto;"></a>
 	</nav>
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_nav">
@@ -69,10 +70,10 @@
 							통계
 							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 						</a>
-						<div class="collapse" id="collapseStats" aria-labelledby="headingStats"
+						<div class="collapse show" id="collapseStats" aria-labelledby="headingStats"
 							data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionStats">
-								<a class="nav-link" href="carChart.html">자동차 통계</a>
+								<a class="nav-link active" href="carChart.html">자동차 통계</a>
 								<a class="nav-link" href="empChart.html">직원 통계</a>
 							</nav>
 						</div>
@@ -101,15 +102,15 @@
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">통계</h1>
+					<h1 class="mt-4 text-center">자동차 통계</h1>
 					<ol class="breadcrumb mb-4">
-						<li class="breadcrumb-item active">자동차 통계</li>
 						<div class="ms-auto d-flex align-items-center">
 							<!-- 시작 날짜 안내문구 -->
 							<label for="startDateInput" class="me-2 mb-0">시작 날짜:</label>
-						<!-- 기간 선택 버튼 -->
+							<!-- 기간 선택 버튼 -->
 							<!-- 시작 날짜 입력란 -->
-							<input type="month" id="startDateInput" class="form-control ms-2" value="2025-01"
+							<input type="month" id="startDateInput" class="form-control ms-2"
+								value="2025-01"
 								style="flex-grow: 0; flex-shrink: 0; width: auto;" />
 							<!-- 검색 버튼 -->
 							<button class="btn btn-primary ms-2" onclick="updateData()">검색</button>
@@ -120,8 +121,7 @@
 						<div class="col-lg-4 col-md-6">
 							<div class="card mb-4">
 								<div class="card-header">
-									<i class="fas fa-dollar-sign me-1"></i>
-									총 판매량
+									<i class="fas fa-dollar-sign me-1"></i> 총 판매량
 								</div>
 								<div class="card-body">
 									<h2 id="totalSalesValue"></h2>
@@ -133,8 +133,7 @@
 						<div class="col-lg-4 col-md-6">
 							<div class="card mb-4">
 								<div class="card-header">
-									<i class="fas fa-chart-line me-1"></i>
-									지점별 판매량
+									<i class="fas fa-chart-line me-1"></i> 지점별 판매량
 								</div>
 								<div class="card-body">
 									<canvas id="myBarChart"></canvas>
@@ -146,8 +145,7 @@
 						<div class="col-lg-4 col-md-6">
 							<div class="card mb-4">
 								<div class="card-header">
-									<i class="fas fa-chart-pie me-1"></i>
-									차량 모델별 판매 비율
+									<i class="fas fa-chart-pie me-1"></i> 차량 모델별 판매 비율
 								</div>
 								<div class="card-body">
 									<canvas id="myPieChart" width="100%" height="50px"></canvas>
@@ -161,8 +159,7 @@
 						<div class="col-xl-6">
 							<div class="card mb-4">
 								<div class="card-header">
-									<i class="fas fa-table me-1"></i>
-									상위 판매 모델
+									<i class="fas fa-table me-1"></i> 상위 판매 모델
 								</div>
 								<div class="card-body">
 									<table class="table table-striped">
@@ -184,8 +181,7 @@
 						<div class="col-xl-6">
 							<div class="card mb-4">
 								<div class="card-header">
-									<i class="fas fa-chart-line me-1"></i>
-									매출 성장률
+									<i class="fas fa-chart-line me-1"></i> 매출 성장률
 								</div>
 								<div class="card-body">
 									<canvas id="myAreaChart" width="100%" height="250px"></canvas>
@@ -199,13 +195,13 @@
 						<div class="col-xl-12">
 							<div class="card">
 								<div class="card-header">
-									<i class="fas fa-tachometer-alt"></i>
-									연간 목표 달성도
+									<i class="fas fa-tachometer-alt"></i> 연간 목표 달성도
 								</div>
 								<div class="card-body">
 									<div class="progress">
-										<div class="progress-bar" id="totaltarget" role="progressbar" style="width: 67%"
-											aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">67%</div>
+										<div class="progress-bar" id="totaltarget" role="progressbar"
+											style="width: 67%" aria-valuenow="67" aria-valuemin="0"
+											aria-valuemax="100">67%</div>
 									</div>
 									<p>목표: 300대</p>
 									<p></p>

@@ -47,12 +47,29 @@ function updateSalesList(list) {
             <td>${Number(item.car_price).toLocaleString()} 원</td>
             <td>${item.sales_date}</td>
             <td>${item.cust_status}</td>
+			<td><input type="checkbox" class="customer-select"></td>
         `;
 
         tbody.appendChild(row);
     });
 }
 
+function showAlarmModal() {
+	let selectedRow = document.querySelector(".customer-select:checked");
+
+	if (!selectedRow) {
+		alert("고객을 선택해주세요.");
+		return;
+	}
+
+	var myModal = new bootstrap.Modal(document.getElementById('alarmModal'), {
+		keyboard: true
+	});
+	myModal.show();
+}
+document.getElementById('alarmModal').addEventListener('hidden.bs.modal', function() {
+	location.reload(); // 새로고침
+});
 
 // 로그인 상태 확인 함수
 function checkLoginStatus() {

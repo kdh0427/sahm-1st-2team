@@ -27,8 +27,10 @@ function login() {
 			alert("로그인 되었습니다.");
 			localStorage.setItem("email", email);
 			window.location.href = "main.html";
-		} else if (code == "ER") {
-			alert("로그인 처리 중 에러가 발생하였습니다.");
+		} else if (code == "EX") {
+			alert("잘못된 비밀번호 입니다.");
+		}else{
+			alert("잘못된 입력이거나 가입되지 않은 회원입니다.");
 		}
 	});
 }

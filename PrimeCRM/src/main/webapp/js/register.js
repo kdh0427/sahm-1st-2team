@@ -57,8 +57,7 @@ function signup() {
 		if (code == "OK") {
 			alert("회원 가입이 완료되었습니다.");
 			window.location.href = "login.html";
-		}
-		else if (code == "EX") {
+		} else if (code == "EX") {
 			alert("이미 가입한 회원입니다.");
 		} else if (code == "ER") {
 			alert("회원가입 처리 중 에러가 발생하였습니다.");
