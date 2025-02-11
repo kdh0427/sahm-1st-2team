@@ -21,8 +21,8 @@ function signup() {
 	}
 
 	var pwd = $("#password").val().trim();
-	if (pwd == "") {
-		alert("패스워드를 입력해 주세요.");
+	if (pwd.length < 2) {
+		alert("비밀번호는 2글자 이상 입력해야 합니다.");
 		$("#password").focus();
 		return;
 	}

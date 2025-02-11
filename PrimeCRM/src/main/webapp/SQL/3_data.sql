@@ -36,6 +36,13 @@ INSERT INTO TEMPLATE VALUES ('ACD', '사고가 나서 정말 마음이 무겁습
 INSERT INTO TEMPLATE VALUES ('PRB', '당사의 수리점에 방문 부탁드립니다.');
 INSERT INTO TEMPLATE VALUES ('COM', '불편을 드려 정말 죄송합니다...');
 
+-- CUSTOEMR_LOGIN Data
+INSERT INTO Customer_Login VALUES ('1','김민수','minsu88@gmail.com', 'qwer1234');
+INSERT INTO Customer_Login VALUES ('2','박서연','seoyeon95@naver.com', 'asdf5678');
+INSERT INTO Customer_Login VALUES ('3','이준호','junho90@daum.net', 'zxcv4321');
+INSERT INTO Customer_Login VALUES ('4','최예린','yerin85@gmail.com', 'pass9876');
+INSERT INTO Customer_Login VALUES ('5','정우성','woosung2000@hanmail.net', 'mnbv2468');
+
 -- CUSTOMER Data
 INSERT INTO CUSTOMER VALUES ('1', '{"CuName": "김민수", "CuBday": "1988-03-15", "CuEmail": "minsu88@gmail.com", "CuUpdate": "2025-01-10", "CusAdd": "Seoul", "CuNum": "01012345678", "CuType": "I"}', 'NEW');
 INSERT INTO CUSTOMER VALUES ('2', '{"CuName": "박서연", "CuBday": "1995-07-22", "CuEmail": "seoyeon95@naver.com", "CuUpdate": "2025-01-12", "CusAdd": "Busan", "CuNum": "01023456789", "CuType": "C"}', 'NEW');
@@ -87,10 +94,6 @@ INSERT INTO CUSTOMER VALUES ('47', '{"CuName": "정혜린", "CuBday": "1994-07-2
 INSERT INTO CUSTOMER VALUES ('48', '{"CuName": "한상엽", "CuBday": "1989-11-02", "CuEmail": "sangyeop89@example.com", "CuUpdate": "2025-04-11", "CusAdd": "Seoul", "CuNum": "01055667788", "CuType": "I"}', 'NEW');
 INSERT INTO CUSTOMER VALUES ('49', '{"CuName": "최성훈", "CuBday": "1983-01-13", "CuEmail": "seonghoon83@example.com", "CuUpdate": "2025-04-14", "CusAdd": "Busan", "CuNum": "01066778899", "CuType": "C"}', 'NEW');
 INSERT INTO CUSTOMER VALUES ('50', '{"CuName": "유승호", "CuBday": "1993-04-17", "CuEmail": "seungho93@example.com", "CuUpdate": "2025-04-17", "CusAdd": "Incheon", "CuNum": "01077889900", "CuType": "I"}', 'NEW');
-
-
--- CUSTOEMR_LOGIN Data
-INSERT INTO Customer_Login VALUES ('33cksdud@gmail.com','qwer1234' ,'1');
 
 -- EMPLOYEE Data
 INSERT INTO EMPLOYEE VALUES ('1', '{"E_name": "나찬영", "E_email": "33cksdud@gmail.com", "E_phone": "01032006913", "E_pwd": "QWE", "E_position": "manager"}', 'B01');
