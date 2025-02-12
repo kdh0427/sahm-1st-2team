@@ -9,7 +9,6 @@ AJAX.call(url, { branch: 'null' }, function(data) {
 	try {
 		// JSON 문자열을 객체로 변환
 		var jsonData = JSON.parse(json);  // jsonData를 전역 변수로 저장
-		console.log(jsonData);
 		// 성공한 경우 데이터 분리
 		var totalEmp = jsonData.totalEmp;
 		var empsalesByBranch = jsonData.empsalesByBranch;
@@ -20,13 +19,14 @@ AJAX.call(url, { branch: 'null' }, function(data) {
 		var empByBranch = jsonData.empByBranch;
 		var empListByBranch = jsonData.empListByBranch;
 
+		console.log(empListByBranch);
 		checkLoginStatus(); // 로그인 상태 확인 함수
 		updateTotalEmp(totalEmp); // 총 직원 수 업데이트
 		updateBarChart(branches, empsalesByBranch); // 지점별 직원 수 BarChart 업데이트
 		updatePieChart(empPinX, empPinY); // 급여 구간별 직원 비율 PieChart 업데이트
 		updateIncentiveTable(incentiveByBranch); // 지점별 평균 급여 순위 Table 업데이트
 		updateEmployeeRankList(empByBranch); // 직급별 직원 수 List 업데이트
-		updateEmpTable(empListByBranch); // 지점별 직원 목록 Table 업데이트
+		updateEmpTable(empListByBranch); // 직원 목록 Table 업데이트
 		
 	} catch (e) {
 		console.error("JSON 파싱 오류:", e);
@@ -220,13 +220,27 @@ function updateEmployeeRankList(empByBranch) {
         return;
     }
 
-    // empByBranch 데이터를 기반으로 동적 목록 생성
-    for (let i = 0; i < empByBranch.length; i++) {
-        var listItem = document.createElement('li'); // 새로운 목록 항목 생성
-        listItem.classList.add('list-group-item');
-        listItem.textContent = empByBranch[i].position + ': ' + empByBranch[i].count + '명';  // 직급과 직원 수 표시
-        empRankList.appendChild(listItem);  // 목록에 항목 추가
-    }
+	for (let i = 0; i < empByBranch.length; i++) {
+		var position = empByBranch[i].position;
+		
+		if (position === "dealer") {
+			position = "딜러";
+		} else if (position === "manager") {
+			position = "주임";
+		} else if (position === "consultant") {
+			position = "과장";
+		} else if (position === "senior") {
+			position = "차장";
+		} else if (position === "director") {
+			position = "부장";
+		}
+
+		var listItem = document.createElement('li'); // 새로운 목록 항목 생성
+		listItem.classList.add('list-group-item');
+		listItem.textContent = position + ': ' + empByBranch[i].count + '명'; // 변환된 직급 출력
+		empRankList.appendChild(listItem); // 목록에 항목 추가
+	}
+	// empByBranch 데이터를 기반으로 동적 목록 생성
 }
 
 // 직원 목록 테이블 업데이트 함수
