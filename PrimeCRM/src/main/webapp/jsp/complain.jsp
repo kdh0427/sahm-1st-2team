@@ -2,6 +2,8 @@
 <%@ page import="dao.ComplainDAO"%>
 
 <%
+	request.setCharacterEncoding("utf-8");
+
 	String id = request.getParameter("inquiryId");
 	String res = request.getParameter("response");
 	
