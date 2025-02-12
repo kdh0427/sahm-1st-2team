@@ -67,9 +67,98 @@ function showAlarmModal() {
 	});
 	myModal.show();
 }
+
+function openCustomerModal() {
+	let customerModal = new bootstrap.Modal(document.getElementById('customerModal'));
+	customerModal.show();
+}
+
 document.getElementById('alarmModal').addEventListener('hidden.bs.modal', function() {
 	location.reload(); // 새로고침
 });
+
+function convertPriceToKorean() {
+	let price = document.getElementById("carPrice").value;
+	let priceText = numberToKorean(price);
+	document.getElementById("priceInKorean").innerText = price ? `${priceText}` : "";
+}
+
+function numberToKorean(number) {
+	if (!number) return "";
+
+	const units = ["", "만", "억", "조", "경"];
+	const nums = ["", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"];
+	let result = "";
+	let unitIndex = 0;
+
+	while (number > 0) {
+		let part = number % 10000;
+		number = Math.floor(number / 10000);
+
+		let partText = "";
+		let digit = part;
+		let pos = 0;
+
+		while (digit > 0) {
+			let num = digit % 10;
+			if (num > 0) {
+				partText = nums[num] + (pos > 0 ? ["십", "백", "천"][pos - 1] : "") + partText;
+			}
+			digit = Math.floor(digit / 10);
+			pos++;
+		}
+
+		if (part > 0) {
+			result = partText + units[unitIndex] + " " + result;
+		}
+
+		unitIndex++;
+	}
+
+	return result.trim() + " 원";
+}
+
+function CustomerPurchase(){
+	var emp = localStorage.getItem("email");
+	
+	var email = $("#customerEmail").val().trim();
+	if (email == "") {
+		alert("이메일을 입력해 주세요.");
+		$("#customerEmail").focus();
+		return;
+	}
+
+	var price= $("#carPrice").val().trim();
+	if (price == "") {
+		alert("가격을 입력해 주세요.");
+		$("#carPrice").focus();
+		return;
+	}
+
+	var saledate = $("#purchaseDate").val().trim();
+	if (saledate == "") {
+		alert("날짜를 선택해 주세요.");
+		$("#purchaseDate").focus();
+		return;
+	}
+	
+	var model = $("#carModel").val().trim();
+
+	var type = $("#carType").val().trim();
+
+	var url = "jsp/purRegister.jsp";
+	var obj = { Sale_date: saledate, Car_price: price };
+	var params = { EmpID: emp, Email: email, Model: model, Type: type , jsonstr: JSON.stringify(obj)};
+	AJAX.call(url, params, function(data){
+		var code = data.trim();
+		if (code == "SU") {
+			alert("고객의 구매 정보를 등록했습니다.");
+			location.reload();
+		} else {
+			alert("구매 정보 등록에 실패했습니다.");
+		}
+	});
+}
 
 // 로그인 상태 확인 함수
 function checkLoginStatus() {
