@@ -285,9 +285,9 @@ public class EmpDAO {
 	    try {
 	        String sql;
 	        if ("null".equals(branch)) {
-	            sql = "SELECT COUNT(*) AS EMP_COUNT FROM EMPLOYEE"; // 전체 직원 수
+	            sql = "SELECT COUNT(*) AS EMP_COUNT FROM EMPLOYEE WHERE EMP_ID != '0'"; // 전체 직원 수
 	        } else {
-	            sql = "SELECT COUNT(*) AS EMP_COUNT FROM EMPLOYEE WHERE BRANCH_ID = ?"; // 특정 지점 직원 수
+	            sql = "SELECT COUNT(*) AS EMP_COUNT FROM EMPLOYEE WHERE BRANCH_ID = ? AND EMP_ID != '0'"; // 특정 지점 직원 수
 	        }
 
 	        conn = ConnectionPool.get();
@@ -438,10 +438,10 @@ public class EmpDAO {
 	        String sql;
 	        if ("null".equals(branch)) {
 	            sql = "SELECT JSON_VALUE(jsonstr, '$.E_position') AS POSITION, COUNT(*) AS COUNT FROM EMPLOYEE\r\n"
-	            		+ "GROUP BY JSON_VALUE(jsonstr, '$.E_position')";
+	            		+ "WHERE EMP_ID != '0' GROUP BY JSON_VALUE(jsonstr, '$.E_position')";
 	        } else {
 	            sql = "SELECT JSON_VALUE(jsonstr, '$.E_position') AS POSITION, COUNT(*) AS COUNT FROM EMPLOYEE\r\n"
-	            		+ "WHERE BRANCH_ID = ? GROUP BY JSON_VALUE(jsonstr, '$.E_position')";
+	            		+ "WHERE BRANCH_ID = ? AND EMP_ID != '0'GROUP BY JSON_VALUE(jsonstr, '$.E_position')";
 	        }
 
 	        conn = ConnectionPool.get();
@@ -488,13 +488,13 @@ public class EmpDAO {
 	    try {
 	        String sql;
 	        if ("null".equals(branch)) {
-	            sql = "SELECT JSON_VALUE(E.jsonstr, '$.E_name') AS EMP_NAME, JSON_VALUE(E.jsonstr, '$.E_position') AS EMP_POSITION, (COUNT(*) * 1000000 + 3000000) AS TOTAL_INCENTIVE\r\n"
-	            		+ "FROM EMPLOYEE E JOIN PURCHASE P ON E.EMP_ID = P.EMP_ID\r\n"
+	            sql = "SELECT JSON_VALUE(E.jsonstr, '$.E_name') AS EMP_NAME, JSON_VALUE(E.jsonstr, '$.E_position') AS EMP_POSITION, (COALESCE(COUNT(P.EMP_ID), 0) * 1000000 + 3000000) AS TOTAL_INCENTIVE\r\n"
+	            		+ "FROM EMPLOYEE E LEFT JOIN PURCHASE P ON E.EMP_ID = P.EMP_ID WHERE E.EMP_ID != '0'\r\n"
 	            		+ "GROUP BY E.EMP_ID, JSON_VALUE(E.jsonstr, '$.E_name'), JSON_VALUE(E.jsonstr, '$.E_position')";
 	        } else {
-	            sql = "SELECT JSON_VALUE(E.jsonstr, '$.E_name') AS EMP_NAME, JSON_VALUE(E.jsonstr, '$.E_position') AS EMP_POSITION, (COUNT(*) * 1000000 + 3000000) AS TOTAL_INCENTIVE\r\n"
-	            		+ "FROM EMPLOYEE E JOIN PURCHASE P ON E.EMP_ID = P.EMP_ID\r\n"
-	            		+ "WHERE E.BRANCH_ID = ?\r\n"
+	            sql = "SELECT JSON_VALUE(E.jsonstr, '$.E_name') AS EMP_NAME, JSON_VALUE(E.jsonstr, '$.E_position') AS EMP_POSITION, (COALESCE(COUNT(P.EMP_ID), 0) * 1000000 + 3000000) AS TOTAL_INCENTIVE\r\n"
+	            		+ "FROM EMPLOYEE E LEFT JOIN PURCHASE P ON E.EMP_ID = P.EMP_ID\r\n"
+	            		+ "WHERE E.BRANCH_ID = ? AND E.EMP_ID != '0'\r\n"
 	            		+ "GROUP BY E.EMP_ID, JSON_VALUE(E.jsonstr, '$.E_name'), JSON_VALUE(E.jsonstr, '$.E_position')";
 	        }
 
