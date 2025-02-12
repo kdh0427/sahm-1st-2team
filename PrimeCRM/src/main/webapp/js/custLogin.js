@@ -22,7 +22,7 @@ function custLogin() {
 		if (code == "SU") {
 			alert("로그인 되었습니다.");
 			localStorage.setItem("email", email);
-			window.location.href = "complain.html";
+			window.location.href = "custComplain.html";
 		} else if (code == "ER") {
 			alert("로그인 처리 중 에러가 발생하였습니다.");
 		}
