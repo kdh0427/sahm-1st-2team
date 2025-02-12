@@ -35,7 +35,7 @@ public class BranchDAO {
 
 	    try {
 	    	String sql = "SELECT B.BRANCH_NAME, COUNT(*) AS COUNT FROM EMPLOYEE E JOIN BRANCH B ON E.BRANCH_ID = B.BRANCH_ID\r\n"
-	    			+ "GROUP BY B.BRANCH_NAME";
+	    			+ "WHERE E.EMP_ID != '0' GROUP BY B.BRANCH_NAME";
 	    	
 	    	conn = ConnectionPool.get();
 			stmt = conn.prepareStatement(sql);
