@@ -6,5 +6,5 @@
 
 	CustDAO dao = new CustDAO();
 	
-	out.print(dao.getid(name));
+	//out.print(dao.getid(name));
 %>

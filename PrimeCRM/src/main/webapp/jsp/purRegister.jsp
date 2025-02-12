@@ -10,9 +10,17 @@
 	
 	PurchaseDAO dao = new PurchaseDAO();
 	
-	if(dao.insert(empId, email, model, type, jsonstr)){
-		out.print("SU");
-	} else{
-		out.print("FA");
-	}
+	if (empId == null || empId.trim().isEmpty()) {
+        if(dao.setStatus(email)){
+        	out.print("SU");
+		} else{
+			out.print("FA");
+		}
+    } else {
+		if(dao.insert(empId, email, model, type, jsonstr)){
+			out.print("SU");
+		} else{
+			out.print("FA");
+		}
+    }
 %>
