@@ -324,13 +324,14 @@ public class EmpDAO {
 	    try {
 	        String sql;
 	        if ("null".equals(branch)) {
-	            sql = "SELECT JSON_VALUE(E.jsonstr, '$.E_name') AS EMP_NAME, COUNT(P.SALE_ID) AS SALES_COUNT\r\n"
-	            		+ "FROM EMPLOYEE E JOIN PURCHASE P ON E.EMP_ID = P.EMP_ID\r\n"
+	            sql = "SELECT JSON_VALUE(E.jsonstr, '$.E_name') AS EMP_NAME, COUNT(P.SALE_ID) AS SALES_COUNT \r\n"
+	            		+ "FROM EMPLOYEE E LEFT JOIN PURCHASE P ON E.EMP_ID = P.EMP_ID\r\n"
+	            		+ "WHERE E.EMP_ID != '0'\r\n"
 	            		+ "GROUP BY JSON_VALUE(E.jsonstr, '$.E_name')";
 	        } else {
 	            sql = "SELECT JSON_VALUE(E.jsonstr, '$.E_name') AS EMP_NAME, COUNT(P.SALE_ID) AS SALES_COUNT\r\n"
-	            		+ "FROM EMPLOYEE E JOIN PURCHASE P ON E.EMP_ID = P.EMP_ID\r\n"
-	            		+ "WHERE E.BRANCH_ID = ?\r\n"
+	            		+ "FROM EMPLOYEE E LEFT JOIN PURCHASE P ON E.EMP_ID = P.EMP_ID\r\n"
+	            		+ "WHERE E.BRANCH_ID = ? AND E.EMP_ID  != '0'\r\n"
 	            		+ "GROUP BY JSON_VALUE(E.jsonstr, '$.E_name')";
 	        }
 
