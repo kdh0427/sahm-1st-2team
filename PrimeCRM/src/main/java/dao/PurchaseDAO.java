@@ -5,16 +5,24 @@ import javax.naming.NamingException;
 import util.*;
 
 public class PurchaseDAO {
-	public boolean insert(String id, String jsonstr) throws NamingException, SQLException{
+	public boolean insert(String empid, String email, String model, String type, String jsonstr) throws NamingException, SQLException{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			String sql = "INSERT INTO Purchase(Sale_id, jsonstr) VALUES(?, ?)";
+			String sql = "INSERT INTO PURCHASE (CAR_ID, CUST_ID, EMP_ID, jsonstr) VALUES (\r\n"
+					+ "    (SELECT CAR_ID FROM CAR WHERE JSON_VALUE(jsonstr, '$.Car_Name') = ? \r\n"
+					+ "     AND JSON_VALUE(jsonstr, '$.Option') = ?),\r\n"
+					+ "    (SELECT CUST_ID FROM CUSTOMER WHERE JSON_VALUE(jsonstr, '$.CuEmail') = ?),\r\n"
+					+ "    (SELECT EMP_ID FROM EMPLOYEE WHERE JSON_VALUE(jsonstr, '$.E_email') = ?),\r\n"
+					+ "    ?)";
 			
 			conn = ConnectionPool.get();
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, id);
-			stmt.setString(2, jsonstr);
+			stmt.setString(1, model);
+			stmt.setString(2, type);
+			stmt.setString(3, email);
+			stmt.setString(4, empid);
+			stmt.setString(5, jsonstr);
 			
 			int count = stmt.executeUpdate();
 			return (count == 1)? true : false; 
@@ -22,29 +30,6 @@ public class PurchaseDAO {
 		}finally{
 			if (stmt != null) stmt.close(); 
             if (conn != null) conn.close();
-		}
-	}
-	
-	public boolean exists(String id) throws NamingException, SQLException{
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		
-		try {
-			String sql = "SELECT Sales_Id FROM Purchase where Sale_id = ?";
-			
-			conn = ConnectionPool.get();
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, id);
-			
-			rs = stmt.executeQuery();
-			
-			return rs.next();
-			
-		}finally {
-			if(rs != null) {rs.close();}
-			if(stmt != null) {stmt.close();}
-			if(conn != null) {conn.close();}
 		}
 	}
 	
@@ -239,7 +224,7 @@ public class PurchaseDAO {
 	        stmt.setString(1, date);
 	        rs = stmt.executeQuery();
 
-	        StringBuilder revenueChartY = new StringBuilder("{\"revenueChartY\": [");
+	        StringBuilder revenueChartY = new StringBuilder("\"revenueChartY\": [");
 	        StringBuilder revenueChartX = new StringBuilder("\"revenueChartX\": [");
 
 	        int cnt = 0;
@@ -253,6 +238,58 @@ public class PurchaseDAO {
 	        }
 
 	        return revenueChartY.append("], ").toString() + revenueChartX.append("]").toString() + ", ";
+	    } finally {
+	        if (rs != null) rs.close(); 
+	        if (stmt != null) stmt.close(); 
+	        if (conn != null) conn.close();
+	    }
+	}
+	
+	public String getTPur() throws NamingException, SQLException {
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	        String sql = "SELECT DISTINCT PURPOSESALE FROM BRANCH";
+	        
+	        conn = ConnectionPool.get();
+	        stmt = conn.prepareStatement(sql);
+	        rs = stmt.executeQuery();
+	        
+	        // JSON 형식 문자열 생성
+	        StringBuilder str = new StringBuilder("{\"totalPurpose\": ");
+	        
+	        if (rs.next()) {  // rs.next() 호출하여 데이터 접근
+	            str.append(rs.getInt("PURPOSESALE")); // 숫자 값 그대로 추가
+	        } else {
+	            str.append(0); // 데이터 없을 경우 기본값 0
+	        }
+	        
+	        str.append(","); // JSON 닫기
+	        
+	        return str.toString(); // 최종 JSON 문자열 반환
+	    } finally {
+	        if (rs != null) rs.close(); 
+	        if (stmt != null) stmt.close(); 
+	        if (conn != null) conn.close();
+	    }
+	}
+	
+	public Boolean setPurpose(String purpose) throws NamingException, SQLException{
+		Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	        String sql = "UPDATE BRANCH SET PURPOSESALE = ?";
+	        
+	        conn = ConnectionPool.get();
+	        stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, purpose);
+	        
+	        int count = stmt.executeUpdate();
+			return (count > 0)? true : false; 
 	    } finally {
 	        if (rs != null) rs.close(); 
 	        if (stmt != null) stmt.close(); 

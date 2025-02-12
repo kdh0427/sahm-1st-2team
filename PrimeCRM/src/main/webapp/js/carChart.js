@@ -13,6 +13,7 @@ AJAX.call(url, { date: startdate }, function(data) {
 		var jsonData = JSON.parse(json);  // jsonData를 전역 변수로 저장
 
 		// 성공한 경우 데이터 분리
+		var totalPurpose = jsonData.totalPurpose;
 		var totalSales = jsonData.totalSales;
 		var salesByBranchX = jsonData.salesByBranchX;
 		var salesByBranchY = jsonData.salesByBranchY;
@@ -23,6 +24,7 @@ AJAX.call(url, { date: startdate }, function(data) {
 		var revenueChartY = jsonData.revenueChartY;
 
 		checkLoginStatus(); // 로그인 상태 확인 함수
+		setTotalPurpose(totalPurpose);
 		updateTotalSales(totalSales); // 총 판매량 로드
 		updateBarChart(salesByBranchX, salesByBranchY); // BarChart 로드
 		updatePieChart(salesDistributionByTypeX, salesDistributionByTypeY); // PieChart 로드
@@ -46,7 +48,7 @@ function updateData() {
 
 	AJAX.call(url, { date: startDate }, function(data) {
 		var json = data.trim();
-		
+
 		try {
 			// JSON 문자열을 객체로 변환
 			var jsonData = JSON.parse(json);  // jsonData를 전역 변수로 저장
@@ -88,47 +90,47 @@ function updateBarChart(salesByBranchY, salesByBranchX) {
 
 	// 기존 차트가 있으면 삭제
 	if (window.myBarChart instanceof Chart) {
-	    window.myBarChart.destroy();
+		window.myBarChart.destroy();
 	}
 
 	window.myBarChart = new Chart(ctx, {
-	        type: "bar",
-	        data: {
-	            labels: salesByBranchY, // X축 (지점명)
-	            datasets: [{
-	                label: "판매량",
-	                data: salesByBranchX, // Y축 (판매량 데이터)
-	                backgroundColor: "rgba(2, 117, 216, 0.8)", // 막대 색상 (불투명도 조절)
-	                borderColor: "rgba(2, 117, 216, 1)", // 막대 테두리 색상
-	                borderWidth: 1
-	            }]
-	        },
-	        options: {
-	            responsive: true,
-	            plugins: {
-	                legend: {
-	                    display: true,
-	                    position: "top"
-	                }
-	            },
-	            scales: {
-	                y: {
-	                    beginAtZero: true,
-	                    title: {
-	                        display: true,
-	                        text: "판매량 (단위: 대)"
-	                    },
-	                },
-	                x: {
-	                    title: {
-	                        display: true,
-	                        text: "지점"
-	                    }
-	                }
-	            }
-	        }
-	    });
-	}
+		type: "bar",
+		data: {
+			labels: salesByBranchY, // X축 (지점명)
+			datasets: [{
+				label: "판매량",
+				data: salesByBranchX, // Y축 (판매량 데이터)
+				backgroundColor: "rgba(2, 117, 216, 0.8)", // 막대 색상 (불투명도 조절)
+				borderColor: "rgba(2, 117, 216, 1)", // 막대 테두리 색상
+				borderWidth: 1
+			}]
+		},
+		options: {
+			responsive: true,
+			plugins: {
+				legend: {
+					display: true,
+					position: "top"
+				}
+			},
+			scales: {
+				y: {
+					beginAtZero: true,
+					title: {
+						display: true,
+						text: "판매량 (단위: 대)"
+					},
+				},
+				x: {
+					title: {
+						display: true,
+						text: "지점"
+					}
+				}
+			}
+		}
+	});
+}
 
 // 파이 차트를 초기화하는 함수
 function updatePieChart(salesDistributionByTypeX, salesDistributionByTypeY) {
@@ -145,7 +147,7 @@ function updatePieChart(salesDistributionByTypeX, salesDistributionByTypeY) {
 		data: {
 			labels: salesDistributionByTypeX,
 			datasets: [{
-				label:  ['#FF5733', '#33FF57', '#3357FF', '#F0FF33', '#FF33A1', '#FFA533', '#33FFF2', '#8A33FF', '#8B33FF'],
+				label: ['#FF5733', '#33FF57', '#3357FF', '#F0FF33', '#FF33A1', '#FFA533', '#33FFF2', '#8A33FF', '#8B33FF'],
 				data: salesDistributionByTypeY,
 				backgroundColor: ['#FF5733', '#33FF57', '#3357FF', '#F0FF33', '#FF33A1', '#FFA533', '#33FFF2', '#8A33FF', '#2433FF'], // 각 항목의 색상 (원하는 색상으로 변경 가능)
 				borderColor: ['#FF5733', '#33FF57', '#3357FF', '#F0FF33', '#FF33A1', '#FFA533', '#33FFF2', '#8A33FF', '#2433FF'], // 각 항목의 테두리 색상
@@ -172,19 +174,19 @@ function updatePieChart(salesDistributionByTypeX, salesDistributionByTypeY) {
 
 // 상위 판매 모델 업데이트 함수
 function updateSalesTable(salesData) {
-    var tbody = document.getElementById("salesTableBody");
+	var tbody = document.getElementById("salesTableBody");
 
-    // 기존 테이블 내용 지우기
-    tbody.innerHTML = "";
+	// 기존 테이블 내용 지우기
+	tbody.innerHTML = "";
 
-    // salesData 배열을 순회하며 테이블에 추가
-    salesData.forEach(car => {
-        var row = `<tr>
+	// salesData 배열을 순회하며 테이블에 추가
+	salesData.forEach(car => {
+		var row = `<tr>
                       <td>${car.name}</td>
                       <td>${car.sales.toLocaleString()}</td> <!-- 숫자에 콤마 추가 -->
                    </tr>`;
-        tbody.innerHTML += row;
-    });
+		tbody.innerHTML += row;
+	});
 }
 
 // AreaChart를 초기화하는 함수
@@ -240,6 +242,17 @@ function updateAreaChart(revenueChartX, revenueChartY) {
 	});
 }
 
+function setTotalPurpose(totalPurpose) {
+    var purposeElement = document.getElementById("purpose");
+
+    if (!purposeElement) {
+        console.error("목표 요소를 찾을 수 없습니다.");
+        return;
+    }
+
+    purposeElement.innerText = "목표: " + totalPurpose + "대";
+}
+
 // 연간 목표 달성도 업데이트 함수
 function updateSalesTarget(totalSales) {
 	var progressBar = document.querySelector(".progress-bar"); // 프로그레스 바
@@ -262,23 +275,55 @@ function updateSalesTarget(totalSales) {
 	progressBar.innerText = achievementRate + "%";
 }
 
+
+function changePurpose() {
+	var newPurpose = prompt("새로운 목표 값을 입력하세요:");
+
+	if (newPurpose === null) {
+	    return; // 그냥 함수 종료 (아무 동작도 하지 않음)
+	}
+
+	if (newPurpose.trim() === "" || isNaN(newPurpose)) {
+	    alert("올바른 숫자를 입력하세요.");
+	    return;
+	}
+
+	var url = "jsp/carChart.jsp";
+	AJAX.call(url, { PurposeSale: newPurpose }, function(data) {
+		var code = data.trim();
+		console.log(code);
+		if (code == "SU") {
+			alert("목표 대수가 변경 완료되었습니다.");
+			location.reload();
+		} else {
+			alert("목표 등록에 실패했습니다.");
+		}
+	});
+}
+
 // 로그인 상태 확인 함수
 function checkLoginStatus() {
-    var isEmail = localStorage.getItem("email");
+	var isEmail = localStorage.getItem("email");
 
-    if (!isEmail || isEmail === "null") {
-        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
-        window.location.href = "login.html";x`x`
-        return;
-    }
+	if (!isEmail || isEmail === "null") {
+		alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+		window.location.href = "login.html"; x`x`
+		return;
+	}
 
-    var emailElement = document.getElementById("uemail");
-    if (emailElement) {
-        emailElement.textContent = "Logged in as: " + isEmail;
-        //console.log("로그인 상태입니다: " + isEmail);
-    } else {
-        console.warn("⚠ 'uemail' ID를 가진 요소가 없음. HTML 확인 필요!");
-    }
+	if (isEmail === "admin@master") {
+		document.getElementById("changepurpose").style.display = "block";
+	} else {
+		document.getElementById("changepurpose").style.display = "none";
+	}
+
+	var emailElement = document.getElementById("uemail");
+	if (emailElement) {
+		emailElement.textContent = "Logged in as: " + isEmail;
+		//console.log("로그인 상태입니다: " + isEmail);
+	} else {
+		console.warn("⚠ 'uemail' ID를 가진 요소가 없음. HTML 확인 필요!");
+	}
 }
 
 function logout() {

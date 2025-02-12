@@ -252,6 +252,12 @@ function checkLoginStatus() {
         return;
     }
 
+	if (isEmail === "admin@master") {
+		document.getElementById("templateB").style.display = "block";
+	} else {
+		document.getElementById("templateB").style.display = "none";
+	}
+
     var emailElement = document.getElementById("uemail");
     if (emailElement) {
         emailElement.textContent = "Logged in as: " + isEmail;

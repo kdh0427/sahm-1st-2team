@@ -146,11 +146,86 @@
 							class="card-header d-flex justify-content-between align-items-center">
 							<span><i class="fas fa-table me-1"></i>영업 목록</span>
 							<!-- 전송 버튼 -->
-							<button type="button" class="btn btn-primary btn-sm"
-								onclick="showAlarmModal()">
-								<i class="fas fa-paper-plane"></i> 전송
-							</button>
+							<div class="ms-auto">
+								<button type="button" class="btn btn-primary btn-sm"
+									onclick="openCustomerModal()"> <i class="fas fa-user-plus"></i> 고객 등록</button>
+								<button type="button" class="btn btn-primary btn-sm"
+									onclick="showAlarmModal()">
+									<i class="fas fa-paper-plane"></i> 전송
+								</button>
+							</div>
 
+							<div class="modal fade" id="customerModal" tabindex="-1"
+								aria-labelledby="customerModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="customerModalLabel">고객 등록</h5>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<form id="customerForm">
+												<!-- 이메일 입력 -->
+												<div class="mb-3">
+													<label for="customerEmail" class="form-label">이메일</label> <input
+														type="email" class="form-control" id="customerEmail"
+														required>
+												</div>
+												<!-- 차 가격 입력 -->
+												<div class="mb-3">
+													<label for="carPrice" class="form-label">차 가격</label> <input
+														type="number" class="form-control" id="carPrice" required
+														oninput="convertPriceToKorean()">
+													<div id="priceInKorean" class="mt-2 text-primary"></div>
+													<!-- 변환된 한글 가격 표시 -->
+												</div>
+												<!-- 구매 날짜 선택 -->
+												<div class="mb-3">
+													<label for="purchaseDate" class="form-label">구매한 날짜</label>
+													<input type="date" class="form-control" id="purchaseDate"
+														required>
+												</div>
+												<!-- 차량 선택 -->
+												<div class="mb-3">
+													<label for="carModel" class="form-label">차량 선택</label> <select
+														class="form-control" id="carModel" required>
+														<option value="genesis_g70">제네시스 g70</option>
+														<option value="genesis_g80">제네시스 g80</option>
+														<option value="genesis_g90">제네시스 g90</option>
+														<option value="genesis_gv60">제네시스 gv60</option>
+														<option value="genesis_gv70">제네시스 gv70</option>
+														<option value="genesis_gv80" selected>제네시스 gv80</option>
+														<option value="hyundai_grandeur">그렌저</option>
+														<option value="hyundai_avante">아반떼</option>
+														<option value="hyundai_ioniq5">아이오닉 5</option>
+														<option value="hyundai_kona">코나</option>
+														<option value="hyundai_palisade">팰리세이드</option>
+														<option value="hyundai_sonata">소나타</option>
+														<option value="hyundai_staria">스타리아</option>
+														<option value="hyundai_tucsan">투싼</option>
+														<option value="hyundai_venue">베뉴</option>
+													</select>
+												</div>
+												<div class="mb-3">
+													<label for="carType" class="form-label">옵션</label> <select
+														class="form-control" id="carType" required>
+														<option value="B" selected>기본</option>
+														<option value="P">풀옵션</option>
+													</select>
+												</div>
+											</form>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">닫기</button>
+											<button type="button" class="btn btn-primary"
+												onclick="CustomerPurchase()">등록</button>
+										</div>
+									</div>
+								</div>
+							</div>
 							<!-- 모달 구조 -->
 							<div class="modal fade" id="alarmModal" tabindex="-1"
 								aria-labelledby="alarmModalLabel" aria-hidden="true">
