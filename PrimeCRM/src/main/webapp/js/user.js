@@ -55,20 +55,37 @@ let isEditing = false;
 document.getElementById("toggleBtn").addEventListener("click", function() {
 	const inputs = document.querySelectorAll("#userForm input, #userForm select");
 	if (isEditing) {
-		transInfo();
-		inputs.forEach(input => input.disabled = true);
-		this.textContent = "수정";
-		inputs.forEach(input => {
-				           if (input.type !== "checkbox" && input.type !== "radio") {
-				               input.value = ""; // 값을 빈 문자열로 초기화
-				           }
-				       });
+		if (validateContactInfo()) {
+			inputs.forEach(input => input.disabled = true);
+			this.textContent = "수정";
+			inputs.forEach(input => {
+				if (input.type !== "checkbox" && input.type !== "radio") {
+					input.value = ""; // 값을 빈 문자열로 초기화
+				}
+			});
+		} else {
+			isEditing = !isEditing;
+		}
 	} else {
 		inputs.forEach(input => input.disabled = false);
 		this.textContent = "저장";
 	}
 	isEditing = !isEditing;
 });
+
+function validateContactInfo() {
+	let phone = document.getElementById('Emp_Phone').value;
+
+	// 전화번호 형식 검사
+	let phonePattern = /^\d{3}-\d{4}-\d{4}$/;
+	if (!phonePattern.test(phone)) {
+		alert("전화번호는 '111-1111-1111' 형식이어야 합니다.");
+		return false;
+	} else {
+		transInfo();
+		return true;
+	}
+}
 
 function transInfo() {
 	var pwd = $("#Emp_Pwd").val().trim();
@@ -94,7 +111,7 @@ function transInfo() {
 
 	var Eemail = localStorage.getItem("email");
 	var params = { E_email: Eemail, E_pwd: pwd, E_phone: phone };
-	
+
 	var url = "jsp/user2.jsp";
 	AJAX.call(url, params, function(data) {
 		var code = data.trim();
@@ -107,19 +124,19 @@ function transInfo() {
 }
 
 function checkLoginStatus() {
-    var isEmail = localStorage.getItem("email");
+	var isEmail = localStorage.getItem("email");
 
-    if (!isEmail || isEmail === "null") {
-        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
-        window.location.href = "login.html";
-        return;
-    }
+	if (!isEmail || isEmail === "null") {
+		alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+		window.location.href = "login.html";
+		return;
+	}
 
-    var emailElement = document.getElementById("uemail");
-    if (emailElement) {
-        emailElement.textContent = "Logged in as: " + isEmail;
-        //console.log("로그인 상태입니다: " + isEmail);
-    } else {
-        console.warn("⚠ 'uemail' ID를 가진 요소가 없음. HTML 확인 필요!");
-    }
+	var emailElement = document.getElementById("uemail");
+	if (emailElement) {
+		emailElement.textContent = "Logged in as: " + isEmail;
+		//console.log("로그인 상태입니다: " + isEmail);
+	} else {
+		console.warn("⚠ 'uemail' ID를 가진 요소가 없음. HTML 확인 필요!");
+	}
 }
