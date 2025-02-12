@@ -50,7 +50,7 @@ function custRegister() {
 
 	const today = new Date();
 	const formattedDate = today.toISOString().split('T')[0]; // "YYYY-MM-DD"
-	
+
 	var usrobj = {
 		CuName: name,
 		CuBday: bday,
@@ -78,4 +78,26 @@ function custRegister() {
 			window.location.href = "custSearch.html";
 		}
 	});
+}
+
+function validateContactInfo() {
+	let phone = document.getElementById('phone').value;
+	let email = document.getElementById('email').value;
+
+	// 전화번호 형식 검사
+	let phonePattern = /^\d{3}-\d{4}-\d{4}$/;
+	if (!phonePattern.test(phone)) {
+		alert("전화번호는 '111-1111-1111' 형식이어야 합니다.");
+		return;
+	}
+
+	// 이메일 형식 검사
+	let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+	if (!emailPattern.test(email)) {
+		alert("이메일 형식이 올바르지 않습니다.");
+		return;
+	}
+
+	// 두 검사가 모두 통과하면 등록 처리
+	custRegister();
 }
