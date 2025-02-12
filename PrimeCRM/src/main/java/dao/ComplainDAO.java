@@ -10,7 +10,7 @@ public class ComplainDAO {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			String sql = "INSERT INTO Complain(Cust_id, jsonstr) VALUES(?, ?)";
+			String sql = "INSERT INTO Complain(Comp_id, Cust_id, jsonstr) VALUES(comp_seq.NEXTVAL, ?, ?)";
 			
 			conn = ConnectionPool.get();
 			stmt = conn.prepareStatement(sql);

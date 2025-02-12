@@ -1,12 +1,8 @@
 package dao;
 
 import java.sql.*;
-import java.util.*;
 import javax.naming.NamingException;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import util.ConnectionPool;
+import util.*;
 
 public class CustDAO {
 
@@ -246,5 +242,43 @@ public class CustDAO {
 			if (conn != null)
 				conn.close();
 		}
+	}
+
+	public String getInpo(String email) throws NamingException, SQLException {
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    String json = "{}"; // 기본적으로 빈 JSON 반환
+
+	    try {
+	        String sql = "SELECT " +
+	                "JSON_VALUE(jsonstr, '$.CuName') AS Name, " +
+	                "JSON_VALUE(jsonstr, '$.CuEmail') AS Email, " +
+	                "Cust_ID AS ID " +
+	                "FROM CUSTOMER C WHERE JSON_VALUE(jsonstr, '$.CuEmail') = ?";
+
+
+	        conn = ConnectionPool.get();
+	        stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, email);
+	        rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            String name = rs.getString("Name");
+	            String cemail = rs.getString("Email");
+	            String id = rs.getString("ID");
+
+	            // JSON 문자열 직접 생성
+	            json = String.format("{\"Name\":\"%s\", \"Email\":\"%s\", \"ID\": \"%s\"}",
+	                    name != null ? name : "",
+	                    cemail != null ? cemail : "",
+	                    id != null ? id : "");
+	        }
+	    } finally {
+	        if (rs != null) rs.close();
+	        if (stmt != null) stmt.close();
+	        if (conn != null) conn.close();
+	    }
+	    return json;
 	}
 }
