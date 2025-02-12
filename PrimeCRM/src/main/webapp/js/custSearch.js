@@ -83,11 +83,24 @@ function editSelectedRow() {
 		return;
 	}
 
-	// 각 셀을 input 필드로 변환
 	editingRow.querySelectorAll("td").forEach((cell, index) => {
 		if (index != 0 && index != 1 && index != 2 && index != 3 && index != editingRow.cells.length - 1) {
 			let value = cell.textContent.trim();
 			cell.innerHTML = `<input type="text" class="form-control" value="${value}">`;
+		}
+
+		if (index == editingRow.cells.length - 1) {
+			let value = cell.textContent.trim();
+			let options = ["NEW", "INQ", "VIS", "PRB"];
+			let selectHTML = `<select class="form-control">`;
+
+			options.forEach(option => {
+				let selected = (option === value) ? "selected" : "";
+				selectHTML += `<option value="${option}" ${selected}>${option}</option>`;
+			});
+
+			selectHTML += `</select>`;
+			cell.innerHTML = selectHTML;
 		}
 	});
 
@@ -104,6 +117,17 @@ function saveSelectedRow() {
 	let today = new Date().toISOString().split("T")[0];
 	let updatedData = {};
 	let jsonData = {};
+	let selectedValue = "";
+
+	let select = editingRow.querySelector("select");
+	if (select) {
+		selectedValue = select.value.trim();
+	} else {
+		alert("드롭다운 값이 존재하지 않습니다.");
+		return;
+	}
+	
+	let isValid = true;
 
 	// input 값을 저장
 	editingRow.querySelectorAll("td").forEach((cell, index) => {
@@ -111,8 +135,28 @@ function saveSelectedRow() {
 
 		if (input) {
 			let newValue = input.value.trim();
-			cell.textContent = newValue;
-			updatedData[index] = newValue;
+
+			// 전화번호 형식 검사 (111-1111-1111 형태로 입력된 경우만 저장)
+			if (index == 5) { // 전화번호 칼럼
+				let phonePattern = /^\d{3}-\d{4}-\d{4}$/;
+				if (!phonePattern.test(newValue)) {
+					alert("전화번호는 '111-1111-1111' 형식이어야 합니다.");
+					isValid = fasle;
+				}
+			}
+
+			// 회원타입 검증 ("개인" 또는 "기업"만 허용)
+			if (index == 6) { // 회원타입 칼럼
+				if (newValue !== "개인" && newValue !== "기업") {
+					alert("회원타입은 '개인' 또는 '기업'이어야 합니다.");
+					isValid = fasle;
+				}
+			}
+
+			if (isValid) {
+                cell.textContent = newValue;
+                updatedData[index] = newValue;
+            }
 		} else {
 			// input이 없는 셀은 그냥 텍스트로 저장
 			updatedData[index] = cell.textContent.trim();
@@ -140,8 +184,11 @@ function saveSelectedRow() {
 				jsonData.CuType = "C";
 			}
 		}
-
 	});
+	
+	if (!isValid) {
+        return;
+    }
 
 	// 수정일자 갱신
 	editingRow.cells[3].textContent = today;
@@ -149,7 +196,8 @@ function saveSelectedRow() {
 	// params 객체에 JSON 문자열로 변환한 데이터 포함
 	let params = {
 		jsonstr: JSON.stringify(jsonData),
-		email: jsonData.CuEmail
+		email: jsonData.CuEmail,
+		cust_status: selectedValue
 	};
 
 	let url = "jsp/custSearch.jsp";
