@@ -24,9 +24,13 @@ function login() {
 	AJAX.call(url, params, function(data) {
 		var code = data.trim();
 		if (code == "SU") {
-			alert("로그인 되었습니다.");
 			localStorage.setItem("email", email);
-			window.location.href = "main.html";
+
+			gsap.to("body", {
+				opacity: 0, duration: 0.5, onComplete: function() {
+					window.location.href = "main.html";
+				}
+			});
 		} else if (code == "EX") {
 			alert("잘못된 비밀번호 입니다.");
 		}else{

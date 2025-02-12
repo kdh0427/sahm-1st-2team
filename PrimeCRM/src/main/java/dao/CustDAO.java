@@ -115,11 +115,11 @@ public class CustDAO {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			String sql = "SELECT Cust_ID, JSON_VALUE(jsonstr, '$.CuName') AS NAME , \r\n"
-					+ "JSON_VALUE(jsonstr, '$.CuBday') AS BDAY,  JSON_VALUE(jsonstr, '$.CuEmail') AS EMAIL, \r\n"
-					+ "JSON_VALUE(jsonstr, '$.CuUpdate') AS UDATE, JSON_VALUE(jsonstr, '$.CusAdd') AS ADDRESS, \r\n"
+			String sql = "SELECT Cust_ID, JSON_VALUE(jsonstr, '$.CuName') AS NAME ,\r\n"
+					+ "JSON_VALUE(jsonstr, '$.CuBday') AS BDAY,  JSON_VALUE(jsonstr, '$.CuEmail') AS EMAIL,\r\n"
+					+ "JSON_VALUE(jsonstr, '$.CuUpdate') AS UDATE, JSON_VALUE(jsonstr, '$.CusAdd') AS ADDRESS,\r\n"
 					+ "JSON_VALUE(jsonstr, '$.CuNum') AS NUM, JSON_VALUE(jsonstr, '$.CuType') AS TYPE, Cust_status\r\n"
-					+ "FROM Customer";
+					+ "FROM Customer ORDER BY TO_DATE(JSON_VALUE(jsonstr, '$.CuUpdate'), 'YYYY-MM-DD') DESC, CUST_ID DESC	";
 
 			conn = ConnectionPool.get();
 			stmt = conn.prepareStatement(sql);
@@ -211,7 +211,7 @@ public class CustDAO {
 					+ "JSON_VALUE(P.jsonstr, '$.Car_price') AS Car_price, \r\n"
 					+ "JSON_VALUE(P.jsonstr, '$.Sale_date') AS Sales_date, \r\n"
 					+ "C.CUST_STATUS FROM CUSTOMER C JOIN PURCHASE P ON C.CUST_ID = P.CUST_ID JOIN CAR A ON P.CAR_ID = A.CAR_ID JOIN EMPLOYEE E ON E.EMP_ID = P.EMP_ID \r\n"
-					+ "WHERE JSON_VALUE(E.jsonstr, '$.E_email') = ?";
+					+ "WHERE JSON_VALUE(E.jsonstr, '$.E_email') = ? ORDER BY TO_DATE(JSON_VALUE(P.jsonstr, '$.Sale_date'), 'YYYY-MM-DD') DESC";
 			conn = ConnectionPool.get();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, email);

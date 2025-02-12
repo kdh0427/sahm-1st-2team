@@ -311,12 +311,12 @@ INSERT INTO PURCHASE VALUES ('184', '4', '44', '22', '{"Sale_date": "2025-02-03"
 INSERT INTO PURCHASE VALUES ('185', '5', '45', '22', '{"Sale_date": "2025-02-04", "Car_price": "90000000"}');
 
 -- COMPLAIN DATA
-INSERT INTO COMPLAIN (Comp_ID, Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('1', '1', '2024-02-01', NULL, '엔진 소음이 심해요', 'NONE', 'PRB');
-INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('2', '5', '2024-01-25', NULL, '오일 누수가 있습니다', 'NONE', 'PRB');
-INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, Cust_Status) VALUES ('3', '10', '2024-01-30', NULL, '에어컨이 작동하지 않아요', 'NONE', 'PRB');
-INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('4', '15', '2024-02-02', NULL, '타이어 공기압 경고등이 떠요', 'NONE', 'PRB');
-INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('5', '20', '2024-01-20', NULL, '핸들이 뻑뻑해요', 'NONE', 'PRB');
-INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('6', '25', '2024-02-03', NULL, '네비게이션이 오류가 많아요', 'NONE', 'PRB');
-INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('7', '30', '2024-01-28', NULL, '브레이크가 밀리는 느낌이에요', 'NONE', 'PRB');
-INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('8', '35', '2024-01-18', NULL, '연비가 너무 안 나와요', 'NONE', 'PRB');
-INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('9', '40', '2024-02-04', NULL, '도어가 잘 안 닫혀요', 'NONE', 'PRB');
+INSERT INTO COMPLAIN (Comp_ID, Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('1', '1', '2024-12-01', NULL, '엔진 소음이 심해요', 'NONE', 'PRB');
+INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('2', '5', '2025-01-02', NULL, '오일 누수가 있습니다', 'NONE', 'PRB');
+INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, Cust_Status) VALUES ('3', '10', '2025-01-04', NULL, '에어컨이 작동하지 않아요', 'NONE', 'PRB');
+INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('4', '15', '2025-01-12', NULL, '타이어 공기압 경고등이 떠요', 'NONE', 'PRB');
+INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('5', '20', '2025-01-28', NULL, '핸들이 뻑뻑해요', 'NONE', 'PRB');
+INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('6', '25', '2025-02-02', NULL, '네비게이션이 오류가 많아요', 'NONE', 'PRB');
+INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('7', '30', '2025-02-03', NULL, '브레이크가 밀리는 느낌이에요', 'NONE', 'PRB');
+INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('8', '35', '2025-02-09', NULL, '연비가 너무 안 나와요', 'NONE', 'PRB');
+INSERT INTO COMPLAIN (Comp_ID,Cust_ID, Complain_Date, Cment, Complain, Complain_status, CUST_STATUS) VALUES ('9', '40', '2025-02-11', NULL, '도어가 잘 안 닫혀요', 'NONE', 'PRB');
