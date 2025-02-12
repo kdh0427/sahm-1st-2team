@@ -22,26 +22,36 @@ AJAX.call(url, { inquiryId: 'null', response: 'null' }, function(data) {
 	}
 });
 
+let currentPage = 1;
+const rowsPerPage = 10;
+let inquiryData = [];
 
-
-// 문의 목록을 동적으로 생성하는 함수
+// 문의 목록을 업데이트하는 함수 (페이지네이션 추가됨)
 function updateComList(comList) {
-	const tbody = document.getElementById("inquiryTableBody");
-	tbody.innerHTML = ""; // 기존 내용 초기화
+    const userEmail = localStorage.getItem("email"); // 로컬 스토리지에서 현재 로그인한 사용자의 이메일 가져오기
+    
+    if (!userEmail) {
+        console.warn("⚠ 로컬 스토리지에서 이메일을 찾을 수 없습니다!");
+        return;
+    }
+    
+    // 사용자의 이메일과 일치하는 문의만 필터링
+    inquiryData = comList.filter(inquiry => inquiry.email === userEmail);
+    renderInquiryTable();
+}
 
-	const userEmail = localStorage.getItem("email"); // 로컬 스토리지에서 현재 로그인한 사용자의 이메일 가져오기
+// 문의 목록 테이블을 렌더링하는 함수 (페이지별로 데이터 표시)
+function renderInquiryTable() {
+    const tbody = document.getElementById("inquiryTableBody");
+    tbody.innerHTML = ""; // 기존 데이터 초기화
+    
+    let startIndex = (currentPage - 1) * rowsPerPage;
+    let endIndex = startIndex + rowsPerPage;
+    let paginatedData = inquiryData.slice(startIndex, endIndex);
 
-	if (!userEmail) {
-		console.warn("⚠ 로컬 스토리지에서 이메일을 찾을 수 없습니다!");
-		return;
-	}
-
-	// 사용자의 이메일과 일치하는 문의만 필터링
-	const filteredComList = comList.filter(inquiry => inquiry.email === userEmail);
-
-	filteredComList.forEach((inquiry) => {
-		const row = document.createElement("tr");
-		row.innerHTML = `
+    paginatedData.forEach((inquiry) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
             <td>${inquiry.email}</td>
             <td>${inquiry.name}</td>
             <td>${inquiry.type}</td>
@@ -52,32 +62,61 @@ function updateComList(comList) {
                 </span>
             </td>
             <td>
-                <button class="btn btn-outline-info btn-sm ms-2" onclick="toggleDetails(${inquiry.id}, this)">보기</button>      
+                <button class="btn btn-outline-info btn-sm ms-2" onclick="toggleDetails(${inquiry.id}, this)">보기</button>
             </td>
         `;
-		row.style.cursor = "pointer"; // 클릭 가능하도록 설정
-		tbody.appendChild(row);
+        row.style.cursor = "pointer";
+        tbody.appendChild(row);
 
-		// 상세 내용을 위한 빈 행 추가 (보기 버튼 클릭 시 내용이 보이도록)
-		const detailRow = document.createElement("tr");
-		detailRow.id = `detailRow${inquiry.id}`;
-		detailRow.style.display = "none"; // 기본적으로 숨김
-		detailRow.innerHTML = `
+        // 숨겨진 상세 행 추가
+        const detailRow = document.createElement("tr");
+        detailRow.id = `detailRow${inquiry.id}`;
+        detailRow.style.display = "none";
+        detailRow.innerHTML = `
             <td colspan="6">
                 <div class="p-3 bg-light border-start border-primary shadow-sm">
                     <p class="fw-bold">📌 문의 내용:</p>
                     <p>${inquiry.content}</p>
                 </div>
-                <div class="p-3 bg-light border-start border-primary shadow-sm mt-2">
-                    <p class="fw-bold">📌 답변 내용:</p>
-                    ${inquiry.status === 'DONE' ? `
-                    <p>${inquiry.response}</p>
-                    ` : ''}
-                </div>
+				<div class="p-3 bg-light border-start border-primary shadow-sm mt-2">
+				                    ${inquiry.status === 'DONE' ? `
+				                        <p class="fw-bold">📌 답변 내용:</p>
+				                        <p>${inquiry.comment || inquiry.response}</p>
+				                    ` : `
+				                        
+				                    `}
+				                </div>
             </td>
         `;
-		tbody.appendChild(detailRow);
-	});
+        tbody.appendChild(detailRow);
+    });
+
+    updatePaginationControls();
+}
+
+// 페이지네이션 UI 업데이트 함수
+function updatePaginationControls() {
+    const totalPages = Math.ceil(inquiryData.length / rowsPerPage);
+    document.getElementById("page-info").textContent = ` ${currentPage} / ${totalPages} `;
+
+    document.getElementById("prevPage").disabled = currentPage === 1;
+    document.getElementById("nextPage").disabled = currentPage === totalPages || totalPages === 0;
+}
+
+// 페이지 이동 함수
+function goToPrevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        renderInquiryTable();
+    }
+}
+
+function goToNextPage() {
+    const totalPages = Math.ceil(inquiryData.length / rowsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderInquiryTable();
+    }
 }
 
 
