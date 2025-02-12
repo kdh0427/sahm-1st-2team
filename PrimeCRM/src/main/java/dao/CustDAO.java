@@ -61,17 +61,18 @@ public class CustDAO {
 		}
 	}
 
-	public boolean update(String email, String jsonstr) throws NamingException, SQLException {
+	public boolean update(String email, String jsonstr, String cust_status) throws NamingException, SQLException {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
 		try {
-			String sql = "UPDATE Customer SET jsonstr = ? WHERE JSON_VALUE(jsonstr, '$.CuEmail') = ?";
+			String sql = "UPDATE Customer SET jsonstr = ?, cust_status = ? WHERE JSON_VALUE(jsonstr, '$.CuEmail') = ?";
 
 			conn = ConnectionPool.get();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, jsonstr);
-			stmt.setString(2, email);
+			stmt.setString(2, cust_status);
+			stmt.setString(3, email);
 
 			int count = stmt.executeUpdate();
 			return (count == 1);

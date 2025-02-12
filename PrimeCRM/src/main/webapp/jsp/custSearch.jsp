@@ -10,7 +10,8 @@
 
 	String jsonstr = request.getParameter("jsonstr");
 	String email = request.getParameter("email");
-	
+	String cust_status = request.getParameter("cust_status");
+
     try {
         CustDAO dao = new CustDAO();
 
@@ -18,7 +19,7 @@
         	out.print(dao.getList());
         }
         else{
-        	if(dao.update(email, jsonstr)) {
+        	if(dao.update(email, jsonstr, cust_status)) {
         		out.print("OK");
         	}
         }

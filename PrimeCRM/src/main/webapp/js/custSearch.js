@@ -89,6 +89,20 @@ function editSelectedRow() {
 			let value = cell.textContent.trim();
 			cell.innerHTML = `<input type="text" class="form-control" value="${value}">`;
 		}
+
+		if (index == editingRow.cells.length - 1) {
+			let value = cell.textContent.trim();
+			let options = ["NEW", "INQ", "VIS", "PRB"];
+			let selectHTML = `<select class="form-control">`;
+
+			options.forEach(option => {
+				let selected = (option === value) ? "selected" : "";
+				selectHTML += `<option value="${option}" ${selected}>${option}</option>`;
+			});
+
+			selectHTML += `</select>`;
+			cell.innerHTML = selectHTML;
+		}
 	});
 
 	isEditing = true;
@@ -104,6 +118,15 @@ function saveSelectedRow() {
 	let today = new Date().toISOString().split("T")[0];
 	let updatedData = {};
 	let jsonData = {};
+	let selectedValue = "";
+	
+	let select = editingRow.querySelector("select");
+	if (select) {
+		selectedValue = select.value.trim();
+	} else {
+		alert("드롭다운 값이 존재하지 않습니다.");
+		return;
+	}
 
 	// input 값을 저장
 	editingRow.querySelectorAll("td").forEach((cell, index) => {
@@ -138,6 +161,8 @@ function saveSelectedRow() {
 				jsonData.CuType = "I";
 			} else if (typeValue == "기업") {
 				jsonData.CuType = "C";
+			} else {
+				alert("'개인' 또는 '기업'을 입력하세요!");
 			}
 		}
 
@@ -149,7 +174,8 @@ function saveSelectedRow() {
 	// params 객체에 JSON 문자열로 변환한 데이터 포함
 	let params = {
 		jsonstr: JSON.stringify(jsonData),
-		email: jsonData.CuEmail
+		email: jsonData.CuEmail,
+		cust_status: selectedValue
 	};
 
 	let url = "jsp/custSearch.jsp";
