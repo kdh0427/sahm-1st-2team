@@ -9,12 +9,11 @@ public class PurchaseDAO {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			String sql = "INSERT INTO PURCHASE (CAR_ID, CUST_ID, EMP_ID, jsonstr) VALUES (\r\n"
-					+ "    (SELECT CAR_ID FROM CAR WHERE JSON_VALUE(jsonstr, '$.Car_Name') = ? \r\n"
-					+ "     AND JSON_VALUE(jsonstr, '$.Option') = ?),\r\n"
-					+ "    (SELECT CUST_ID FROM CUSTOMER WHERE JSON_VALUE(jsonstr, '$.CuEmail') = ?),\r\n"
-					+ "    (SELECT EMP_ID FROM EMPLOYEE WHERE JSON_VALUE(jsonstr, '$.E_email') = ?),\r\n"
-					+ "    ?)";
+			String sql = "INSERT INTO PURCHASE (CAR_ID, CUST_ID, EMP_ID, jsonstr)\r\n"
+					+ "SELECT (SELECT CAR_ID FROM CAR WHERE JSON_VALUE(jsonstr, '$.Car_Name') = ? AND JSON_VALUE(jsonstr, '$.Option') = ? FETCH FIRST 1 ROW ONLY),\r\n"
+					+ "(SELECT CUST_ID FROM CUSTOMER WHERE JSON_VALUE(jsonstr, '$.CuEmail') = ? FETCH FIRST 1 ROW ONLY),\r\n"
+					+ "(SELECT EMP_ID FROM EMPLOYEE WHERE JSON_VALUE(jsonstr, '$.E_email') = ? FETCH FIRST 1 ROW ONLY),\r\n"
+					+ "? FROM DUAL";
 			
 			conn = ConnectionPool.get();
 			stmt = conn.prepareStatement(sql);
