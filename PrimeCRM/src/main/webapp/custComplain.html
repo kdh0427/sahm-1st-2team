@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>PrimeCRM</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
+	rel="stylesheet" />
+<link href="css/styles.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+	crossorigin="anonymous"></script>
+</head>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<body class="sb-nav-fixed">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
+			id="sidebarToggle" href="#!">
+			<i class="fas fa-bars"></i>
+		</button>
+		<a class="navbar-brand ps-3" href="main.html"> <img
+			src="/PrimeCRM/assets/img/photo/logo.png" alt="PrimeCRM Logo"
+			style="max-width: 150px; height: auto;"></a>
+	</nav>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark"
+				id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+
+						<!-- 메뉴 툴바 -->
+						<div class="sb-sidenav-menu-heading">메뉴</div>
+						<!-- 문의 메뉴 -->
+						<div class="sb-nav-link-icon">
+							<a class="nav-link d-flex align-items-center"
+								href="custComplain.html"> <i class="fas fa-comments me-2"></i>
+								문의
+							</a>
+
+						</div>
+
+						<!-- 설정 -->
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+							data-bs-target="#collapseSettings" aria-expanded="false"
+							aria-controls="collapseSettings">
+							<div class="sb-nav-link-icon">
+								<i class="fas fa-cogs"></i>
+							</div> 설정
+							<div class="sb-sidenav-collapse-arrow">
+								<i class="fas fa-angle-down"></i>
+							</div>
+						</a>
+						<div class="collapse" id="collapseSettings"
+							aria-labelledby="headingSettings"
+							data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav accordion"
+								id="sidenavAccordionSettings">
+								<!--<a class="nav-link" href="user.html">정보 변경</a>-->
+								<a class="nav-link" onclick="logout()">로그 아웃</a>
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="sb-sidenav-footer">
+					<div class="small" id="cuemail"></div>
+				</div>
+			</nav>
+		</div>
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+					<!-- 제목 -->
+					<h1 class="mt-4">문의</h1>
+					<div class="card mb-4">
+						<div
+							class="card-header d-flex justify-content-between align-items-center bg-dark-subtle shadow-lg">
+							<h5 class="mb-0 text-dark fw-bold">
+								<i class="fas fa-list-alt me-2 text-secondary"></i> 문의 목록
+							</h5>
+
+							<div class="d-flex">
+								<!-- 문의 유형 관리 버튼 -->
+								<button class="btn btn-outline-dark me-3 fw-bold"
+									data-bs-toggle="modal" data-bs-target="#complainModal">
+									<i class="fas fa-edit text-secondary"></i> 문의 작성
+								</button>
+							</div>
+						</div>
+
+						<!-- 문의 목록 테이블 -->
+						<div class="table-responsive">
+							<table id="inquiryTable"
+								class="table table-hover table-bordered align-middle small">
+								<thead class="table-dark">
+									<tr>
+										<th style="width: 15%;">Email</th>
+										<th style="width: 15%;">이름</th>
+										<th style="width: 20%;">문의 유형</th>
+										<th style="width: 20%;">날짜</th>
+										<th style="width: 10%;">상태</th>
+										<th style="width: 10%;">관리</th>
+									</tr>
+								</thead>
+								<tbody id="inquiryTableBody">
+									<!-- JavaScript에서 동적으로 추가 -->
+								</tbody>
+							</table>
+						</div>
+
+						<!-- 페이지네이션 -->
+						<div class="d-flex justify-content-center mt-3">
+							<nav aria-label="Page navigation">
+								<ul class="pagination pagination-sm">
+									<li class="page-item disabled"><a
+										class="page-link rounded-pill px-3 border-dark text-dark bg-light"
+										href="#">이전</a></li>
+									<li class="page-item active"><a
+										class="page-link fw-bold rounded-pill px-3 border-dark bg-dark text-white"
+										href="#">1</a></li>
+									<li class="page-item"><a
+										class="page-link rounded-pill px-3 border-dark text-dark bg-light"
+										href="#">다음</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+
+					<!-- 문의 작성 모달 -->
+					<div class="modal fade" id="complainModal" tabindex="-1"
+						aria-labelledby="complainModalLabel" aria-hidden="true"
+						data-bs-backdrop="static" data-bs-keyboard="false">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<!-- 모달 헤더 -->
+								<div class="modal-header bg-dark text-light">
+									<h5 class="modal-title" id="complainModalLabel">
+										<i class="fas fa-cogs me-2"></i> 문의 작성
+									</h5>
+									<button type="button" class="btn-close btn-close-white"
+										data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+
+								<!-- 모달 본문 -->
+								<div class="modal-body">
+									<textarea id="complainContent" rows="4" class="form-control"
+										placeholder="문의 내용을 입력하세요..."></textarea>
+									<i class="fas fa-edit text-secondary"></i> 유형 선택
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="col-md-3">
+											<select class="form-select form-select-sm" id="complainType">
+												<option value="" disabled selected>문의 유형</option>
+												<option value="NEW">신차 문의</option>
+												<option value="ACD">사고 문의</option>
+												<option value="PRB">고장 문의</option>
+												<option value="COM">불편 접수</option>
+											</select>
+										</div>
+										<button class="btn btn-primary" onclick="submitComplain()">등록</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</main>
+		</div>
+	</div>
+	<script src="js/core.js"></script>
+	<script src="js/jquery-3.7.1.min.js"></script>
+	<script src="js/custComplain.js"></script>
+	<script src="js/scripts.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
