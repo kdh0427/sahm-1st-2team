@@ -10,7 +10,7 @@ public class EmpDAO {
 	    Connection conn = null;
 	    PreparedStatement stmt = null;
 	    try {
-	    	String sql = "INSERT INTO Employee (Emp_Id, jsonstr, Branch_Id) VALUES(emp_seq.NEXTVAL, ?, ?)";
+	    	String sql = "INSERT INTO Employee (Emp_Id, jsonstr, Branch_Id) VALUES(EMP_SEQ.NEXTVAL, ?, ?)";
 
 	        conn = ConnectionPool.get();
 	        stmt = conn.prepareStatement(sql);
