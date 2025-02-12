@@ -24,14 +24,26 @@ AJAX.call(url, { inquiryId: 'null', response: 'null' }, function(data) {
 	}
 });
 
+let currentPage = 1;
+const rowsPerPage = 10;
+let inquiryData = [];
 
-
-// 문의 목록을 동적으로 생성하는 함수
+// 문의 목록을 업데이트하는 함수 (페이지네이션 추가됨)
 function updateComList(comList) {
-    const tbody = document.getElementById("inquiryTableBody");
-    tbody.innerHTML = ""; // 기존 내용 초기화
+    inquiryData = comList; // 데이터를 전역 변수에 저장
+    renderInquiryTable();
+}
 
-    comList.forEach((inquiry) => {
+// 문의 목록 테이블을 렌더링하는 함수 (페이지별로 데이터 표시)
+function renderInquiryTable() {
+    const tbody = document.getElementById("inquiryTableBody");
+    tbody.innerHTML = ""; // 기존 데이터 초기화
+    
+    let startIndex = (currentPage - 1) * rowsPerPage;
+    let endIndex = startIndex + rowsPerPage;
+    let paginatedData = inquiryData.slice(startIndex, endIndex);
+
+    paginatedData.forEach((inquiry) => {
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${inquiry.email}</td>
@@ -44,16 +56,16 @@ function updateComList(comList) {
                 </span>
             </td>
             <td>
-                <button class="btn btn-outline-info btn-sm ms-2" onclick="toggleDetails(${inquiry.id}, this)">보기</button>      
+                <button class="btn btn-outline-info btn-sm ms-2" onclick="toggleDetails(${inquiry.id}, this)">보기</button>
             </td>
         `;
-        row.style.cursor = "pointer"; // 클릭 가능하도록 설정
+        row.style.cursor = "pointer";
         tbody.appendChild(row);
 
-        // 상세 내용을 위한 빈 행 추가 (보기 버튼 클릭 시 내용이 보이도록)
+        // 숨겨진 상세 행 추가
         const detailRow = document.createElement("tr");
         detailRow.id = `detailRow${inquiry.id}`;
-        detailRow.style.display = "none"; // 기본적으로 숨김
+        detailRow.style.display = "none";
         detailRow.innerHTML = `
             <td colspan="6">
                 <div class="p-3 bg-light border-start border-primary shadow-sm">
@@ -74,7 +86,35 @@ function updateComList(comList) {
         `;
         tbody.appendChild(detailRow);
     });
+
+    updatePaginationControls();
 }
+
+// 페이지네이션 UI 업데이트 함수
+function updatePaginationControls() {
+    const totalPages = Math.ceil(inquiryData.length / rowsPerPage);
+    document.getElementById("page-info").textContent = ` ${currentPage} / ${totalPages} `;
+
+    document.getElementById("prevPage").disabled = currentPage === 1;
+    document.getElementById("nextPage").disabled = currentPage === totalPages || totalPages === 0;
+}
+
+// 페이지 이동 함수
+function goToPrevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        renderInquiryTable();
+    }
+}
+
+function goToNextPage() {
+    const totalPages = Math.ceil(inquiryData.length / rowsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderInquiryTable();
+    }
+}
+
 
 // '보기' 버튼 클릭 시 문의 내역을 토글하는 함수
 function toggleDetails(inquiryId, button) {

@@ -114,50 +114,42 @@
 						</div>
 
 						<!-- 페이지네이션 -->
-						<div class="d-flex justify-content-center mt-3">
-							<nav aria-label="Page navigation">
-								<ul class="pagination pagination-sm">
-									<li class="page-item disabled"><a
-										class="page-link rounded-pill px-3 border-dark text-dark bg-light"
-										href="#">이전</a></li>
-									<li class="page-item active"><a
-										class="page-link fw-bold rounded-pill px-3 border-dark bg-dark text-white"
-										href="#">1</a></li>
-									<li class="page-item"><a
-										class="page-link rounded-pill px-3 border-dark text-dark bg-light"
-										href="#">다음</a></li>
-								</ul>
-							</nav>
+						<div class="d-flex justify-content-center align-items-center mt-3">
+							<button id="prevPage" class="btn btn-dark me-3"
+								onclick="goToPrevPage()">이전</button>
+							<span id="page-info" class="mx-3"></span>
+							<button id="nextPage" class="btn btn-dark ms-3"
+								onclick="goToNextPage()">다음</button>
 						</div>
 					</div>
+				</div>
 
-					<!-- 문의 작성 모달 -->
-					<div class="modal fade" id="complainModal" tabindex="-1"
-						aria-labelledby="complainModalLabel" aria-hidden="true"
-						data-bs-backdrop="static" data-bs-keyboard="false">
-						<div class="modal-dialog modal-lg">
-							<div class="modal-content">
-								<!-- 모달 헤더 -->
-								<div class="modal-header bg-dark text-light">
-									<h5 class="modal-title" id="complainModalLabel">
-										<i class="fas fa-cogs me-2"></i> 문의 작성
-									</h5>
-									<button type="button" class="btn-close btn-close-white"
-										data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
+				<!-- 문의 작성 모달 -->
+				<div class="modal fade" id="complainModal" tabindex="-1"
+					aria-labelledby="complainModalLabel" aria-hidden="true"
+					data-bs-backdrop="static" data-bs-keyboard="false">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<!-- 모달 헤더 -->
+							<div class="modal-header bg-dark text-light">
+								<h5 class="modal-title" id="complainModalLabel">
+									<i class="fas fa-cogs me-2"></i> 문의 작성
+								</h5>
+								<button type="button" class="btn-close btn-close-white"
+									data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
 
-								<!-- 모달 본문 -->
-								<div class="modal-body">
-									<textarea id="complainContent" rows="4" class="form-control"
-										placeholder="문의 내용을 입력하세요..."></textarea>
-									<div
-										class= mt-2 >
-										<button class="btn btn-primary" onclick="submitComplain()">등록</button>
-									</div>
+							<!-- 모달 본문 -->
+							<div class="modal-body">
+								<textarea id="complainContent" rows="4" class="form-control"
+									placeholder="문의 내용을 입력하세요..."></textarea>
+								<div class=mt-2>
+									<button class="btn btn-primary" onclick="submitComplain()">등록</button>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 			</main>
 		</div>
 	</div>
