@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<title>PrimeCRM</title>
+<title>DataUp</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
 	rel="stylesheet" />
@@ -41,7 +41,7 @@
 </style>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <body class="sb-nav-fixed">
-	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="height: 70px;">
 
 		<!-- 사이드바 토글 -->
 		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
@@ -51,7 +51,7 @@
 		<!-- 사이트 이름 -->
 		<a class="navbar-brand ps-3" href="main.html"> <img
 			src="/PrimeCRM/assets/img/photo/logo.png" alt="PrimeCRM Logo"
-			style="max-width: 150px; height: auto;"></a>
+			 style="max-height: 70px; width: auto;"></a>
 
 	</nav>
 	<div id="layoutSidenav">
@@ -221,7 +221,8 @@
 						</div>
 						<div class="card-body">
 							<h5 class="card-title" style="text-align: center;">현재 고객 수</h5>
-							<p id="customerContainer" class="card-text" style="text-align: center;"></p>
+							<p id="customerContainer" class="card-text"
+								style="text-align: center;"></p>
 						</div>
 					</div>
 				</div>
@@ -229,12 +230,13 @@
 					<!-- 뉴스 카드 -->
 					<div class="card mb-4">
 						<div class="card-header" style="text-align: center;">
-							<i class="fas fa-newspaper me-1" style="text-align: center;"></i> 최신 뉴스
+							<i class="fas fa-newspaper me-1" style="text-align: center;"></i>
+							최신 뉴스
 						</div>
 						<div class="card-body">
 							<h5 class="card-title" style="text-align: center;">최신 뉴스</h5>
-							<p class="card-text" style="text-align: center;">우리 회사는 새로운 서비스 론칭을 기념하여 다양한 혜택을 제공합니다.
-								지금 바로 확인해보세요!</p>
+							<p class="card-text" style="text-align: center;">우리 회사는 새로운
+								서비스 론칭을 기념하여 다양한 혜택을 제공합니다. 지금 바로 확인해보세요!</p>
 						</div>
 					</div>
 				</div>
@@ -263,20 +265,15 @@
 		</div>
 		<script src="js/core.js"></script>
 		<script src="js/jquery-3.7.1.min.js"></script>
-	<script src="js/main.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-		crossorigin="anonymous"></script>
-	<!--					<script src="assets/demo/chart-area-demo.js"></script>
-						<script src="assets/demo/chart-bar-demo.js"></script>
-						<script
-							src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-							crossorigin="anonymous"></script>
-						<script src="js/datatables-simple-demo.js"></script> -->
-</body>
-
+		<script src="js/main.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+			crossorigin="anonymous"></script>
+		<script src="js/scripts.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+	</body>
 </html>
