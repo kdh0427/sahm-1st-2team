@@ -114,13 +114,15 @@ function updateBarChart(salesByBranchY, salesByBranchX) {
 				}
 			},
 			scales: {
-				y: {
-					beginAtZero: true,
-					title: {
-						display: true,
-						text: "판매량 (단위: 대)"
-					},
-				},
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						title: {
+							display: true,
+							text: "판매량 (단위: 대)"
+						},
+					}
+				}],
 				x: {
 					title: {
 						display: true,

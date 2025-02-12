@@ -110,9 +110,11 @@ function updateBarChart(branches, empsalesByBranch) {
 	var chartOptions = {
 		responsive: true,
 		scales: {
-			y: {
-				beginAtZero: true,
-			}
+			yAxes: [{
+				ticks: {
+					beginAtZero: true,
+				}
+			}]
 		}
 	};
 
