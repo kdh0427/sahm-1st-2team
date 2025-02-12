@@ -26,7 +26,7 @@ function fetchEmpList() {
 			displayCustomer(customer); // 총 고객 수 로드 함수
 			displayCuList(cuList) // 고객 분류 로드 함수
 			
-//			window.open('topEmp.html', 'PopupWindow', 'width=500,height=770,scrollbars=no,resizable=no');
+			window.open('topEmp.html', 'PopupWindow', 'width=500,height=770,scrollbars=no,resizable=no');
 		} catch (e) {
 			console.error("JSON 파싱 오류:", e);
 			alert("서버 응답 처리 중 오류가 발생했습니다. 관리자에게 문의하세요.");
