@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 var url = "jsp/custSearch.jsp";
-AJAX.call(url, { Email: 'null'}, function(data) {
+AJAX.call(url, { Email: 'null' }, function(data) {
 	var json = data.trim();
 
 	try {
@@ -11,7 +11,7 @@ AJAX.call(url, { Email: 'null'}, function(data) {
 
 		// 고객 목록 업데이트
 		var cuList = jsonData.cuList;
-			
+
 		checkLoginStatus();
 		updateCuTable(cuList);
 
@@ -85,13 +85,12 @@ function editSelectedRow() {
 
 	// 각 셀을 input 필드로 변환
 	editingRow.querySelectorAll("td").forEach((cell, index) => {
-		if (index !== 0 && index !== 1 && index !== 2 && index !== 3 && index !== editingRow.cells.length - 1) {
+		if (index != 0 && index != 1 && index != 2 && index != 3 && index != editingRow.cells.length - 1) {
 			let value = cell.textContent.trim();
 			cell.innerHTML = `<input type="text" class="form-control" value="${value}">`;
 		}
 	});
 
-	// 수정 중이므로 다른 행 선택 못하게 하기
 	isEditing = true;
 }
 
@@ -104,6 +103,7 @@ function saveSelectedRow() {
 
 	let today = new Date().toISOString().split("T")[0];
 	let updatedData = {};
+	let jsonData = {};
 
 	// input 값을 저장
 	editingRow.querySelectorAll("td").forEach((cell, index) => {
@@ -113,31 +113,60 @@ function saveSelectedRow() {
 			let newValue = input.value.trim();
 			cell.textContent = newValue;
 			updatedData[index] = newValue;
+		} else {
+			// input이 없는 셀은 그냥 텍스트로 저장
+			updatedData[index] = cell.textContent.trim();
 		}
+
+		// JSON 객체 형식으로 저장 (각 필드명은 테이블 컬럼에 맞게 수정 가능)
+		if (index == 0) {
+			jsonData.CuName = cell.textContent.trim();
+		} else if (index == 1) {
+			jsonData.CuBday = cell.textContent.trim();
+		} else if (index == 2) {
+			jsonData.CuEmail = cell.textContent.trim();
+		} else if (index == 3) {
+			jsonData.CuUpdate = today;
+		} else if (index == 4) {
+			jsonData.CusAdd = cell.textContent.trim();
+		} else if (index == 5) {
+			jsonData.CuNum = cell.textContent.trim();
+		} else if (index == 6) {
+			let typeValue = cell.textContent.trim();
+
+			if (typeValue == "개인") {
+				jsonData.CuType = "I";
+			} else if (typeValue == "기업") {
+				jsonData.CuType = "C";
+			}
+		}
+
 	});
 
-	editingRow.cells[3].textContent = today; // 수정일자 갱신
+	// 수정일자 갱신
+	editingRow.cells[3].textContent = today;
 
-	let url = "jsp/custSearch.jsp";
+	// params 객체에 JSON 문자열로 변환한 데이터 포함
 	let params = {
-		email: updatedData[2], // 수정된 이메일
-		updatedData: JSON.stringify(updatedData),
-		updateDate: today
+		jsonstr: JSON.stringify(jsonData),
+		email: jsonData.CuEmail
 	};
 
-	AJAX.call(url, params, function(response) {
-		if (response.status === "success") {
+	let url = "jsp/custSearch.jsp";
+	AJAX.call(url, params, function(data) {
+		var code = data.trim();
+
+		if (code == "OK") {
 			alert("수정 사항이 저장되었습니다.");
-			editingRow.style.backgroundColor = ""; // 수정 후 색상 초기화
+			editingRow.style.backgroundColor = "";
 			isEditing = false;
-			renderTable(); // 테이블을 다시 렌더링하여 수정 반영
+			location.reload();
 		} else {
 			alert("수정 중 오류가 발생했습니다.");
 		}
-	}, "POST");
+	});
 }
 
-// 테이블 렌더링 시, 클릭 이벤트 추가
 function renderTable() {
 	var tableBody = document.getElementById("customerContainer");
 	tableBody.innerHTML = "";
