@@ -252,9 +252,8 @@ public class CustDAO {
 
 	    try {
 	        String sql = "SELECT " +
-	                "JSON_VALUE(jsonstr, '$.CuName') AS Name, " +
-	                "JSON_VALUE(jsonstr, '$.CuEmail') AS Email, " +
-	                "Cust_ID AS ID " +
+	                "Cust_ID AS ID, " +
+	                "Cust_Status AS STATUS " +
 	                "FROM CUSTOMER C WHERE JSON_VALUE(jsonstr, '$.CuEmail') = ?";
 
 
@@ -264,15 +263,13 @@ public class CustDAO {
 	        rs = stmt.executeQuery();
 
 	        if (rs.next()) {
-	            String name = rs.getString("Name");
-	            String cemail = rs.getString("Email");
 	            String id = rs.getString("ID");
+	            String status = rs.getString("STATUS");
 
 	            // JSON 문자열 직접 생성
-	            json = String.format("{\"Name\":\"%s\", \"Email\":\"%s\", \"ID\": \"%s\"}",
-	                    name != null ? name : "",
-	                    cemail != null ? cemail : "",
-	                    id != null ? id : "");
+	            json = String.format("{\"ID\": \"%s\", \"STATUS\": \"%s\"}",
+	                    id != null ? id : "",
+	                    status != null ? status : "");
 	        }
 	    } finally {
 	        if (rs != null) rs.close();

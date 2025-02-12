@@ -97,51 +97,24 @@ function toggleDetails(inquiryId, button) {
 	}
 }
 
-function validateAndSubmit() {
-    var complainContent = document.getElementById("complainContent").value.trim();
-    var custStatus = document.getElementById("custStatus").value.trim();
-
-    if (!complainContent) {
-        alert("문의 내용을 입력하세요.");
-        document.getElementById("complainContent").focus();
-        return;
-    }
-
-    if (!custStatus) {
-        alert("문의 유형을 선택하세요.");
-        document.getElementById("custStatus").focus();
-        return;
-    }
-
-    submitComplain(); // 문의 등록 함수 실행
-}
-
 // 문의 작성 함수
 function submitComplain() {
-	var Cemail = localStorage.getItem("email"); // 로컬 스토리지에서 이메일 가져오기
+	var email = localStorage.getItem("email"); // 로컬 스토리지에서 이메일 가져오기
 
-	if (!Cemail) {
+	if (!email) {
 		console.warn("⚠ 로컬 스토리지에서 이메일을 찾을 수 없습니다!");
 		return;
 	}
-	var params = { email: Cemail };
+	var params = { email: email };
 
 	// AJAX 요청 (이메일을 객체 형태로 전달)
 	AJAX.call("jsp/custComplain.jsp", params, function(data) {
 		var json = data.trim();
 		try {
 			var jsonData = JSON.parse(json);  // 서버에서 응답한 JSON 데이터 파싱
-			var cname = jsonData.Name;
-			var cemail = jsonData.Email;
 			var cid = jsonData.ID;
+			var cstatus = jsonData.STATUS;
 
-			if (!cemail) {
-				console.error("서버에서 이메일 정보를 받지 못했습니다.");
-				alert("서버 오류: 이메일 정보가 없습니다.");
-				return;
-			}
-
-			var custStatus = document.getElementById("custStatus").value.trim();
 			var complainContent = document.getElementById("complainContent").value.trim();
 
 			if (!complainContent) {
@@ -149,28 +122,20 @@ function submitComplain() {
 				return;
 			}
 
-			if (!custStatus) {
-				alert("문의 유형을 선택하세요.");
-				return;
-			}
 
 			var today = new Date();
 			var formattedDate = today.toISOString().split('T')[0];
 			
 			var requestData = {
-				date: formattedDate,
+				Cust_ID: cid,
+				Complain_Date: formattedDate,
 				cment: 'NULL',
-				content: complainContent,
-				status: 'NONE',
-				custstatus: custStatus,
+				Complain: complainContent,
+				Complain_status: 'NONE',
+				Cust_status: cstatus
 			};
 
-			var params2 = {
-				Cust_ID: cid,
-				jsonstr: JSON.stringify(requestData)
-			}
-
-			AJAX.call("jsp/custComplain2.jsp", params2, function(data) {
+			AJAX.call("jsp/custComplain2.jsp", requestData, function(data) {
 				var json = data.trim();
 				console.log(json);
 				try {

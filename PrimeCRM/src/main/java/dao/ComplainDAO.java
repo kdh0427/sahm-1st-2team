@@ -6,16 +6,20 @@ import util.*;
 
 public class ComplainDAO {
 
-	public boolean insert(String id, String jsonstr) throws NamingException, SQLException{
+	public boolean insert(String id, String date, String cment, String complain, String status, String custstatus) throws NamingException, SQLException{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			String sql = "INSERT INTO Complain(Comp_id, Cust_id, jsonstr) VALUES(comp_seq.NEXTVAL, ?, ?)";
+			String sql = "INSERT INTO Complain(Comp_id, Cust_id, Complain_Date, Cment, Complain, Complain_status, Cust_Status) VALUES(comp_seq.NEXTVAL, ?, ?, ?, ?, ?, ?)";
 			
 			conn = ConnectionPool.get();
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, id);
-			stmt.setString(2, jsonstr);
+			stmt.setString(2, date);
+		    stmt.setNull(3, Types.VARCHAR);  // NULL 값을 넣을 때 사용
+			stmt.setString(4, complain);
+			stmt.setString(5, status);
+			stmt.setString(6, custstatus);
 			
 			int count = stmt.executeUpdate();
 			return (count == 1)? true : false; 
