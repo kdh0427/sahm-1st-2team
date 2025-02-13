@@ -14,7 +14,7 @@ AJAX.call(url, { Email: email }, function(data) {
 		var list = jsonData.list;
 
 		list = list.filter(item => item !== null && item !== undefined);
-		
+
 		checkLoginStatus(); // 로그인 상태 확인 함수
 		updateSalesList(list); // 영업 목록 업데이트
 	} catch (e) {
@@ -25,20 +25,20 @@ AJAX.call(url, { Email: email }, function(data) {
 
 // 영업 목록 업데이트 함수
 function updateSalesList(list) {
-    const tbody = document.getElementById("salesList");
+	const tbody = document.getElementById("salesList");
 	console.log(tbody);
-    tbody.innerHTML = ""; // 기존 데이터를 초기화
+	tbody.innerHTML = ""; // 기존 데이터를 초기화
 
-    if (!list || list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="text-center">판매 기록이 없습니다.</td></tr>`;
-        return;
-    }
+	if (!list || list.length === 0) {
+		tbody.innerHTML = `<tr><td colspan="8" class="text-center">판매 기록이 없습니다.</td></tr>`;
+		return;
+	}
 
-    list.forEach(item => {
-        const row = document.createElement("tr");
-        row.style.textAlign = "center";
+	list.forEach(item => {
+		const row = document.createElement("tr");
+		row.style.textAlign = "center";
 
-        row.innerHTML = `
+		row.innerHTML = `
             <td>${item.name}</td>
             <td>${item.birthDay}</td>
             <td>${item.email}</td>
@@ -50,8 +50,8 @@ function updateSalesList(list) {
 			<td><input type="checkbox" class="customer-select"></td>
         `;
 
-        tbody.appendChild(row);
-    });
+		tbody.appendChild(row);
+	});
 }
 
 function showAlarmModal() {
@@ -118,9 +118,23 @@ function numberToKorean(number) {
 	return result.trim() + " 원";
 }
 
-function CustomerPurchase(){
+function validateContactInfo() {
+	let email = document.getElementById('customerEmail').value;
+
+	// 이메일 형식 검사
+	let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+	if (!emailPattern.test(email)) {
+		alert("이메일 형식이 올바르지 않습니다.");
+		return;
+	}
+
+	// 두 검사가 모두 통과하면 등록 처리
+	CustomerPurchase();
+}
+
+function CustomerPurchase() {
 	var emp = localStorage.getItem("email");
-	
+
 	var email = $("#customerEmail").val().trim();
 	if (email == "") {
 		alert("이메일을 입력해 주세요.");
@@ -128,7 +142,7 @@ function CustomerPurchase(){
 		return;
 	}
 
-	var price= $("#carPrice").val().trim();
+	var price = $("#carPrice").val().trim();
 	if (price == "") {
 		alert("가격을 입력해 주세요.");
 		$("#carPrice").focus();
@@ -141,15 +155,15 @@ function CustomerPurchase(){
 		$("#purchaseDate").focus();
 		return;
 	}
-	
+
 	var model = $("#carModel").val().trim();
 
 	var type = $("#carType").val().trim();
 
 	var url = "jsp/purRegister.jsp";
 	var obj = { Sale_date: saledate, Car_price: price };
-	var params = { EmpID: emp, Email: email, Model: model, Type: type , jsonstr: JSON.stringify(obj)};
-	AJAX.call(url, params, function(data){
+	var params = { EmpID: emp, Email: email, Model: model, Type: type, jsonstr: JSON.stringify(obj) };
+	AJAX.call(url, params, function(data) {
 		var code = data.trim();
 		if (code == "SU") {
 			alert("고객의 구매 정보를 등록했습니다.");
@@ -162,21 +176,21 @@ function CustomerPurchase(){
 
 // 로그인 상태 확인 함수
 function checkLoginStatus() {
-    var isEmail = localStorage.getItem("email");
+	var isEmail = localStorage.getItem("email");
 
-    if (!isEmail || isEmail === "null") {
-        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
-        window.location.href = "login.html";
-        return;
-    }
+	if (!isEmail || isEmail === "null") {
+		alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+		window.location.href = "login.html";
+		return;
+	}
 
-    var emailElement = document.getElementById("uemail");
-    if (emailElement) {
-        emailElement.textContent = "Logged in as: " + isEmail;
-        //console.log("로그인 상태입니다: " + isEmail);
-    } else {
-        console.warn("⚠ 'uemail' ID를 가진 요소가 없음. HTML 확인 필요!");
-    }
+	var emailElement = document.getElementById("uemail");
+	if (emailElement) {
+		emailElement.textContent = "Logged in as: " + isEmail;
+		//console.log("로그인 상태입니다: " + isEmail);
+	} else {
+		console.warn("⚠ 'uemail' ID를 가진 요소가 없음. HTML 확인 필요!");
+	}
 }
 
 function logout() {
