@@ -58,7 +58,7 @@ public class ComplainDAO {
 
 	    try {
 	        String sql = "SELECT P.COMP_ID, JSON_VALUE(S.jsonstr, '$.CuEmail') AS Email, JSON_VALUE(S.jsonstr, '$.CuName') AS NAME, P.CMENT, P.CUST_STATUS, P.COMPLAIN_DATE, P.COMPLAIN_STATUS, P.COMPLAIN\r\n"
-	        		+ "FROM COMPLAIN P JOIN CUSTOMER S ON P.CUST_ID = S.CUST_ID ORDER BY COMP_ID DESC";
+	        		+ "FROM COMPLAIN P JOIN CUSTOMER S ON P.CUST_ID = S.CUST_ID ORDER BY TO_NUMBER(P.COMP_ID) DESC";
 
 	        conn = ConnectionPool.get();
 	        stmt = conn.prepareStatement(sql);

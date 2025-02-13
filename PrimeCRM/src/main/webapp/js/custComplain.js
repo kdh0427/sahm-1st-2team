@@ -173,10 +173,9 @@ function submitComplain() {
 				Complain_status: 'NONE',
 				Cust_status: cstatus
 			};
-
+			console.log(requestData);
 			AJAX.call("jsp/custComplain2.jsp", requestData, function(data) {
 				var json = data.trim();
-				console.log(json);
 				try {
 					if (json == "SU") {
 						alert("문의가 등록되었습니다.");

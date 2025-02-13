@@ -36,13 +36,6 @@ INSERT INTO TEMPLATE VALUES ('INQ', '궁금하신 내용이 있으시면 언제�
 INSERT INTO TEMPLATE VALUES ('VIS', '저희 지점을 방문해 주셔서 감사합니다. 최상의 응대로 보답드리겠습니다.');
 INSERT INTO TEMPLATE VALUES ('PRB', '불편을 드려 죄송합니다.. 빠른 시일 내에 해결해 드리겠습니다.');
 
--- CUSTOEMR_LOGIN Data
-INSERT INTO Customer_Login VALUES ('1','김민수','minsu88@gmail.com', 'qwer1234');
-INSERT INTO Customer_Login VALUES ('2','박서연','seoyeon95@naver.com', 'asdf5678');
-INSERT INTO Customer_Login VALUES ('3','이준호','junho90@daum.net', 'zxcv4321');
-INSERT INTO Customer_Login VALUES ('4','최예린','yerin85@gmail.com', 'pass9876');
-INSERT INTO Customer_Login VALUES ('5','정우성','woosung2000@hanmail.net', 'mnbv2468');
-
 -- CUSTOMER Data
 INSERT INTO CUSTOMER VALUES ('1', '{"CuName": "김민수", "CuBday": "1988-03-15", "CuEmail": "minsu88@gmail.com", "CuUpdate": "2024-01-10", "CusAdd": "서울 강남구", "CuNum": "010-1234-5678", "CuType": "I"}', 'PRB');
 INSERT INTO CUSTOMER VALUES ('2', '{"CuName": "박서연", "CuBday": "1995-07-22", "CuEmail": "seoyeon95@naver.com", "CuUpdate": "2024-01-12", "CusAdd": "서울 서초구", "CuNum": "010-2345-6789", "CuType": "C"}', 'NEW');
@@ -94,6 +87,15 @@ INSERT INTO CUSTOMER VALUES ('47', '{"CuName": "정혜린", "CuBday": "1994-07-2
 INSERT INTO CUSTOMER VALUES ('48', '{"CuName": "한상엽", "CuBday": "1989-11-02", "CuEmail": "sangyeop89@example.com", "CuUpdate": "2024-04-11", "CusAdd": "서울 관악구", "CuNum": "010-5566-7788", "CuType": "I"}', 'NEW');
 INSERT INTO CUSTOMER VALUES ('49', '{"CuName": "최성훈", "CuBday": "1983-01-13", "CuEmail": "seonghoon83@example.com", "CuUpdate": "2024-04-14", "CusAdd": "부산 부산진구", "CuNum": "010-6677-8899", "CuType": "C"}', 'NEW');
 INSERT INTO CUSTOMER VALUES ('50', '{"CuName": "유승호", "CuBday": "1993-04-17", "CuEmail": "seungho93@example.com", "CuUpdate": "2024-04-17", "CusAdd": "인천 남동구", "CuNum": "010-7788-9900", "CuType": "I"}', 'NEW');
+INSERT INTO CUSTOMER VALUES ('51', '{"CuName": "이동빈", "CuBday": "2001-03-17", "CuEmail": "dongbin03@gmail.com", "CuUpdate": "2025-01-03", "CusAdd": "서울 도봉구", "CuNum": "010-7290-2150", "CuType": "I"}', 'INQ');
+INSERT INTO CUSTOMER VALUES ('52', '{"CuName": "최대한", "CuBday": "2001-05-02", "CuEmail": "cdh050203@gmail.com", "CuUpdate": "2025-01-12", "CusAdd": "서울 노원구", "CuNum": "010-1920-5812", "CuType": "I"}', 'INQ');
+
+-- CUSTOEMR_LOGIN Data
+INSERT INTO Customer_Login VALUES ('1','김민수','minsu88@gmail.com', 'qwer1234');
+INSERT INTO Customer_Login VALUES ('2','박서연','seoyeon95@naver.com', 'asdf5678');
+INSERT INTO Customer_Login VALUES ('3','이준호','junho90@daum.net', 'zxcv4321');
+INSERT INTO Customer_Login VALUES ('4','최예린','yerin85@gmail.com', 'pass9876');
+INSERT INTO Customer_Login VALUES ('5','정우성','woosung2000@hanmail.net', 'mnbv2468');
 
 -- EMPLOYEE Data
 INSERT INTO EMPLOYEE(EMP_ID, jsonstr, BRANCH_ID) VALUES ('0','{"E_email": "admin@master", "E_pwd": "master0213admin"}', 'B01' );
