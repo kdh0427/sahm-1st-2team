@@ -38,9 +38,8 @@ public class PurchaseDAO {
 	    ResultSet rs = null;
 
 	    try {
-	        String sql = "SELECT MAX(JSON_VALUE(jsonstr, '$.Car_price')) AS Car_price\r\n"
-	        		+ "FROM PURCHASE\r\n"
-	        		+ "WHERE TO_CHAR(TO_DATE(JSON_VALUE(jsonstr, '$.Sale_date'), 'YYYY-MM-DD'), 'YYYY-MM') = (SELECT TO_CHAR(SYSDATE, 'YYYY-MM') FROM DUAL)";
+	        String sql = "SELECT MAX(TO_NUMBER(JSON_VALUE(jsonstr, '$.Car_price'))) AS Car_price\r\n"
+	        		+ "FROM PURCHASE WHERE TO_CHAR(TO_DATE(JSON_VALUE(jsonstr, '$.Sale_date'), 'YYYY-MM-DD'), 'YYYY-MM') = TO_CHAR(SYSDATE, 'YYYY-MM')";
 
 	        conn = ConnectionPool.get();
 	        stmt = conn.prepareStatement(sql);
@@ -289,6 +288,27 @@ public class PurchaseDAO {
 	        
 	        int count = stmt.executeUpdate();
 			return (count > 0)? true : false; 
+	    } finally {
+	        if (rs != null) rs.close(); 
+	        if (stmt != null) stmt.close(); 
+	        if (conn != null) conn.close();
+	    }
+	}
+	
+	public Boolean setStatus(String email) throws NamingException, SQLException{
+		Connection conn = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	        String sql = "UPDATE CUSTOMER SET CUST_STATUS = 'NEW' WHERE JSON_VALUE(jsonstr, '$.CuEmail') = ?";
+	        
+	        conn = ConnectionPool.get();
+	        stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, email);
+	        
+	        int count = stmt.executeUpdate();
+			return (count == 1)? true : false; 
 	    } finally {
 	        if (rs != null) rs.close(); 
 	        if (stmt != null) stmt.close(); 

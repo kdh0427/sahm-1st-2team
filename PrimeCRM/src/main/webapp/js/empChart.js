@@ -269,10 +269,12 @@ function displayPage(page) {
     }
 
     paginatedData.forEach((employee) => {
+        var position = convertPositionToKorean(employee.empPosition); // 직급 변환
+
         var row = document.createElement("tr");
         row.innerHTML = `
             <td>${employee.empName}</td>
-            <td>${employee.empPosition}</td>
+            <td>${position}</td>
             <td class="text-end">${Number(employee.tincentive).toLocaleString()} 원</td>
         `;
         tableBody.appendChild(row);
@@ -281,11 +283,23 @@ function displayPage(page) {
     updatePaginationButtons();
 }
 
+function convertPositionToKorean(position) {
+    switch (position) {
+        case "dealer": return "딜러";
+        case "manager": return "주임";
+        case "consultant": return "과장";
+        case "senior": return "차장";
+        case "director": return "부장";
+        default: return position; // 변환할 값이 없으면 원래 값 반환
+    }
+}
+
 function updatePaginationButtons() {
     var totalPages = Math.ceil(empData.length / rowsPerPage);
     document.getElementById("prevPage").disabled = currentPage === 1;
     document.getElementById("nextPage").disabled = currentPage === totalPages;
 }
+
 
 function goToPrevPage() {
     if (currentPage > 1) {

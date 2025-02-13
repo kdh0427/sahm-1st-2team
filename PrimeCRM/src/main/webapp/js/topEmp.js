@@ -28,31 +28,31 @@ function displayEmpList(empList) {
         container.innerHTML = ""; // 기존 내용 비우기
 
         empList.forEach(function(emp, index) {
-			// 순위 배지 생성
-			var rank = document.createElement("span");
-			rank.className = "badge";
+            // 순위 배지 생성
+            var rank = document.createElement("span");
+            rank.className = "badge";
 
-			// 순위별 크기 및 스타일 조정
-			var fontSize, backgroundColor, icon;
-			if (index === 0) {
-				fontSize = "1rem"; // 1위
-				backgroundColor = "gold"; // 금색
-				icon = "👑";
-			} else if (index === 1) {
-				fontSize = "0.9rem"; // 2위
-				backgroundColor = "silver"; // 은색
-				icon = "🥈";
-			} else if (index === 2) {
-				fontSize = "0.85rem"; // 3위
-				backgroundColor = "#cd7f32"; // 동색
-				icon = "🥉";
-			} else {
-				fontSize = "0.8rem"; // 그 외
-				backgroundColor = "#0099FF"; // 보라색
-				icon = "";
-			}
+            // 순위별 크기 및 스타일 조정
+            var fontSize, backgroundColor, icon;
+            if (index === 0) {
+                fontSize = "1rem"; // 1위
+                backgroundColor = "gold"; // 금색
+                icon = "👑";
+            } else if (index === 1) {
+                fontSize = "0.9rem"; // 2위
+                backgroundColor = "silver"; // 은색
+                icon = "🥈";
+            } else if (index === 2) {
+                fontSize = "0.85rem"; // 3위
+                backgroundColor = "#cd7f32"; // 동색
+                icon = "🥉";
+            } else {
+                fontSize = "0.8rem"; // 그 외
+                backgroundColor = "#0099FF"; // 보라색
+                icon = "";
+            }
 
-			// rank 배지 스타일 설정
+            // rank 배지 스타일 설정
             rank.style.fontSize = fontSize;
             rank.style.backgroundColor = backgroundColor;
             rank.style.display = "block";
@@ -66,8 +66,22 @@ function displayEmpList(empList) {
             itemDiv.style.padding = "6px"; // 기존 10px → 6px (패딩 더 축소)
             itemDiv.style.width = "100%"; // 꽉 차게 표시
 
+			var positionText = emp.position;
+			if (positionText === "dealer") {
+				positionText = "딜러";
+			} else if (positionText === "manager") {
+				positionText = "주임";
+			} else if (positionText === "consultant") {
+				positionText = "과장";
+			} else if (positionText === "senior") {
+				positionText = "차장";
+			} else if (positionText === "director") {
+				positionText = "부장";
+			}
+
             // 직원 정보
             var infoDiv = document.createElement("div");
+            infoDiv.style.textAlign = "right"; // 오른쪽 정렬 추가
             var nameElement = document.createElement("h6"); // 기존 h6 유지
             nameElement.className = "mb-1";
             nameElement.style.fontSize = "0.85rem"; // 폰트 크기 축소
@@ -75,11 +89,13 @@ function displayEmpList(empList) {
             var positionElement = document.createElement("small"); // 기존 small 유지
             positionElement.className = "";
             positionElement.style.fontSize = "0.75rem"; // 폰트 크기 축소
-			positionElement.style.color = "#fff";
-            positionElement.textContent = "Position: " + emp.position;
+            positionElement.style.color = "#fff";
+            positionElement.textContent = "Position: " + positionText;
 
             infoDiv.appendChild(nameElement);
             infoDiv.appendChild(positionElement);
+
+            // 순위 배지와 정보 div를 오른쪽으로 정렬된 div에 추가
             itemDiv.appendChild(rank);
             itemDiv.appendChild(infoDiv);
 

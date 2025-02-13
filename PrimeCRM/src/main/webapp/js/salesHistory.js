@@ -167,6 +167,12 @@ function CustomerPurchase() {
 		var code = data.trim();
 		if (code == "SU") {
 			alert("고객의 구매 정보를 등록했습니다.");
+			AJAX.call(url, { Email: email }, function(data){
+				var code = data.trim();
+				if (code == "SU") { 
+					alert("고객의 상태가 변경되었습니다.");
+				}
+			});
 			location.reload();
 		} else {
 			alert("구매 정보 등록에 실패했습니다.");

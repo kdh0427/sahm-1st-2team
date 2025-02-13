@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function() {
+	setTimeout(checkLoginStatus, 100); // 100ms 대기 후 실행
+});
+
 function custRegister() {
 	var name = $("#name").val().trim();
 	if (name == "") {
@@ -100,4 +104,37 @@ function validateContactInfo() {
 
 	// 두 검사가 모두 통과하면 등록 처리
 	custRegister();
+}
+
+function checkLoginStatus() {
+    var isEmail = localStorage.getItem("email");
+
+    if (!isEmail || isEmail === "null") {
+        alert("로그인 상태가 아닙니다. 로그인 페이지로 이동합니다.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    var emailElement = document.getElementById("uemail");
+    if (emailElement) {
+        emailElement.textContent = "Logged in as: " + isEmail;
+        //console.log("로그인 상태입니다: " + isEmail);
+    } else {
+        console.warn("⚠ 'uemail' ID를 가진 요소가 없음. HTML 확인 필요!");
+    }
+}
+
+function logout() {
+	// 로컬 스토리지에서 로그인 정보 삭제
+	localStorage.removeItem("email");
+
+	// 로그아웃 상태인지 확인
+	var isEmail = localStorage.getItem("email");
+
+	if (!isEmail) {
+		alert("로그아웃되었습니다."); // 로그아웃 성공
+		window.location.href = "login.html"; // 로그인 페이지로 이동
+	} else {
+		alert("로그아웃에 실패했습니다. 다시 시도해주세요."); // 로그아웃 실패
+	}
 }
